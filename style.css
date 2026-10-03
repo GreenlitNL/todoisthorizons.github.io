@@ -319,13 +319,21 @@ button {
 }
 
 /* ==========================================================================
-   Interactive Live Product Preview
+  Interactive Demo
    ========================================================================== */
 
 .preview-container {
   max-width: var(--td-max-width);
   margin: 0 auto 80px;
   padding: 0 24px;
+}
+
+.preview-disclaimer {
+  margin: 10px 4px 0;
+  color: var(--td-text-tertiary);
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: right;
 }
 
 .preview-shell {
