@@ -266,12 +266,16 @@
       weeklyCard.classList.remove('is-current');
 
       const december = quarterRows[2];
+      if (!await moveCursor(december.querySelector('.journey-month-check'), version)) continue;
+      if (!await wait(beat, version)) continue;
       if (!await clickTarget(december.querySelector('.journey-month-check'), () => {
         december.classList.add('is-complete');
         december.querySelector('.journey-month-check').classList.add('is-complete');
         quarterCount.textContent = '3 / 3 months complete';
         quarterFill.style.width = '100%';
       }, version)) continue;
+      if (!await wait(beat, version)) continue;
+      if (!await moveCursor(yearCheck, version)) continue;
       if (!await wait(beat, version)) continue;
 
       if (!await clickTarget(yearCheck, () => {
