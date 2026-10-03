@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Horizons for Todoist: Plan Long-Term Goals Directly Inside Todoist</title>
   <meta name="description" content="Connect your daily tasks to your biggest life goals. Multi-tiered horizon planning (Year, Month, Week) for Todoist. 100% private and free to use.">
-  <link rel="stylesheet" href="style.css?v=20261004-e">
+  <link rel="stylesheet" href="style.css?v=20261004-f">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23dc4c3e' stroke-width='2.5'><circle cx='12' cy='12' r='10'/><path d='m8 12 3 3 5-5'/></svg>">
 </head>
 <body>
@@ -324,8 +324,8 @@
         <figcaption class="journey-demo-toolbar">
           <span class="journey-demo-label" id="journey-demo-label"><span class="journey-demo-dot"></span> Create, plan, complete</span>
           <div class="journey-demo-controls">
-            <button class="journey-demo-toggle" type="button" aria-pressed="false" hidden>Pause sequence</button>
-            <button class="journey-demo-restart" type="button" hidden>Restart sequence</button>
+            <button class="journey-demo-toggle journey-icon-button" type="button" aria-pressed="false" aria-label="Pause sequence" title="Pause sequence" hidden><svg class="icon-pause" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg><svg class="icon-play" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg></button>
+            <button class="journey-demo-restart journey-icon-button" type="button" aria-label="Restart sequence" title="Restart sequence" hidden><svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button>
           </div>
         </figcaption>
 
@@ -334,10 +334,7 @@
             <div class="journey-step-label"><span>Year goal</span><span>2026</span></div>
             <div class="journey-goal-entry journey-year-entry is-saved">
               <span class="journey-goal-copy" data-placeholder="Add a yearly goal">Write 12 short stories</span>
-              <span class="journey-save">Save</span>
-              <span class="journey-saved">Saved</span>
             </div>
-            <p>Finish one story each month.</p>
             <div class="journey-year-progress" aria-hidden="true">
               <div class="journey-progress-line">
                 <span>Annual progress</span>
@@ -363,8 +360,6 @@
                 <span class="journey-month-name">Oct</span>
                 <div class="journey-goal-entry is-saved">
                   <span class="journey-goal-copy" data-placeholder="Add a monthly goal">Write story 10</span>
-                  <span class="journey-save">Save</span>
-                  <span class="journey-saved">Saved</span>
                 </div>
                 <span class="journey-goal-check journey-month-check is-complete">
                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path class="journey-check-path" d="m8 12 2.5 2.5L16 9"></path></svg>
@@ -374,8 +369,6 @@
                 <span class="journey-month-name">Nov</span>
                 <div class="journey-goal-entry is-saved">
                   <span class="journey-goal-copy" data-placeholder="Add a monthly goal">Write story 11</span>
-                  <span class="journey-save">Save</span>
-                  <span class="journey-saved">Saved</span>
                 </div>
                 <span class="journey-goal-check journey-month-check is-complete">
                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path class="journey-check-path" d="m8 12 2.5 2.5L16 9"></path></svg>
@@ -385,8 +378,6 @@
                 <span class="journey-month-name">Dec</span>
                 <div class="journey-goal-entry is-saved">
                   <span class="journey-goal-copy" data-placeholder="Add a monthly goal">Write story 12</span>
-                  <span class="journey-save">Save</span>
-                  <span class="journey-saved">Saved</span>
                 </div>
                 <span class="journey-goal-check journey-month-check is-complete">
                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path class="journey-check-path" d="m8 12 2.5 2.5L16 9"></path></svg>
@@ -413,8 +404,6 @@
                 <span class="journey-week-number">Week 1</span>
                 <div class="journey-goal-entry is-saved">
                   <span class="journey-goal-copy" data-placeholder="Add a weekly goal">Outline story 12</span>
-                  <span class="journey-save">Save</span>
-                  <span class="journey-saved">Saved</span>
                 </div>
                 <span class="journey-goal-check journey-week-check is-complete"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path class="journey-check-path" d="m8 12 2.5 2.5L16 9"></path></svg></span>
               </li>
@@ -422,8 +411,6 @@
                 <span class="journey-week-number">Week 2</span>
                 <div class="journey-goal-entry is-saved">
                   <span class="journey-goal-copy" data-placeholder="Add a weekly goal">Draft the first half</span>
-                  <span class="journey-save">Save</span>
-                  <span class="journey-saved">Saved</span>
                 </div>
                 <span class="journey-goal-check journey-week-check is-complete"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path class="journey-check-path" d="m8 12 2.5 2.5L16 9"></path></svg></span>
               </li>
@@ -431,8 +418,6 @@
                 <span class="journey-week-number">Week 3</span>
                 <div class="journey-goal-entry is-saved">
                   <span class="journey-goal-copy" data-placeholder="Add a weekly goal">Finish the draft</span>
-                  <span class="journey-save">Save</span>
-                  <span class="journey-saved">Saved</span>
                 </div>
                 <span class="journey-goal-check journey-week-check is-complete"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path class="journey-check-path" d="m8 12 2.5 2.5L16 9"></path></svg></span>
               </li>
@@ -440,8 +425,6 @@
                 <span class="journey-week-number">Week 4</span>
                 <div class="journey-goal-entry is-saved">
                   <span class="journey-goal-copy" data-placeholder="Add a weekly goal">Revise and submit</span>
-                  <span class="journey-save">Save</span>
-                  <span class="journey-saved">Saved</span>
                 </div>
                 <span class="journey-goal-check journey-week-check is-complete"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path class="journey-check-path" d="m8 12 2.5 2.5L16 9"></path></svg></span>
               </li>
@@ -1047,6 +1030,6 @@
     window.addEventListener('load', renderAllTiers);
 
   </script>
-  <script src="motion.js?v=20261004-i"></script>
+  <script src="motion.js?v=20261004-j"></script>
 </body>
 </html>

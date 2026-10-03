@@ -1073,10 +1073,23 @@ button {
 
 .journey-demo-toggle,
 .journey-demo-restart {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--td-border);
+  border-radius: var(--td-radius-sm);
   color: var(--td-text-secondary);
-  font-size: 13px;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+}
+
+.journey-demo-toggle .icon-play,
+.journey-demo-toggle[aria-pressed="true"] .icon-pause {
+  display: none;
+}
+
+.journey-demo-toggle[aria-pressed="true"] .icon-play {
+  display: block;
 }
 
 .journey-demo-toggle:hover,

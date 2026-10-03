@@ -54,7 +54,9 @@
   toggle.addEventListener('click', () => {
     isPaused = !isPaused;
     toggle.setAttribute('aria-pressed', String(isPaused));
-    toggle.textContent = isPaused ? 'Play sequence' : 'Pause sequence';
+    const label = isPaused ? 'Play sequence' : 'Pause sequence';
+    toggle.setAttribute('aria-label', label);
+    toggle.title = label;
     updatePlayback();
   });
 
@@ -62,7 +64,8 @@
     sequenceVersion += 1;
     isPaused = false;
     toggle.setAttribute('aria-pressed', 'false');
-    toggle.textContent = 'Pause sequence';
+    toggle.setAttribute('aria-label', 'Pause sequence');
+    toggle.title = 'Pause sequence';
     resetSequence();
     updatePlayback();
   });
@@ -131,43 +134,40 @@
     return wait(90, version);
   };
 
-  const typeGoal = async (entry, text, version) => {
-    const copy = entry.querySelector('.journey-goal-copy');
-    entry.classList.remove('is-saved');
-    copy.textContent = '';
-    if (!await moveCursor(copy, version)) return false;
-    entry.classList.remove('is-skeleton');
+  const typeGoals = async (entries, texts, version) => {
+    const copies = entries.map(entry => entry.querySelector('.journey-goal-copy'));
+    copies.forEach(copy => { copy.textContent = ''; });
+    if (!await moveCursor(entries[0], version)) return false;
+    entries.forEach(entry => entry.classList.remove('is-skeleton'));
+    const longest = Math.max(...texts.map(text => text.length));
 
-    for (const character of text) {
-      if (!await wait(15, version) || !await waitUntilPlaying(version)) return false;
-      copy.textContent += character;
+    for (let index = 0; index < longest; index += 1) {
+      if (!await wait(28, version) || !await waitUntilPlaying(version)) return false;
+      copies.forEach((copy, i) => { copy.textContent = texts[i].slice(0, index + 1); });
     }
 
-    return clickTarget(entry.querySelector('.journey-save'), () => entry.classList.add('is-saved'), version);
+    return wait(350, version);
+  };
+
+  const clearEntry = (entry) => {
+    entry.classList.add('is-skeleton');
+    entry.querySelector('.journey-goal-copy').textContent = '';
   };
 
   const resetSequence = () => {
-    flow.classList.remove('is-quarter-stage', 'is-full-stage');
-    flow.classList.add('is-year-stage');
+    flow.classList.remove('is-year-stage', 'is-quarter-stage');
+    flow.classList.add('is-full-stage');
     cursor.classList.remove('is-visible', 'is-pressing');
     yearCard.classList.remove('is-current', 'is-complete');
-    quarterCard.classList.remove('is-current');
-    weeklyCard.classList.remove('is-current');
-
-    yearEntry.classList.add('is-skeleton');
-    yearEntry.classList.remove('is-saved');
-    yearCard.classList.remove('is-complete');
-    yearEntry.querySelector('.journey-goal-copy').textContent = '';
-    yearCount.textContent = '0 / 3 months';
-    yearFill.style.width = '0%';
+    clearEntry(yearEntry);
+    yearCount.textContent = '10 / 12 stories';
+    yearFill.style.width = `${10 * 100 / 12}%`;
     yearState.textContent = 'In progress';
     yearCheck.classList.remove('is-complete');
 
     quarterRows.forEach((row) => {
       row.classList.remove('is-current', 'is-complete');
-      row.querySelector('.journey-goal-entry').classList.add('is-skeleton');
-      row.querySelector('.journey-goal-entry').classList.remove('is-saved');
-      row.querySelector('.journey-goal-copy').textContent = '';
+      clearEntry(row.querySelector('.journey-goal-entry'));
       row.querySelector('.journey-month-check').classList.remove('is-complete');
     });
     quarterCount.textContent = '0 / 3 months';
@@ -175,112 +175,73 @@
 
     weeklyRows.forEach((row) => {
       row.classList.remove('is-current', 'is-complete');
-      row.querySelector('.journey-goal-entry').classList.add('is-skeleton');
-      row.querySelector('.journey-goal-entry').classList.remove('is-saved');
-      row.querySelector('.journey-goal-copy').textContent = '';
+      clearEntry(row.querySelector('.journey-goal-entry'));
       row.querySelector('.journey-week-check').classList.remove('is-complete');
     });
-    weeklyMonth.textContent = 'October';
+    weeklyMonth.textContent = 'December';
     weeklyCount.textContent = '0 / 4 weeks';
     weeklyFill.style.width = '0%';
   };
 
-  const months = [
-    {
-      name: 'October',
-      goal: 'Write story 10',
-      weeks: ['Choose the story idea', 'Outline story 10', 'Draft story 10', 'Revise story 10']
-    },
-    {
-      name: 'November',
-      goal: 'Write story 11',
-      weeks: ['Choose the story idea', 'Outline story 11', 'Draft story 11', 'Revise story 11']
-    },
-    {
-      name: 'December',
-      goal: 'Write story 12',
-      weeks: ['Choose the story idea', 'Outline story 12', 'Draft story 12', 'Revise story 12']
-    }
-  ];
+  const monthGoals = ['Write story 10', 'Write story 11', 'Write story 12'];
+  const weekGoals = ['Choose the story idea', 'Outline story 12', 'Draft story 12', 'Revise story 12'];
 
   const runSequence = async () => {
     while (true) {
       const version = sequenceVersion;
       resetSequence();
-      if (!await wait(250, version)) continue;
-      if (!await typeGoal(yearEntry, 'Write 12 short stories', version)) continue;
+      if (!await wait(400, version)) continue;
+
       yearCard.classList.add('is-current');
-
-      flow.classList.remove('is-year-stage');
-      flow.classList.add('is-quarter-stage');
-      if (!await wait(180, version)) continue;
-
-      for (const [monthIndex, month] of months.entries()) {
-        if (version !== sequenceVersion) break;
-        const row = quarterRows[monthIndex];
-        row.classList.add('is-current');
-        if (!await typeGoal(row.querySelector('.journey-goal-entry'), month.goal, version)) break;
-        row.classList.remove('is-current');
-      }
-      if (version !== sequenceVersion) continue;
+      if (!await typeGoals([yearEntry], ['Write 12 short stories'], version)) continue;
       yearCard.classList.remove('is-current');
 
-      flow.classList.remove('is-quarter-stage');
-      flow.classList.add('is-full-stage');
+      quarterCard.classList.add('is-current');
+      const monthEntries = quarterRows.map(row => row.querySelector('.journey-goal-entry'));
+      if (!await typeGoals(monthEntries, monthGoals, version)) continue;
+      [0, 1].forEach((index) => {
+        quarterRows[index].classList.add('is-complete');
+        quarterRows[index].querySelector('.journey-month-check').classList.add('is-complete');
+      });
+      quarterCount.textContent = '2 / 3 months complete';
+      quarterFill.style.width = `${200 / 3}%`;
+      quarterCard.classList.remove('is-current');
 
-      let completedMonths = 0;
-      for (const [monthIndex, month] of months.entries()) {
-        if (version !== sequenceVersion) break;
-        const monthRow = quarterRows[monthIndex];
-        weeklyMonth.textContent = month.name;
-        monthRow.classList.add('is-current');
-        weeklyRows.forEach((row) => {
-          row.classList.remove('is-current', 'is-complete');
-          row.querySelector('.journey-goal-entry').classList.add('is-skeleton');
-          row.querySelector('.journey-goal-entry').classList.remove('is-saved');
-          row.querySelector('.journey-goal-copy').textContent = '';
-          row.querySelector('.journey-week-check').classList.remove('is-complete');
-        });
-        weeklyCount.textContent = '0 / 4 weeks';
-        weeklyFill.style.width = '0%';
+      weeklyCard.classList.add('is-current');
+      const weekEntries = weeklyRows.map(row => row.querySelector('.journey-goal-entry'));
+      if (!await typeGoals(weekEntries, weekGoals, version)) continue;
 
-        if (!await wait(180, version)) break;
-        for (const [weekIndex, row] of weeklyRows.entries()) {
-          if (version !== sequenceVersion) break;
-          row.classList.add('is-current');
-          if (!await typeGoal(row.querySelector('.journey-goal-entry'), month.weeks[weekIndex], version)) break;
-          row.classList.remove('is-current');
-        }
-        if (version !== sequenceVersion) break;
-
-        for (const [weekIndex, row] of weeklyRows.entries()) {
-          if (!await clickTarget(row.querySelector('.journey-week-check'), () => row.classList.add('is-complete'), version)) break;
-          weeklyCount.textContent = `${weekIndex + 1} / 4 weeks complete`;
-          weeklyFill.style.width = `${(weekIndex + 1) * 25}%`;
-        }
-        if (version !== sequenceVersion) break;
-
-        if (!await clickTarget(monthRow.querySelector('.journey-month-check'), () => monthRow.classList.add('is-complete'), version)) break;
-        monthRow.classList.remove('is-current');
-        completedMonths += 1;
-        quarterCount.textContent = `${completedMonths} / 3 months complete`;
-        quarterFill.style.width = `${completedMonths * 100 / 3}%`;
-        yearCount.textContent = `${completedMonths} / 3 months`;
-        yearFill.style.width = `${completedMonths * 100 / 3}%`;
-        yearState.textContent = `${completedMonths} of 3 months complete`;
-        if (!await wait(180, version)) break;
+      let ok = true;
+      for (const [weekIndex, row] of weeklyRows.entries()) {
+        if (!await clickTarget(row.querySelector('.journey-week-check'), () => {
+          row.classList.add('is-complete');
+          row.querySelector('.journey-week-check').classList.add('is-complete');
+        }, version)) { ok = false; break; }
+        weeklyCount.textContent = `${weekIndex + 1} / 4 weeks complete`;
+        weeklyFill.style.width = `${(weekIndex + 1) * 25}%`;
+        if (!await wait(200, version)) { ok = false; break; }
       }
-      if (version !== sequenceVersion) continue;
+      if (!ok) continue;
+      weeklyCard.classList.remove('is-current');
+
+      const december = quarterRows[2];
+      if (!await clickTarget(december.querySelector('.journey-month-check'), () => {
+        december.classList.add('is-complete');
+        december.querySelector('.journey-month-check').classList.add('is-complete');
+        quarterCount.textContent = '3 / 3 months complete';
+        quarterFill.style.width = '100%';
+      }, version)) continue;
+      if (!await wait(300, version)) continue;
 
       if (!await clickTarget(yearCheck, () => {
         yearCard.classList.add('is-complete');
-        yearCount.textContent = '3 / 3 months';
+        yearCount.textContent = '12 / 12 stories';
         yearFill.style.width = '100%';
         yearState.textContent = 'Year goal complete';
         yearCheck.classList.add('is-complete');
       }, version)) continue;
       cursor.classList.remove('is-visible');
-      if (!await wait(800, version)) continue;
+      if (!await wait(2000, version)) continue;
     }
   };
 
