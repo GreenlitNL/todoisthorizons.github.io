@@ -102,7 +102,6 @@ html {
 }
 
 #preview,
-#features,
 #upgrades,
 #walkthrough,
 #privacy-by-design,
@@ -961,8 +960,8 @@ button {
 
 
 /* ==========================================================================
-   Features Section (Bento Grid)
-   ========================================================================== */
+  Shared Section Layout
+  ========================================================================== */
 
 .section-container {
   max-width: var(--td-max-width);
@@ -986,93 +985,6 @@ button {
 .section-header p {
   font-size: 17px;
   color: var(--td-text-secondary);
-}
-
-.bento-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.bento-card {
-  background-color: var(--td-surface);
-  border: 1px solid var(--td-border);
-  border-radius: var(--td-radius-lg);
-  padding: 32px 28px;
-  box-shadow: var(--td-shadow-sm);
-  transition: var(--td-transition);
-  display: flex;
-  flex-direction: column;
-}
-
-.bento-card:hover {
-  transform: translateY(-2px);
-  border-color: #d6d0c7;
-  box-shadow: var(--td-shadow-md);
-}
-
-[data-theme="dark"] .bento-card:hover {
-  border-color: #4a4a4a;
-}
-
-.bento-card.span-2 {
-  grid-column: span 2;
-}
-
-.card-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--td-radius-md);
-  background-color: var(--td-brand-subtle);
-  color: var(--td-brand);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.bento-card h3 {
-  font-size: 19px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  letter-spacing: -0.2px;
-}
-
-.bento-card p {
-  font-size: 15px;
-  color: var(--td-text-secondary);
-  line-height: 1.55;
-}
-
-/* ==========================================================================
-   Call To Action Banner
-   ========================================================================== */
-
-.cta-banner {
-  background: linear-gradient(135deg, rgba(220, 76, 62, 0.08) 0%, rgba(220, 76, 62, 0.02) 100%);
-  border: 1px solid rgba(220, 76, 62, 0.2);
-  border-radius: var(--td-radius-lg);
-  padding: 56px 36px;
-  text-align: center;
-  margin-top: 40px;
-}
-
-[data-theme="dark"] .cta-banner {
-  background: linear-gradient(135deg, rgba(220, 76, 62, 0.15) 0%, rgba(30, 30, 30, 0.5) 100%);
-}
-
-.cta-banner h2 {
-  font-size: 32px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  margin-bottom: 14px;
-}
-
-.cta-banner p {
-  font-size: 17px;
-  color: var(--td-text-secondary);
-  max-width: 580px;
-  margin: 0 auto 28px;
 }
 
 /* ==========================================================================
@@ -1281,6 +1193,14 @@ button {
 .privacy-point {
   border-top: 2px solid var(--td-brand);
   padding-top: 16px;
+}
+
+.privacy-icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin-bottom: 14px;
+  color: var(--td-brand);
 }
 
 .privacy-link {
@@ -1596,12 +1516,6 @@ button {
   .horizons-board {
     grid-template-columns: 1fr;
   }
-  .bento-grid {
-    grid-template-columns: 1fr;
-  }
-  .bento-card.span-2 {
-    grid-column: span 1;
-  }
   .site-nav {
     display: none;
   }
@@ -1661,22 +1575,6 @@ button {
   .motion-ready .scroll-reveal.is-visible {
     opacity: 1;
     transform: translateY(0);
-  }
-
-  .motion-ready .bento-card:nth-child(2) {
-    transition-delay: 70ms;
-  }
-
-  .motion-ready .bento-card:nth-child(3) {
-    transition-delay: 140ms;
-  }
-
-  .motion-ready .bento-card:nth-child(4) {
-    transition-delay: 210ms;
-  }
-
-  .motion-ready .bento-card:nth-child(5) {
-    transition-delay: 280ms;
   }
 
   .motion-ready .footer-bottom {
