@@ -38,7 +38,7 @@
   const weeklyRows = [...demo.querySelectorAll('.journey-week-item')];
   const cursor = demo.querySelector('.journey-cursor');
 
-  let isInView = !('IntersectionObserver' in window);
+  let isInView = false;
   let isPaused = false;
   let sequenceVersion = 0;
 
@@ -69,18 +69,31 @@
     updatePlayback();
   });
 
-  if ('IntersectionObserver' in window) {
+  {
+    const columns = [...demo.querySelectorAll('.journey-step')];
     let hasStarted = false;
-    const demoObserver = new IntersectionObserver(([entry]) => {
-      const viewportHeight = entry.rootBounds ? entry.rootBounds.height : window.innerHeight;
-      const fullyVisible = entry.intersectionRatio >= 0.98
-        || entry.intersectionRect.height >= viewportHeight * 0.95;
-      if (fullyVisible) hasStarted = true;
-      isInView = fullyVisible || (hasStarted && entry.isIntersecting);
-      updatePlayback();
-    }, { threshold: Array.from({ length: 51 }, (_, i) => i / 50) });
-
-    demoObserver.observe(demo);
+    let frame = 0;
+    const checkColumns = () => {
+      frame = 0;
+      const top = Math.min(...columns.map(col => col.getBoundingClientRect().top));
+      const bottom = Math.max(...columns.map(col => col.getBoundingClientRect().bottom));
+      const viewport = window.innerHeight;
+      const visibleHeight = Math.min(bottom, viewport) - Math.max(top, 0);
+      const columnsInView = (top >= -2 && bottom <= viewport + 2) || visibleHeight >= viewport * 0.9;
+      if (columnsInView) hasStarted = true;
+      const nextInView = columnsInView || (hasStarted && bottom > 0 && top < viewport);
+      if (nextInView !== isInView) {
+        isInView = nextInView;
+        updatePlayback();
+      }
+    };
+    const scheduleCheck = () => {
+      if (!frame) frame = requestAnimationFrame(checkColumns);
+    };
+    isInView = false;
+    window.addEventListener('scroll', scheduleCheck, { passive: true });
+    window.addEventListener('resize', scheduleCheck);
+    checkColumns();
   }
 
   updatePlayback();
@@ -218,7 +231,7 @@
     while (true) {
       const version = sequenceVersion;
       resetSequence();
-      if (!await wait(400, version)) continue;
+      if (!await wait(50, version)) continue;
 
       yearCard.classList.add('is-current');
       if (!await typeGoals([yearEntry], ['Write 12 short stories'], version)) continue;
