@@ -162,7 +162,7 @@
     clearEntry(yearEntry);
     yearCount.textContent = '10 / 12 stories';
     yearFill.style.width = `${10 * 100 / 12}%`;
-    yearState.textContent = 'In progress';
+    yearState.textContent = '';
     yearCheck.classList.remove('is-complete');
 
     quarterRows.forEach((row) => {
@@ -229,7 +229,7 @@
           row.classList.add('is-complete');
           row.querySelector('.journey-week-check').classList.add('is-complete');
         }, version)) { ok = false; break; }
-        weeklyCount.textContent = `${weekIndex + 1} / 4 weeks complete`;
+        weeklyCount.textContent = `${weekIndex + 1} / 4 weeks`;
         weeklyFill.style.width = `${(weekIndex + 1) * 25}%`;
         if (!await wait(100, version)) { ok = false; break; }
       }
