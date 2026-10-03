@@ -1983,3 +1983,29 @@ button {
   100% { opacity: 0; transform: translate(calc(var(--dx) * 1.25), calc(var(--dy) + var(--fall))) rotate(var(--spin)); }
 }
 
+
+.mini-composer-parent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  color: var(--td-text-secondary);
+  font-size: 12px;
+}
+
+.mini-composer-select {
+  min-width: 0;
+  flex: 1;
+  border: 1px solid var(--td-border);
+  border-radius: var(--td-radius-sm);
+  background: var(--td-surface);
+  color: var(--td-text-primary);
+  font-family: inherit;
+  font-size: 12.5px;
+  padding: 6px 8px;
+}
+
+.mini-composer-select:focus-visible {
+  outline: 2px solid var(--td-brand);
+  outline-offset: 1px;
+}

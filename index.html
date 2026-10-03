@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Horizons for Todoist: Plan Long-Term Goals Directly Inside Todoist</title>
   <meta name="description" content="Connect your daily tasks to your biggest life goals. Multi-tiered horizon planning (Year, Month, Week) for Todoist. 100% private and free to use.">
-  <link rel="stylesheet" href="style.css?v=20261004-q">
+  <link rel="stylesheet" href="style.css?v=20261004-r">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23dc4c3e' stroke-width='2.5'><circle cx='12' cy='12' r='10'/><path d='m8 12 3 3 5-5'/></svg>">
 </head>
 <body>
@@ -265,8 +265,8 @@
     <!-- Interactive Demo Section -->
     <section class="preview-container" aria-labelledby="walkthrough-title">
       <div class="section-header">
-        <h2 id="walkthrough-title">Plan the year. Shape the month. Move this week.</h2>
-        <p>Watch one annual goal become three monthly goals, then four weekly goals per month.</p>
+        <h2 id="walkthrough-title">Try it yourself.</h2>
+        <p>Add a goal, link it to a parent goal, and check it off to see your progress roll up.</p>
       </div>
 
       <div class="preview-shell">
@@ -374,6 +374,10 @@
               </button>
               <div class="mini-inline-composer" id="composer-month">
                 <input type="text" class="mini-composer-input" id="input-month" placeholder="Add monthly focus..." onkeydown="handleComposerKey(event, 'month')">
+                <label class="mini-composer-parent">
+                  <span>Parent goal</span>
+                  <select class="mini-composer-select" id="parent-month"></select>
+                </label>
                 <div class="mini-composer-actions">
                   <button type="button" class="mini-composer-btn-cancel" onclick="closeComposerForTier('month')">Cancel</button>
                   <button type="button" class="mini-composer-btn-save" onclick="submitGoalForTier('month')">Add goal</button>
@@ -418,6 +422,10 @@
               </button>
               <div class="mini-inline-composer" id="composer-week">
                 <input type="text" class="mini-composer-input" id="input-week" placeholder="Add weekly milestone..." onkeydown="handleComposerKey(event, 'week')">
+                <label class="mini-composer-parent">
+                  <span>Parent goal</span>
+                  <select class="mini-composer-select" id="parent-week"></select>
+                </label>
                 <div class="mini-composer-actions">
                   <button type="button" class="mini-composer-btn-cancel" onclick="closeComposerForTier('week')">Cancel</button>
                   <button type="button" class="mini-composer-btn-save" onclick="submitGoalForTier('week')">Add goal</button>
@@ -921,11 +929,31 @@
         composer.classList.add('open');
         composer.classList.add('is-open');
         btn.style.display = 'none';
+        populateParentOptions(tier);
         if (input) {
           input.value = '';
           input.focus();
         }
       }
+    }
+
+    function getParentCandidates(tier) {
+      if (tier === 'month') {
+        return horizonData.year.filter(goal => goal.periodKey === String(selectedMonth.getFullYear()));
+      }
+      if (tier === 'week') {
+        return horizonData.month.filter(goal => goal.periodKey === getWeekMonthKey(selectedWeek));
+      }
+      return [];
+    }
+
+    function populateParentOptions(tier) {
+      const select = document.getElementById(`parent-${tier}`);
+      if (!select) return;
+      const candidates = getParentCandidates(tier);
+      select.innerHTML = '<option value="">No parent goal</option>' + candidates
+        .map(goal => `<option value="${escapeHtml(goal.id)}">${escapeHtml(goal.text)}</option>`)
+        .join('');
     }
 
     function closeComposerForTier(tier) {
@@ -947,14 +975,9 @@
       if (!text) return;
 
       const periodKey = getSelectedPeriodKey(tier);
-      const parentHorizon = tier === 'month' ? 'year' : tier === 'week' ? 'month' : null;
-      const parentPeriodKey = tier === 'month'
-        ? String(selectedMonth.getFullYear())
-        : tier === 'week'
-          ? getWeekMonthKey(selectedWeek)
-          : null;
-      const parent = parentHorizon
-        ? horizonData[parentHorizon].find(goal => goal.periodKey === parentPeriodKey)
+      const parentSelect = document.getElementById(`parent-${tier}`);
+      const parent = parentSelect && parentSelect.value
+        ? getParentCandidates(tier).find(goal => goal.id === parentSelect.value)
         : undefined;
       const newGoal = {
         id: `custom-${++customGoalSequence}`,
