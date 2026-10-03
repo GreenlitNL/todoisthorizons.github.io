@@ -1946,3 +1946,7 @@ button {
   width: 24px;
   height: 24px;
 }
+
+.preview-container > .section-header {
+  margin-bottom: 32px;
+}
