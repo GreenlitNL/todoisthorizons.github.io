@@ -146,7 +146,7 @@
       copies.forEach((copy, i) => { copy.textContent = texts[i].slice(0, index + 1); });
     }
 
-    return wait(250, version);
+    return wait(120, version);
   };
 
   const clearEntry = (entry) => {
@@ -186,7 +186,7 @@
   const monthGoals = ['Write story 10', 'Write story 11', 'Write story 12'];
   const weekGoals = ['Choose the story idea', 'Outline story 12', 'Draft story 12', 'Revise story 12'];
 
-  const beat = 1100;
+  const beat = 750;
 
   const runSequence = async () => {
     while (true) {
@@ -201,12 +201,15 @@
 
       quarterCard.classList.add('is-current');
       const monthEntries = quarterRows.map(row => row.querySelector('.journey-goal-entry'));
-      if (!await typeGoals(monthEntries, monthGoals, version)) continue;
+      let typed = true;
+      for (const [i, entry] of monthEntries.entries()) {
+        if (!await typeGoals([entry], [monthGoals[i]], version)) { typed = false; break; }
+      }
+      if (!typed) continue;
       [0, 1].forEach((index) => {
         quarterRows[index].classList.add('is-complete');
         quarterRows[index].querySelector('.journey-month-check').classList.add('is-complete');
       });
-      if (!await wait(600, version)) continue;
       quarterCount.textContent = '2 / 3 months complete';
       quarterFill.style.width = `${200 / 3}%`;
       if (!await wait(beat, version)) continue;
@@ -214,8 +217,11 @@
 
       weeklyCard.classList.add('is-current');
       const weekEntries = weeklyRows.map(row => row.querySelector('.journey-goal-entry'));
-      if (!await typeGoals(weekEntries, weekGoals, version)) continue;
-      if (!await wait(beat, version)) continue;
+      typed = true;
+      for (const [i, entry] of weekEntries.entries()) {
+        if (!await typeGoals([entry], [weekGoals[i]], version)) { typed = false; break; }
+      }
+      if (!typed) continue;
 
       let ok = true;
       for (const [weekIndex, row] of weeklyRows.entries()) {
@@ -225,7 +231,7 @@
         }, version)) { ok = false; break; }
         weeklyCount.textContent = `${weekIndex + 1} / 4 weeks complete`;
         weeklyFill.style.width = `${(weekIndex + 1) * 25}%`;
-        if (!await wait(450, version)) { ok = false; break; }
+        if (!await wait(150, version)) { ok = false; break; }
       }
       if (!ok) continue;
       if (!await wait(beat, version)) continue;
@@ -248,7 +254,7 @@
         yearCheck.classList.add('is-complete');
       }, version)) continue;
       cursor.classList.remove('is-visible');
-      if (!await wait(3000, version)) continue;
+      if (!await wait(5000, version)) continue;
     }
   };
 
