@@ -70,10 +70,15 @@
   });
 
   if ('IntersectionObserver' in window) {
+    let hasStarted = false;
     const demoObserver = new IntersectionObserver(([entry]) => {
-      isInView = entry.isIntersecting;
+      const viewportHeight = entry.rootBounds ? entry.rootBounds.height : window.innerHeight;
+      const fullyVisible = entry.intersectionRatio >= 0.98
+        || entry.intersectionRect.height >= viewportHeight * 0.95;
+      if (fullyVisible) hasStarted = true;
+      isInView = fullyVisible || (hasStarted && entry.isIntersecting);
       updatePlayback();
-    }, { threshold: 0.2 });
+    }, { threshold: Array.from({ length: 51 }, (_, i) => i / 50) });
 
     demoObserver.observe(demo);
   }
