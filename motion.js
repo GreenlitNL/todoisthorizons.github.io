@@ -122,20 +122,20 @@
     cursor.style.setProperty('--cursor-x', `${targetRect.left - demoRect.left + targetRect.width / 2}px`);
     cursor.style.setProperty('--cursor-y', `${targetRect.top - demoRect.top + targetRect.height / 2}px`);
     cursor.classList.add('is-visible');
-    return wait(95, version);
+    return wait(70, version);
   };
 
   const clickTarget = async (target, action, version) => {
     if (!await moveCursor(target, version)) return false;
     if (!await waitUntilPlaying(version)) return false;
     cursor.classList.add('is-pressing');
-    if (!await wait(35, version) || !await waitUntilPlaying(version)) {
+    if (!await wait(25, version) || !await waitUntilPlaying(version)) {
       cursor.classList.remove('is-pressing');
       return false;
     }
     action();
     cursor.classList.remove('is-pressing');
-    return wait(55, version);
+    return wait(35, version);
   };
 
   const typeGoals = async (entries, texts, version) => {
@@ -146,11 +146,11 @@
     const longest = Math.max(...texts.map(text => text.length));
 
     for (let index = 0; index < longest; index += 1) {
-      if (!await wait(28, version) || !await waitUntilPlaying(version)) return false;
+      if (!await wait(10, version) || !await waitUntilPlaying(version)) return false;
       copies.forEach((copy, i) => { copy.textContent = texts[i].slice(0, index + 1); });
     }
 
-    return wait(45, version);
+    return wait(30, version);
   };
 
   const clearEntry = (entry) => {
@@ -257,7 +257,7 @@
         }, version)) { ok = false; break; }
         weeklyCount.textContent = `${weekIndex + 1} / 4 weeks`;
         weeklyFill.style.width = `${(weekIndex + 1) * 25}%`;
-        if (!await wait(60, version)) { ok = false; break; }
+        if (!await wait(40, version)) { ok = false; break; }
       }
       if (!ok) continue;
       if (!await wait(beat, version)) continue;
