@@ -22,8 +22,8 @@
       </a>
 
       <nav class="site-nav">
-        <a href="#features" class="nav-link">Features</a>
         <a href="#preview" class="nav-link">Live Demo</a>
+        <a href="#features" class="nav-link">Features</a>
         <a href="privacy.html" class="nav-link">Privacy Policy</a>
         <a href="terms.html" class="nav-link">Terms of Use</a>
       </nav>
@@ -87,8 +87,10 @@
           <div class="preview-app-brand">
             <h2 class="preview-app-heading">Horizons</h2>
             <div class="preview-status-indicator" title="Sync Status: All goals synced">
-              <span class="preview-status-dot"></span>
-              <span class="preview-status-text">Synced</span>
+              <span class="preview-status-inner">
+                <span class="preview-status-dot"></span>
+                <span class="preview-status-text">Synced</span>
+              </span>
             </div>
           </div>
 
@@ -156,13 +158,6 @@
                 <h3 class="preview-section-title">Month</h3>
               </div>
               <div class="preview-section-controls">
-                <div class="preview-segmented-control" role="tablist" aria-label="Quarter view">
-                  <button type="button" class="preview-seg-btn is-active">Full year</button>
-                  <button type="button" class="preview-seg-btn">Q1</button>
-                  <button type="button" class="preview-seg-btn">Q2</button>
-                  <button type="button" class="preview-seg-btn">Q3</button>
-                  <button type="button" class="preview-seg-btn">Q4</button>
-                </div>
                 <div class="preview-nav-group">
                   <button type="button" class="preview-nav-arrow" title="Previous month" aria-label="Previous month">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -402,19 +397,19 @@
     let selectedYear = 2026;
     const horizonData = {
       year: [
-        { id: 1, text: 'Run Amsterdam Marathon in sub-3h45m', completed: false, stats: { completed: 1, total: 2, pct: 50 } },
-        { id: 2, text: 'Read 24 books on system design & leadership', completed: false, stats: { completed: 1, total: 2, pct: 50 } },
-        { id: 3, text: 'Launch Horizons extension on Chrome Web Store', completed: true, stats: { completed: 2, total: 2, pct: 100 } }
+        { id: 1, text: 'Run a marathon', completed: false, stats: { completed: 1, total: 2, pct: 50 } },
+        { id: 2, text: 'Read 12 books', completed: false, stats: { completed: 1, total: 2, pct: 50 } },
+        { id: 3, text: 'Learn Spanish', completed: true, stats: { completed: 2, total: 2, pct: 100 } }
       ],
       month: [
-        { id: 4, text: 'Build weekly mileage base to 45km', completed: false, parentTitle: 'Run Amsterdam Marathon in sub-3h45m' },
-        { id: 5, text: 'Finish chapters 1-6 of Designing Data-Intensive Apps', completed: true, parentTitle: 'Read 24 books on system design & leadership' },
-        { id: 6, text: 'Release v1.2 with automated backup sync', completed: false, parentTitle: 'Launch Horizons extension on Chrome Web Store' }
+        { id: 4, text: 'Run 40 km per week', completed: false, parentTitle: 'Run a marathon' },
+        { id: 5, text: 'Finish 2 books', completed: true, parentTitle: 'Read 12 books' },
+        { id: 6, text: 'Practice Spanish daily', completed: false, parentTitle: 'Learn Spanish' }
       ],
       week: [
-        { id: 7, text: 'Tuesday interval session: 6x800m track workout', completed: true, parentTitle: 'Build weekly mileage base to 45km' },
-        { id: 8, text: 'Draft high-level architecture diagram for sync engine', completed: false, parentTitle: 'Release v1.2 with automated backup sync' },
-        { id: 9, text: 'Review pull requests and run unit test suite', completed: false, parentTitle: 'Release v1.2 with automated backup sync' }
+        { id: 7, text: 'Long run on Sunday', completed: true, parentTitle: 'Run 40 km per week' },
+        { id: 8, text: 'Read 30 pages a day', completed: false, parentTitle: 'Finish 2 books' },
+        { id: 9, text: 'Book a Spanish lesson', completed: false, parentTitle: 'Practice Spanish daily' }
       ]
     };
 
@@ -483,12 +478,6 @@
               ${subHtml}
             </div>
           </div>
-          <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem('${tier}', ${goal.id}, event)" title="Delete goal" aria-label="Delete goal">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
         `;
         listEl.appendChild(row);
       });
@@ -506,12 +495,6 @@
         goal.completed = !goal.completed;
         renderTier(tier);
       }
-    }
-
-    function deleteGoalItem(tier, id, event) {
-      if (event) event.stopPropagation();
-      horizonData[tier] = horizonData[tier].filter(g => g.id !== id);
-      renderTier(tier);
     }
 
     function toggleTierCollapse(tier) {
@@ -563,9 +546,9 @@
       if (tier === 'year') {
         newGoal.stats = { completed: 0, total: 1, pct: 0 };
       } else if (tier === 'month') {
-        newGoal.parentTitle = 'Run Amsterdam Marathon in sub-3h45m';
+        newGoal.parentTitle = 'Run a marathon';
       } else if (tier === 'week') {
-        newGoal.parentTitle = 'Build weekly mileage base to 45km';
+        newGoal.parentTitle = 'Run 40 km per week';
       }
 
       horizonData[tier].push(newGoal);
