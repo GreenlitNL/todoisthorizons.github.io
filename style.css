@@ -101,6 +101,11 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+#preview,
+#features {
+  scroll-margin-top: 88px;
+}
+
 body {
   font-family: var(--td-font);
   background-color: var(--td-bg);
@@ -372,8 +377,8 @@ button {
   height: 28px;
   padding: 0 11px;
   border-radius: var(--td-radius-sm);
-  background-color: var(--td-surface);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  background-color: transparent;
+  box-shadow: none;
   color: #1f8a3a;
   font-size: 13px;
   font-weight: 600;
@@ -381,7 +386,6 @@ button {
 
 [data-theme="dark"] .preview-status-inner {
   color: #5fcf7b;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .preview-status-dot {
@@ -565,6 +569,12 @@ button {
   color: var(--td-text-primary);
 }
 
+.preview-nav-arrow:disabled {
+  color: var(--td-text-tertiary);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 .preview-nav-today {
   border: none;
   background: none;
@@ -579,6 +589,11 @@ button {
 
 .preview-nav-today:hover {
   color: var(--td-text-primary);
+}
+
+.preview-nav-today:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .tier-content {
@@ -647,6 +662,14 @@ button {
 .mini-goal-row:hover {
   border-color: #d6d0c7;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.mini-goal-row.is-linked-highlight {
+  border-color: var(--td-brand);
+}
+
+[data-theme="dark"] .mini-goal-row.is-linked-highlight {
+  border-color: #de4c4a;
 }
 
 [data-theme="dark"] .mini-goal-row:hover {
@@ -897,6 +920,19 @@ button {
 }
 
 @media (max-width: 680px) {
+  .preview-year-nav {
+    gap: 1px;
+    min-width: 0;
+    max-width: 100%;
+    padding: 2px;
+  }
+  .preview-year-arrow {
+    width: 24px;
+  }
+  .preview-year-btn {
+    min-width: 0;
+    padding: 0 4px;
+  }
   .preview-workspaces {
     padding: 16px;
     gap: 18px;

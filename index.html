@@ -80,10 +80,10 @@
     </section>
 
     <!-- Interactive Live Preview Section -->
-    <section class="preview-container" id="preview">
+    <section class="preview-container">
       <div class="preview-shell">
         <!-- Authentic Horizons Header -->
-        <div class="preview-app-topbar">
+        <div class="preview-app-topbar" id="preview">
           <div class="preview-app-brand">
             <h2 class="preview-app-heading">Horizons</h2>
             <div class="preview-status-indicator" title="Sync Status: All goals synced">
@@ -96,19 +96,13 @@
 
           <!-- Year Navigation Bar matching extension -->
           <div class="preview-year-nav">
-            <button type="button" class="preview-year-arrow" onclick="shiftYear(-1)" title="Previous year" aria-label="Previous year">
+            <button type="button" class="preview-year-arrow" id="year-previous" onclick="shiftYear(-1)" title="Previous year" aria-label="Previous year">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="15 18 9 12 15 6"></polyline>
               </svg>
             </button>
-            <div class="preview-year-buttons">
-              <button type="button" class="preview-year-btn" id="ybtn-2024" onclick="selectYear(2024)">2024</button>
-              <button type="button" class="preview-year-btn" id="ybtn-2025" onclick="selectYear(2025)">2025</button>
-              <button type="button" class="preview-year-btn is-selected" id="ybtn-2026" onclick="selectYear(2026)">2026</button>
-              <button type="button" class="preview-year-btn" id="ybtn-2027" onclick="selectYear(2027)">2027</button>
-              <button type="button" class="preview-year-btn" id="ybtn-2028" onclick="selectYear(2028)">2028</button>
-            </div>
-            <button type="button" class="preview-year-arrow" onclick="shiftYear(1)" title="Next year" aria-label="Next year">
+            <div class="preview-year-buttons" id="yearButtons" role="group" aria-label="Select year"></div>
+            <button type="button" class="preview-year-arrow" id="year-next" onclick="shiftYear(1)" title="Next year" aria-label="Next year">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
@@ -121,11 +115,22 @@
           <!-- 1. Year Section -->
           <section class="preview-tier-section" id="tier-year">
             <div class="preview-section-header">
-              <div class="preview-section-left" onclick="toggleTierCollapse('year')">
+              <div class="preview-section-left" role="button" tabindex="0" aria-expanded="true" aria-controls="content-year" onclick="toggleTierCollapse('year')" onkeydown="handleTierCollapseKey(event, 'year')">
                 <svg class="tier-chevron" id="chevron-year" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
                 <h3 class="preview-section-title">Year</h3>
+              </div>
+              <div class="preview-section-controls">
+                <div class="preview-nav-group">
+                  <button type="button" class="preview-nav-arrow" id="year-horizon-previous" onclick="shiftYear(-1)" title="Previous year" aria-label="Previous year">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                  </button>
+                  <button type="button" class="preview-nav-today" id="year-horizon-today" onclick="selectToday('year')">Today</button>
+                  <button type="button" class="preview-nav-arrow" id="year-horizon-next" onclick="shiftYear(1)" title="Next year" aria-label="Next year">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                  </button>
+                </div>
               </div>
             </div>
             <div class="tier-content" id="content-year">
@@ -151,7 +156,7 @@
           <!-- 2. Month Section -->
           <section class="preview-tier-section" id="tier-month">
             <div class="preview-section-header">
-              <div class="preview-section-left" onclick="toggleTierCollapse('month')">
+              <div class="preview-section-left" role="button" tabindex="0" aria-expanded="true" aria-controls="content-month" onclick="toggleTierCollapse('month')" onkeydown="handleTierCollapseKey(event, 'month')">
                 <svg class="tier-chevron" id="chevron-month" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
@@ -159,11 +164,11 @@
               </div>
               <div class="preview-section-controls">
                 <div class="preview-nav-group">
-                  <button type="button" class="preview-nav-arrow" title="Previous month" aria-label="Previous month">
+                  <button type="button" class="preview-nav-arrow" id="month-previous" onclick="shiftPeriod('month', -1)" title="Previous month" aria-label="Previous month">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
                   </button>
-                  <button type="button" class="preview-nav-today">Today</button>
-                  <button type="button" class="preview-nav-arrow" title="Next month" aria-label="Next month">
+                  <button type="button" class="preview-nav-today" onclick="selectToday('month')">Today</button>
+                  <button type="button" class="preview-nav-arrow" id="month-next" onclick="shiftPeriod('month', 1)" title="Next month" aria-label="Next month">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
                   </button>
                 </div>
@@ -192,7 +197,7 @@
           <!-- 3. Week Section -->
           <section class="preview-tier-section" id="tier-week">
             <div class="preview-section-header">
-              <div class="preview-section-left" onclick="toggleTierCollapse('week')">
+              <div class="preview-section-left" role="button" tabindex="0" aria-expanded="true" aria-controls="content-week" onclick="toggleTierCollapse('week')" onkeydown="handleTierCollapseKey(event, 'week')">
                 <svg class="tier-chevron" id="chevron-week" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
@@ -200,11 +205,11 @@
               </div>
               <div class="preview-section-controls">
                 <div class="preview-nav-group">
-                  <button type="button" class="preview-nav-arrow" title="Previous week" aria-label="Previous week">
+                  <button type="button" class="preview-nav-arrow" id="week-previous" onclick="shiftPeriod('week', -1)" title="Previous week" aria-label="Previous week">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
                   </button>
-                  <button type="button" class="preview-nav-today">Today</button>
-                  <button type="button" class="preview-nav-arrow" title="Next week" aria-label="Next week">
+                  <button type="button" class="preview-nav-today" onclick="selectToday('week')">Today</button>
+                  <button type="button" class="preview-nav-arrow" id="week-next" onclick="shiftPeriod('week', 1)" title="Next week" aria-label="Next week">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
                   </button>
                 </div>
@@ -214,7 +219,7 @@
               <div class="preview-lane-header">
                 <div class="preview-week-header-info">
                   <span class="preview-lane-label" id="laneTitle-week">Week 40</span>
-                  <span class="preview-week-dates">28 Sep - 4 Oct</span>
+                  <span class="preview-week-dates" id="laneDates-week"></span>
                 </div>
                 <span class="preview-lane-count" id="count-week">3</span>
               </div>
@@ -394,44 +399,152 @@
     });
 
     // Interactive Preview State & Logic (Authentic Todoist Horizons Preview)
-    let selectedYear = 2026;
-    const horizonData = {
-      year: [
-        { id: 1, text: 'Run a marathon', completed: false, stats: { completed: 1, total: 2, pct: 50 } },
-        { id: 2, text: 'Read 12 books', completed: false, stats: { completed: 1, total: 2, pct: 50 } },
-        { id: 3, text: 'Learn Spanish', completed: true, stats: { completed: 2, total: 2, pct: 100 } }
-      ],
-      month: [
-        { id: 4, text: 'Run 40 km per week', completed: false, parentTitle: 'Run a marathon' },
-        { id: 5, text: 'Finish 2 books', completed: true, parentTitle: 'Read 12 books' },
-        { id: 6, text: 'Practice Spanish daily', completed: false, parentTitle: 'Learn Spanish' }
-      ],
-      week: [
-        { id: 7, text: 'Long run on Sunday', completed: true, parentTitle: 'Run 40 km per week' },
-        { id: 8, text: 'Read 30 pages a day', completed: false, parentTitle: 'Finish 2 books' },
-        { id: 9, text: 'Book a Spanish lesson', completed: false, parentTitle: 'Practice Spanish daily' }
-      ]
-    };
+    const DEMO_TODAY = new Date(2026, 9, 3);
+    const PERIOD_RANGE = 5;
+    const DEMO_YEAR = DEMO_TODAY.getFullYear();
+    const DEMO_MONTH = new Date(DEMO_YEAR, DEMO_TODAY.getMonth(), 1);
+    const DEMO_WEEK = getWeekStart(DEMO_TODAY);
+    let selectedYear = DEMO_YEAR;
+    let selectedMonth = new Date(DEMO_MONTH);
+    let selectedWeek = new Date(DEMO_WEEK);
+    let hoveredGoalId = null;
+    let customGoalSequence = 0;
+
+    const yearSamples = [
+      { slug: 'run', text: 'Run a marathon', completed: false, stats: { completed: 1, total: 2, pct: 50 } },
+      { slug: 'read', text: 'Read 12 books', completed: false, stats: { completed: 1, total: 2, pct: 50 } },
+      { slug: 'spanish', text: 'Learn Spanish', completed: true, stats: { completed: 2, total: 2, pct: 100 } },
+    ];
+    const monthSamples = [
+      { slug: 'run', text: 'Run 40 km per week', parentSlug: 'run' },
+      { slug: 'read', text: 'Finish 2 books', parentSlug: 'read' },
+      { slug: 'spanish', text: 'Practice Spanish daily', parentSlug: 'spanish' },
+    ];
+    const weekSamples = [
+      { slug: 'run', text: 'Long run on Sunday', monthParentSlug: 'run', completed: true },
+      { slug: 'read', text: 'Read 30 pages a day', monthParentSlug: 'read', completed: false },
+      { slug: 'spanish', text: 'Book a Spanish lesson', monthParentSlug: 'spanish', completed: false },
+    ];
+
+    function addDays(date, amount) {
+      const result = new Date(date);
+      result.setDate(result.getDate() + amount);
+      return result;
+    }
+
+    function getWeekStart(date) {
+      const result = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      result.setDate(result.getDate() - ((result.getDay() + 6) % 7));
+      return result;
+    }
+
+    function getMonthKey(date) {
+      return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+    }
+
+    function getWeekKey(date) {
+      const utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      const weekday = utcDate.getUTCDay() || 7;
+      utcDate.setUTCDate(utcDate.getUTCDate() + 4 - weekday);
+      const year = utcDate.getUTCFullYear();
+      const yearStart = new Date(Date.UTC(year, 0, 1));
+      const week = Math.ceil((((utcDate - yearStart) / 86400000) + 1) / 7);
+      return `${year}-W${String(week).padStart(2, '0')}`;
+    }
+
+    function getWeekMonthKey(weekStart) {
+      return getMonthKey(addDays(weekStart, 3));
+    }
+
+    function buildDemoGoals() {
+      const goals = { year: [], month: [], week: [] };
+
+      for (let offset = -PERIOD_RANGE; offset <= PERIOD_RANGE; offset += 1) {
+        const year = DEMO_YEAR + offset;
+        yearSamples.forEach(sample => goals.year.push({
+          id: `year-${year}-${sample.slug}`,
+          periodKey: String(year),
+          text: sample.text,
+          completed: sample.completed,
+          stats: { ...sample.stats },
+        }));
+      }
+
+      for (let offset = -PERIOD_RANGE; offset <= PERIOD_RANGE; offset += 1) {
+        const month = new Date(DEMO_YEAR, DEMO_TODAY.getMonth() + offset, 1);
+        const periodKey = getMonthKey(month);
+        const year = month.getFullYear();
+        monthSamples.forEach((sample, index) => {
+          const parent = yearSamples.find(item => item.slug === sample.parentSlug);
+          goals.month.push({
+            id: `month-${periodKey}-${sample.slug}`,
+            periodKey,
+            text: sample.text,
+            completed: index === 1,
+            parentGoalId: `year-${year}-${sample.parentSlug}`,
+            parentTitle: parent.text,
+          });
+        });
+      }
+
+      for (let offset = -PERIOD_RANGE; offset <= PERIOD_RANGE; offset += 1) {
+        const weekStart = addDays(DEMO_WEEK, offset * 7);
+        const periodKey = getWeekKey(weekStart);
+        const monthKey = getWeekMonthKey(weekStart);
+        weekSamples.forEach(sample => {
+          const parent = monthSamples.find(item => item.slug === sample.monthParentSlug);
+          goals.week.push({
+            id: `week-${periodKey}-${sample.monthParentSlug}`,
+            periodKey,
+            text: sample.text,
+            completed: sample.completed,
+            parentGoalId: `month-${monthKey}-${sample.monthParentSlug}`,
+            parentTitle: parent.text,
+          });
+        });
+      }
+
+      return goals;
+    }
+
+    const horizonData = buildDemoGoals();
+
+    function getSelectedPeriodKey(tier) {
+      if (tier === 'year') return String(selectedYear);
+      if (tier === 'month') return getMonthKey(selectedMonth);
+      return getWeekKey(selectedWeek);
+    }
 
     function renderTier(tier) {
       const listEl = document.getElementById(`goalList-${tier}`);
       const countEl = document.getElementById(`count-${tier}`);
       if (!listEl) return;
 
-      const goals = horizonData[tier];
-      const activeCount = goals.filter(g => !g.completed).length;
-      if (countEl) countEl.textContent = goals.length;
+      const periodKey = getSelectedPeriodKey(tier);
+      const goals = horizonData[tier].filter(goal => goal.periodKey === periodKey);
+      if (countEl) countEl.textContent = String(goals.length);
 
       listEl.innerHTML = '';
       if (goals.length === 0) {
         listEl.innerHTML = '<div style="padding: 12px 4px; color: var(--td-text-tertiary); font-size: 13px;">No goals in this section. Click "+ Add goal" below.</div>';
+        updateRelatedHighlights();
         return;
       }
 
       goals.forEach(goal => {
         const row = document.createElement('div');
         row.className = `mini-goal-row ${goal.completed ? 'is-completed' : ''}`;
-        row.setAttribute('data-id', goal.id);
+        row.dataset.id = goal.id;
+        row.addEventListener('mouseenter', () => {
+          hoveredGoalId = goal.id;
+          updateRelatedHighlights();
+        });
+        row.addEventListener('mouseleave', () => {
+          if (hoveredGoalId === goal.id) {
+            hoveredGoalId = null;
+            updateRelatedHighlights();
+          }
+        });
 
         let subHtml = '';
         if (tier === 'year') {
@@ -456,7 +569,7 @@
         } else if (goal.parentTitle) {
           subHtml = `
             <div class="mini-parent-badge" title="Parent Goal">
-              <svg class="mini-parent-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="mini-parent-icon" aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"></circle>
                 <circle cx="12" cy="12" r="6"></circle>
                 <circle cx="12" cy="12" r="2"></circle>
@@ -467,8 +580,8 @@
         }
 
         row.innerHTML = `
-          <div class="mini-goal-left" onclick="toggleGoalItem('${tier}', ${goal.id})">
-            <div class="mini-checkbox ${goal.completed ? 'checked' : ''}" role="checkbox" aria-checked="${goal.completed}" tabindex="0">
+          <div class="mini-goal-left">
+            <div class="mini-checkbox ${goal.completed ? 'checked' : ''}" role="checkbox" aria-label="${escapeHtml(goal.text)}" aria-checked="${goal.completed}" tabindex="0">
               <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
@@ -479,14 +592,90 @@
             </div>
           </div>
         `;
+        row.querySelector('.mini-goal-left').addEventListener('click', () => toggleGoalItem(tier, goal.id));
+        row.querySelector('.mini-checkbox').addEventListener('keydown', event => {
+          if (event.key !== ' ' && event.key !== 'Enter') return;
+          event.preventDefault();
+          toggleGoalItem(tier, goal.id);
+        });
         listEl.appendChild(row);
       });
+      updateRelatedHighlights();
     }
 
     function renderAllTiers() {
+      document.getElementById('laneTitle-year').textContent = String(selectedYear);
+      document.getElementById('laneTitle-month').textContent = selectedMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+      document.getElementById('laneTitle-week').textContent = `Week ${getWeekKey(selectedWeek).split('-W')[1]}`;
+      const weekEnd = addDays(selectedWeek, 6);
+      const formatDate = date => new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(date);
+      document.getElementById('laneDates-week').textContent = `${formatDate(selectedWeek)} - ${formatDate(weekEnd)}, ${weekEnd.getFullYear()}`;
+
+      const monthOffset = (selectedMonth.getFullYear() - DEMO_MONTH.getFullYear()) * 12 + selectedMonth.getMonth() - DEMO_MONTH.getMonth();
+      const weekOffset = Math.round((selectedWeek - DEMO_WEEK) / (7 * 86400000));
+      document.getElementById('year-previous').disabled = selectedYear <= DEMO_YEAR - PERIOD_RANGE;
+      document.getElementById('year-next').disabled = selectedYear >= DEMO_YEAR + PERIOD_RANGE;
+      document.getElementById('year-horizon-previous').disabled = selectedYear <= DEMO_YEAR - PERIOD_RANGE;
+      document.getElementById('year-horizon-next').disabled = selectedYear >= DEMO_YEAR + PERIOD_RANGE;
+      document.getElementById('month-previous').disabled = monthOffset <= -PERIOD_RANGE;
+      document.getElementById('month-next').disabled = monthOffset >= PERIOD_RANGE;
+      document.getElementById('week-previous').disabled = weekOffset <= -PERIOD_RANGE;
+      document.getElementById('week-next').disabled = weekOffset >= PERIOD_RANGE;
+      renderYearSelector();
       renderTier('year');
       renderTier('month');
       renderTier('week');
+    }
+
+    function getRelatedGoalIds(goalId) {
+      const goals = Object.values(horizonData).flat();
+      const goalsById = new Map(goals.map(goal => [goal.id, goal]));
+      const related = new Set();
+      let current = goalsById.get(goalId);
+      if (!current) return related;
+      related.add(goalId);
+
+      while (current.parentGoalId && !related.has(current.parentGoalId)) {
+        related.add(current.parentGoalId);
+        current = goalsById.get(current.parentGoalId);
+        if (!current) break;
+      }
+
+      const queue = [goalId];
+      while (queue.length > 0) {
+        const parentId = queue.shift();
+        goals.forEach(goal => {
+          if (goal.parentGoalId === parentId && !related.has(goal.id)) {
+            related.add(goal.id);
+            queue.push(goal.id);
+          }
+        });
+      }
+
+      return related;
+    }
+
+    function updateRelatedHighlights() {
+      const related = hoveredGoalId ? getRelatedGoalIds(hoveredGoalId) : new Set();
+      document.querySelectorAll('.mini-goal-row').forEach(row => {
+        row.classList.toggle('is-linked-highlight', related.has(row.dataset.id));
+      });
+    }
+
+    function renderYearSelector() {
+      const buttons = document.getElementById('yearButtons');
+      if (!buttons) return;
+      const firstYear = Math.max(DEMO_YEAR - PERIOD_RANGE, Math.min(selectedYear - 2, DEMO_YEAR + PERIOD_RANGE - 4));
+      buttons.innerHTML = '';
+      for (let year = firstYear; year < firstYear + 5; year += 1) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = `preview-year-btn${year === selectedYear ? ' is-selected' : ''}`;
+        button.textContent = String(year);
+        button.setAttribute('aria-pressed', String(year === selectedYear));
+        button.addEventListener('click', () => selectYear(year));
+        buttons.appendChild(button);
+      }
     }
 
     function toggleGoalItem(tier, id) {
@@ -499,9 +688,18 @@
 
     function toggleTierCollapse(tier) {
       const section = document.getElementById(`tier-${tier}`);
-      if (section) {
-        section.classList.toggle('is-collapsed');
-      }
+      if (!section) return;
+      section.classList.toggle('is-collapsed');
+      section.querySelector('.preview-section-left')?.setAttribute(
+        'aria-expanded',
+        String(!section.classList.contains('is-collapsed'))
+      );
+    }
+
+    function handleTierCollapseKey(event, tier) {
+      if (event.key !== ' ' && event.key !== 'Enter') return;
+      event.preventDefault();
+      toggleTierCollapse(tier);
     }
 
     function openComposerForTier(tier) {
@@ -537,19 +735,25 @@
       const text = input.value.trim();
       if (!text) return;
 
+      const periodKey = getSelectedPeriodKey(tier);
+      const parentHorizon = tier === 'month' ? 'year' : tier === 'week' ? 'month' : null;
+      const parentPeriodKey = tier === 'month'
+        ? String(selectedMonth.getFullYear())
+        : tier === 'week'
+          ? getWeekMonthKey(selectedWeek)
+          : null;
+      const parent = parentHorizon
+        ? horizonData[parentHorizon].find(goal => goal.periodKey === parentPeriodKey)
+        : undefined;
       const newGoal = {
-        id: Date.now(),
-        text: text,
-        completed: false
+        id: `custom-${++customGoalSequence}`,
+        periodKey,
+        text,
+        completed: false,
+        parentGoalId: parent?.id,
+        parentTitle: parent?.text,
+        ...(tier === 'year' ? { stats: { completed: 0, total: 0, pct: 0 } } : {}),
       };
-
-      if (tier === 'year') {
-        newGoal.stats = { completed: 0, total: 1, pct: 0 };
-      } else if (tier === 'month') {
-        newGoal.parentTitle = 'Run a marathon';
-      } else if (tier === 'week') {
-        newGoal.parentTitle = 'Run 40 km per week';
-      }
 
       horizonData[tier].push(newGoal);
       closeComposerForTier(tier);
@@ -566,22 +770,34 @@
       }
     }
 
-    function selectYear(yr) {
-      selectedYear = yr;
-      document.querySelectorAll('.preview-year-btn').forEach(btn => {
-        btn.classList.toggle('is-selected', btn.textContent.trim() === String(yr));
-      });
-      const laneTitle = document.getElementById('laneTitle-year');
-      if (laneTitle) {
-        laneTitle.textContent = String(yr);
-      }
+    function selectYear(year) {
+      if (year < DEMO_YEAR - PERIOD_RANGE || year > DEMO_YEAR + PERIOD_RANGE) return;
+      selectedYear = year;
+      renderAllTiers();
     }
 
     function shiftYear(delta) {
-      const targetYear = selectedYear + delta;
-      if (targetYear >= 2024 && targetYear <= 2028) {
-        selectYear(targetYear);
+      selectYear(selectedYear + delta);
+    }
+
+    function selectToday(tier) {
+      if (tier === 'year') selectedYear = DEMO_YEAR;
+      if (tier === 'month') selectedMonth = new Date(DEMO_MONTH);
+      if (tier === 'week') selectedWeek = new Date(DEMO_WEEK);
+      renderAllTiers();
+    }
+
+    function shiftPeriod(tier, delta) {
+      if (tier === 'month') {
+        const target = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + delta, 1);
+        const offset = (target.getFullYear() - DEMO_MONTH.getFullYear()) * 12 + target.getMonth() - DEMO_MONTH.getMonth();
+        if (Math.abs(offset) <= PERIOD_RANGE) selectedMonth = target;
+      } else if (tier === 'week') {
+        const target = addDays(selectedWeek, delta * 7);
+        const offset = Math.round((target - DEMO_WEEK) / (7 * 86400000));
+        if (Math.abs(offset) <= PERIOD_RANGE) selectedWeek = target;
       }
+      renderAllTiers();
     }
 
     function escapeHtml(str) {
