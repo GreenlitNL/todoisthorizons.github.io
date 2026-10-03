@@ -410,21 +410,25 @@
     let hoveredGoalId = null;
     let customGoalSequence = 0;
 
-    const yearSamples = [
-      { slug: 'run', text: 'Run a marathon', completed: false, stats: { completed: 1, total: 2, pct: 50 } },
-      { slug: 'read', text: 'Read 12 books', completed: false, stats: { completed: 1, total: 2, pct: 50 } },
-      { slug: 'spanish', text: 'Learn Spanish', completed: true, stats: { completed: 2, total: 2, pct: 100 } },
+    const yearThemes = [
+      { run: 'mountain trail race', reading: 'nature books', language: 'French', level: 'A2' },
+      { run: 'coastal half-marathon', reading: 'historical novels', language: 'Spanish', level: 'B1' },
+      { run: 'charity cycling tour', reading: 'travel memoirs', language: 'Italian', level: 'A2' },
+      { run: 'alpine hiking trek', reading: 'science books', language: 'German', level: 'B1' },
+      { run: 'city marathon', reading: 'classic mysteries', language: 'Dutch', level: 'B2' },
+      { run: 'riverfront marathon', reading: 'contemporary novels', language: 'Spanish', level: 'B1' },
+      { run: 'island cycling tour', reading: 'design books', language: 'French', level: 'B1' },
+      { run: 'forest trail challenge', reading: 'biographies', language: 'Japanese', level: 'N4' },
+      { run: 'triathlon relay', reading: 'poetry collections', language: 'Italian', level: 'B1' },
+      { run: 'desert endurance race', reading: 'short story collections', language: 'Portuguese', level: 'A2' },
+      { run: 'cross-country cycling tour', reading: 'modern history books', language: 'German', level: 'B2' },
     ];
-    const monthSamples = [
-      { slug: 'run', text: 'Run 40 km per week', parentSlug: 'run' },
-      { slug: 'read', text: 'Finish 2 books', parentSlug: 'read' },
-      { slug: 'spanish', text: 'Practice Spanish daily', parentSlug: 'spanish' },
-    ];
-    const weekSamples = [
-      { slug: 'run', text: 'Long run on Sunday', monthParentSlug: 'run', completed: true },
-      { slug: 'read', text: 'Read 30 pages a day', monthParentSlug: 'read', completed: false },
-      { slug: 'spanish', text: 'Book a Spanish lesson', monthParentSlug: 'spanish', completed: false },
-    ];
+    const monthRunTargets = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
+    const monthPageTargets = [120, 160, 200, 240, 280, 320, 360, 400, 440, 480, 520];
+    const monthPracticeMinutes = [40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140];
+    const weekRunTargets = [5, 6, 8, 10, 12, 15, 18, 20, 22, 25, 30];
+    const weekPageTargets = [20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120];
+    const weekPracticeMinutes = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
 
     function addDays(date, amount) {
       const result = new Date(date);
@@ -461,27 +465,45 @@
 
       for (let offset = -PERIOD_RANGE; offset <= PERIOD_RANGE; offset += 1) {
         const year = DEMO_YEAR + offset;
-        yearSamples.forEach(sample => goals.year.push({
-          id: `year-${year}-${sample.slug}`,
-          periodKey: String(year),
-          text: sample.text,
-          completed: sample.completed,
-          stats: { ...sample.stats },
-        }));
+        const periodIndex = offset + PERIOD_RANGE;
+        const theme = yearThemes[periodIndex];
+        const yearSamples = [
+          { slug: 'run', text: `Complete the ${theme.run}` },
+          { slug: 'read', text: `Read 12 ${theme.reading}` },
+          { slug: 'spanish', text: `Reach ${theme.level} in ${theme.language}` },
+        ];
+        yearSamples.forEach((sample, sampleIndex) => {
+          const completedCount = (periodIndex + sampleIndex) % 3;
+          goals.year.push({
+            id: `year-${year}-${sample.slug}`,
+            periodKey: String(year),
+            text: sample.text,
+            completed: completedCount === 2,
+            stats: { completed: completedCount, total: 2, pct: completedCount * 50 },
+          });
+        });
       }
 
       for (let offset = -PERIOD_RANGE; offset <= PERIOD_RANGE; offset += 1) {
         const month = new Date(DEMO_YEAR, DEMO_TODAY.getMonth() + offset, 1);
         const periodKey = getMonthKey(month);
         const year = month.getFullYear();
-        monthSamples.forEach((sample, index) => {
-          const parent = yearSamples.find(item => item.slug === sample.parentSlug);
+        const periodIndex = offset + PERIOD_RANGE;
+        const yearIndex = year - (DEMO_YEAR - PERIOD_RANGE);
+        const theme = yearThemes[yearIndex];
+        const monthSamples = [
+          { slug: 'run', text: `Run ${monthRunTargets[periodIndex]} km toward the ${theme.run}` },
+          { slug: 'read', text: `Read ${monthPageTargets[periodIndex]} pages of ${theme.reading}` },
+          { slug: 'spanish', text: `Practice ${theme.language} for ${monthPracticeMinutes[periodIndex]} minutes` },
+        ];
+        monthSamples.forEach((sample, sampleIndex) => {
+          const parent = goals.year.find(item => item.id === `year-${year}-${sample.slug}`);
           goals.month.push({
             id: `month-${periodKey}-${sample.slug}`,
             periodKey,
             text: sample.text,
-            completed: index === 1,
-            parentGoalId: `year-${year}-${sample.parentSlug}`,
+            completed: (periodIndex + sampleIndex) % 4 === 0,
+            parentGoalId: parent.id,
             parentTitle: parent.text,
           });
         });
@@ -491,14 +513,23 @@
         const weekStart = addDays(DEMO_WEEK, offset * 7);
         const periodKey = getWeekKey(weekStart);
         const monthKey = getWeekMonthKey(weekStart);
-        weekSamples.forEach(sample => {
-          const parent = monthSamples.find(item => item.slug === sample.monthParentSlug);
+        const periodIndex = offset + PERIOD_RANGE;
+        const weekYear = new Date(`${monthKey}-01T00:00:00`).getFullYear();
+        const yearIndex = weekYear - (DEMO_YEAR - PERIOD_RANGE);
+        const theme = yearThemes[yearIndex];
+        const weekSamples = [
+          { slug: 'run', text: `Run ${weekRunTargets[periodIndex]} km toward the ${theme.run}` },
+          { slug: 'read', text: `Read ${weekPageTargets[periodIndex]} pages of ${theme.reading}` },
+          { slug: 'spanish', text: `Practice ${theme.language} for ${weekPracticeMinutes[periodIndex]} minutes` },
+        ];
+        weekSamples.forEach((sample, sampleIndex) => {
+          const parent = goals.month.find(item => item.id === `month-${monthKey}-${sample.slug}`);
           goals.week.push({
-            id: `week-${periodKey}-${sample.monthParentSlug}`,
+            id: `week-${periodKey}-${sample.slug}`,
             periodKey,
             text: sample.text,
-            completed: sample.completed,
-            parentGoalId: `month-${monthKey}-${sample.monthParentSlug}`,
+            completed: (periodIndex + sampleIndex) % 3 === 0,
+            parentGoalId: parent?.id,
             parentTitle: parent.text,
           });
         });
