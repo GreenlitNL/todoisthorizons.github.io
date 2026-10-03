@@ -1964,12 +1964,13 @@ button {
 
 .journey-confetti i {
   position: absolute;
-  top: -10px;
+  left: 14px;
+  bottom: 14px;
   width: 7px;
   height: 11px;
   border-radius: 2px;
   opacity: 0;
-  animation: journey-confetti-fall ease-in forwards;
+  animation: journey-confetti-fall linear forwards;
 }
 
 .journey-demo.is-paused .journey-confetti i {
@@ -1977,7 +1978,8 @@ button {
 }
 
 @keyframes journey-confetti-fall {
-  0% { opacity: 1; transform: translate(0, 0) rotate(0); }
-  85% { opacity: 1; }
-  100% { opacity: 0; transform: translate(var(--drift), 340px) rotate(var(--spin)); }
+  0% { opacity: 1; transform: translate(0, 0) rotate(0); animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1); }
+  45% { opacity: 1; transform: translate(var(--dx), var(--dy)) rotate(calc(var(--spin) / 2)); animation-timing-function: ease-in; }
+  100% { opacity: 0; transform: translate(calc(var(--dx) * 1.25), calc(var(--dy) + var(--fall))) rotate(var(--spin)); }
 }
+

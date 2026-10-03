@@ -122,20 +122,20 @@
     cursor.style.setProperty('--cursor-x', `${targetRect.left - demoRect.left + targetRect.width / 2}px`);
     cursor.style.setProperty('--cursor-y', `${targetRect.top - demoRect.top + targetRect.height / 2}px`);
     cursor.classList.add('is-visible');
-    return wait(115, version);
+    return wait(95, version);
   };
 
   const clickTarget = async (target, action, version) => {
     if (!await moveCursor(target, version)) return false;
     if (!await waitUntilPlaying(version)) return false;
     cursor.classList.add('is-pressing');
-    if (!await wait(45, version) || !await waitUntilPlaying(version)) {
+    if (!await wait(35, version) || !await waitUntilPlaying(version)) {
       cursor.classList.remove('is-pressing');
       return false;
     }
     action();
     cursor.classList.remove('is-pressing');
-    return wait(70, version);
+    return wait(55, version);
   };
 
   const typeGoals = async (entries, texts, version) => {
@@ -150,7 +150,7 @@
       copies.forEach((copy, i) => { copy.textContent = texts[i].slice(0, index + 1); });
     }
 
-    return wait(60, version);
+    return wait(45, version);
   };
 
   const clearEntry = (entry) => {
@@ -165,12 +165,15 @@
     layer.setAttribute('aria-hidden', 'true');
     for (let i = 0; i < 36; i += 1) {
       const piece = document.createElement('i');
-      piece.style.left = `${Math.random() * 100}%`;
+      const angle = (15 + Math.random() * 60) * Math.PI / 180;
+      const power = 160 + Math.random() * 180;
       piece.style.background = confettiColors[i % confettiColors.length];
-      piece.style.setProperty('--drift', `${(Math.random() - 0.5) * 80}px`);
+      piece.style.setProperty('--dx', `${Math.cos(angle) * power}px`);
+      piece.style.setProperty('--dy', `${-Math.sin(angle) * power}px`);
+      piece.style.setProperty('--fall', `${60 + Math.random() * 120}px`);
       piece.style.setProperty('--spin', `${(Math.random() - 0.5) * 720}deg`);
-      piece.style.animationDelay = `${Math.random() * 250}ms`;
-      piece.style.animationDuration = `${1400 + Math.random() * 900}ms`;
+      piece.style.animationDelay = `${Math.random() * 150}ms`;
+      piece.style.animationDuration = `${1400 + Math.random() * 700}ms`;
       layer.append(piece);
     }
     yearCard.append(layer);
@@ -254,7 +257,7 @@
         }, version)) { ok = false; break; }
         weeklyCount.textContent = `${weekIndex + 1} / 4 weeks`;
         weeklyFill.style.width = `${(weekIndex + 1) * 25}%`;
-        if (!await wait(75, version)) { ok = false; break; }
+        if (!await wait(60, version)) { ok = false; break; }
       }
       if (!ok) continue;
       if (!await wait(beat, version)) continue;
