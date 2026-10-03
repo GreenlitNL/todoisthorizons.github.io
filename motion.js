@@ -118,7 +118,7 @@
     cursor.style.setProperty('--cursor-x', `${targetRect.left - demoRect.left + targetRect.width / 2}px`);
     cursor.style.setProperty('--cursor-y', `${targetRect.top - demoRect.top + targetRect.height / 2}px`);
     cursor.classList.add('is-visible');
-    return wait(170, version);
+    return wait(140, version);
   };
 
   const clickTarget = async (target, action, version) => {
@@ -146,7 +146,7 @@
       copies.forEach((copy, i) => { copy.textContent = texts[i].slice(0, index + 1); });
     }
 
-    return wait(120, version);
+    return wait(80, version);
   };
 
   const clearEntry = (entry) => {
@@ -186,7 +186,7 @@
   const monthGoals = ['Write story 10', 'Write story 11', 'Write story 12'];
   const weekGoals = ['Choose the story idea', 'Outline story 12', 'Draft story 12', 'Revise story 12'];
 
-  const beat = 750;
+  const beat = 500;
 
   const runSequence = async () => {
     while (true) {
@@ -231,7 +231,7 @@
         }, version)) { ok = false; break; }
         weeklyCount.textContent = `${weekIndex + 1} / 4 weeks complete`;
         weeklyFill.style.width = `${(weekIndex + 1) * 25}%`;
-        if (!await wait(150, version)) { ok = false; break; }
+        if (!await wait(100, version)) { ok = false; break; }
       }
       if (!ok) continue;
       if (!await wait(beat, version)) continue;
