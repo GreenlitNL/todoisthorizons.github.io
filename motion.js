@@ -212,7 +212,7 @@
   const monthGoals = ['Write story 10', 'Write story 11', 'Write story 12'];
   const weekGoals = ['Choose the story idea', 'Outline story 12', 'Draft story 12', 'Revise story 12'];
 
-  const beat = 500;
+  const beat = 250;
 
   const runSequence = async () => {
     while (true) {
