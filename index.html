@@ -3,65 +3,511 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Horizons for Todoist: Legal, Privacy & About</title>
-  <meta name="description" content="Official documentation, privacy policy, and terms of use for the Horizons for Todoist browser extension.">
+  <title>Horizons for Todoist: Plan Long-Term Goals Directly Inside Todoist</title>
+  <meta name="description" content="Connect your daily tasks to your biggest life goals. Multi-tiered horizon planning (Year, Month, Week) for Todoist. 100% private and open source.">
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23dc4c3e' stroke-width='2'><circle cx='12' cy='12' r='10'/><path d='m8 12 3 3 5-5'/></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23dc4c3e' stroke-width='2.5'><circle cx='12' cy='12' r='10'/><path d='m8 12 3 3 5-5'/></svg>">
 </head>
 <body>
-  <div class="site-container">
-    <header class="site-header">
+  <header class="site-header">
+    <div class="header-inner">
       <a href="index.html" class="brand">
         <div class="brand-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
             <path d="m8 12 3 3 5-5"></path>
           </svg>
         </div>
-        <span class="brand-name">Horizons for Todoist</span>
+        <span>Horizons for Todoist</span>
       </a>
+
       <nav class="site-nav">
-        <a href="index.html" class="active">Overview</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms of Use</a>
-        <a href="https://github.com/todoisthorizons/todoisthorizons.github.io" target="_blank" rel="noopener">GitHub</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#preview" class="nav-link">Live Demo</a>
+        <a href="privacy.html" class="nav-link">Privacy Policy</a>
+        <a href="terms.html" class="nav-link">Terms of Use</a>
+        <a href="https://github.com/todoisthorizons/todoisthorizons.github.io" target="_blank" rel="noopener" class="nav-link">GitHub</a>
       </nav>
-    </header>
 
-    <main>
-      <section class="hero">
-        <h1>Horizons for Todoist</h1>
-        <p class="lead">Plan and achieve your long-term goals across yearly, monthly, and weekly time horizons directly inside Todoist.</p>
-      </section>
+      <div class="header-actions">
+        <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme">
+          <svg id="themeIconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg id="themeIconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
 
-      <div class="card">
-        <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">About the Extension</h2>
-        <p style="margin-bottom: 16px;">
-          Horizons for Todoist brings multi-tiered horizon planning (Yearly Vision, Monthly Focus, and Weekly Milestones) seamlessly into your Todoist workflow. The extension operates locally in your browser with zero third-party telemetry, using your own Todoist account for optional multi-browser synchronization and automated backups.
+        <a href="https://chromewebstore.google.com/" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+          <span>Add to Chrome</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="pill-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        <span>Free and Open-Source Extension</span>
+      </div>
+
+      <h1>See the big picture directly inside Todoist.</h1>
+
+      <p class="lead">
+        Horizons connects your daily tasks to your biggest life goals. Plan across yearly vision, monthly focus, and weekly milestones without ever leaving your Todoist workflow.
+      </p>
+
+      <div class="hero-cta">
+        <a href="https://chromewebstore.google.com/" target="_blank" rel="noopener" class="btn btn-primary btn-lg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polygon points="12 8 8 12 12 16 12 8"></polygon>
+          </svg>
+          <span>Install for Chrome</span>
+        </a>
+        <a href="#preview" class="btn btn-secondary btn-lg">
+          <span>Try Interactive Demo</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Interactive Live Preview Section -->
+    <section class="preview-container" id="preview">
+      <div class="preview-shell">
+        <div class="preview-topbar">
+          <div class="preview-title-area">
+            <div class="preview-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="m8 12 3 3 5-5"></path>
+              </svg>
+            </div>
+            <span class="preview-title">Horizons Board</span>
+            <span class="preview-pill-interactive">Interactive Preview</span>
+          </div>
+
+          <div class="preview-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <span>Click any circle to complete goals</span>
+          </div>
+        </div>
+
+        <div class="horizons-board">
+          <!-- Column 1: Yearly Vision -->
+          <div class="horizon-column">
+            <div class="column-header">
+              <div class="column-title-group">
+                <span class="column-title">Yearly Vision</span>
+                <span class="column-count">3</span>
+              </div>
+              <span class="column-period">2026</span>
+            </div>
+
+            <div class="goal-list">
+              <div class="goal-card" onclick="toggleGoal(this)">
+                <div class="td-checkbox">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="goal-content">
+                  <div class="goal-title">Run a full marathon in October</div>
+                  <div class="goal-meta">
+                    <span class="priority-tag p1">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                        <line x1="4" y1="22" x2="4" y2="15"></line>
+                      </svg>
+                      P1
+                    </span>
+                    <span class="parent-tag">Health & Fitness</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="goal-card" onclick="toggleGoal(this)">
+                <div class="td-checkbox">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="goal-content">
+                  <div class="goal-title">Launch Horizons to 1,000 active planners</div>
+                  <div class="goal-meta">
+                    <span class="priority-tag p1">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                        <line x1="4" y1="22" x2="4" y2="15"></line>
+                      </svg>
+                      P1
+                    </span>
+                    <span class="parent-tag">Projects</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="goal-card is-completed" onclick="toggleGoal(this)">
+                <div class="td-checkbox checked">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="goal-content">
+                  <div class="goal-title">Read 24 books on product and design</div>
+                  <div class="goal-meta">
+                    <span class="priority-tag p2">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                        <line x1="4" y1="22" x2="4" y2="15"></line>
+                      </svg>
+                      P2
+                    </span>
+                    <span class="parent-tag">Learning</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: Monthly Focus -->
+          <div class="horizon-column">
+            <div class="column-header">
+              <div class="column-title-group">
+                <span class="column-title">Monthly Focus</span>
+                <span class="column-count">3</span>
+              </div>
+              <span class="column-period">October 2026</span>
+            </div>
+
+            <div class="goal-list">
+              <div class="goal-card" onclick="toggleGoal(this)">
+                <div class="td-checkbox">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="goal-content">
+                  <div class="goal-title">Reach 30km weekly training mileage</div>
+                  <div class="goal-meta">
+                    <span class="priority-tag p1">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                        <line x1="4" y1="22" x2="4" y2="15"></line>
+                      </svg>
+                      P1
+                    </span>
+                    <span class="parent-tag">↗ Run a full marathon</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="goal-card" onclick="toggleGoal(this)">
+                <div class="td-checkbox">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="goal-content">
+                  <div class="goal-title">Publish extension to Chrome Web Store</div>
+                  <div class="goal-meta">
+                    <span class="priority-tag p1">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                        <line x1="4" y1="22" x2="4" y2="15"></line>
+                      </svg>
+                      P1
+                    </span>
+                    <span class="parent-tag">↗ Launch Horizons</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="goal-card" onclick="toggleGoal(this)">
+                <div class="td-checkbox">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="goal-content">
+                  <div class="goal-title">Finish 2 books on modern architecture</div>
+                  <div class="goal-meta">
+                    <span class="priority-tag p3">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                        <line x1="4" y1="22" x2="4" y2="15"></line>
+                      </svg>
+                      P3
+                    </span>
+                    <span class="parent-tag">↗ Read 24 books</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 3: Weekly Milestones -->
+          <div class="horizon-column">
+            <div class="column-header">
+              <div class="column-title-group">
+                <span class="column-title">Weekly Milestones</span>
+                <span class="column-count">3</span>
+              </div>
+              <span class="column-period">Week 40</span>
+            </div>
+
+            <div class="goal-list">
+              <div class="goal-card" onclick="toggleGoal(this)">
+                <div class="td-checkbox">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="goal-content">
+                  <div class="goal-title">Tuesday 8km pace run</div>
+                  <div class="goal-meta">
+                    <span class="priority-tag p1">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                        <line x1="4" y1="22" x2="4" y2="15"></line>
+                      </svg>
+                      P1
+                    </span>
+                    <span class="parent-tag">↗ Reach 30km mileage</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="goal-card" onclick="toggleGoal(this)">
+                <div class="td-checkbox">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="goal-content">
+                  <div class="goal-title">Draft store screenshots and description</div>
+                  <div class="goal-meta">
+                    <span class="priority-tag p2">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                        <line x1="4" y1="22" x2="4" y2="15"></line>
+                      </svg>
+                      P2
+                    </span>
+                    <span class="parent-tag">↗ Publish extension</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="goal-card is-completed" onclick="toggleGoal(this)">
+                <div class="td-checkbox checked">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+                <div class="goal-content">
+                  <div class="goal-title">Design authentic Todoist website</div>
+                  <div class="goal-meta">
+                    <span class="priority-tag p1">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                        <line x1="4" y1="22" x2="4" y2="15"></line>
+                      </svg>
+                      P1
+                    </span>
+                    <span class="parent-tag">↗ Launch Horizons</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bento Features Section -->
+    <section class="section-container" id="features">
+      <div class="section-header">
+        <h2>Designed to feel native to Todoist</h2>
+        <p>A natural extension of your workflow that respects your privacy and enhances your productivity.</p>
+      </div>
+
+      <div class="bento-grid">
+        <!-- Card 1 (Span 2) -->
+        <div class="bento-card span-2">
+          <div class="card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="9" y1="3" x2="9" y2="21"></line>
+              <line x1="15" y1="3" x2="15" y2="21"></line>
+            </svg>
+          </div>
+          <h3>Multi-Tiered Horizon Planning</h3>
+          <p>
+            Connect long-term vision to immediate action. Every weekly milestone rolls up into a monthly focus, and every monthly focus feeds your yearly vision. When you check off a task, you feel the momentum toward what truly matters.
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bento-card">
+          <div class="card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <h3>Native Sidebar Integration</h3>
+          <p>
+            Horizons lives right inside Todoist. Access it directly from your navigation sidebar, with a compact mini-calendar for instant date navigation and smooth transitions.
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bento-card">
+          <div class="card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <h3>100% Private, Zero Telemetry</h3>
+          <p>
+            Your goals are personal. Horizons has zero analytics scripts, zero tracking pixels, and zero third-party telemetry. Everything stays stored securely in your browser.
+          </p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bento-card">
+          <div class="card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+            </svg>
+          </div>
+          <h3>Sync & Automated Backups</h3>
+          <p>
+            Keep your goals in sync across multiple computers using your existing Todoist account. Automatic hourly snapshots keep your planning safe with 1-click JSON export.
+          </p>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="bento-card">
+          <div class="card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </div>
+          <h3>Light & Dark Noir Themes</h3>
+          <p>
+            Whether you plan in the daylight or reflect late at night, Horizons seamlessly adopts your active Todoist theme without any jarring color mismatches.
+          </p>
+        </div>
+      </div>
+
+      <!-- Bottom Call To Action Banner -->
+      <div class="cta-banner">
+        <h2>Start planning with clarity today</h2>
+        <p>No separate sign-up, no monthly fees, and zero tracking. Install the extension in seconds and elevate your Todoist setup.</p>
+        <a href="https://chromewebstore.google.com/" target="_blank" rel="noopener" class="btn btn-primary btn-lg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 8 8 12 12 16"></polyline>
+          </svg>
+          <span>Get Horizons for Chrome</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <a href="index.html" class="brand">
+          <div class="brand-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="m8 12 3 3 5-5"></path>
+            </svg>
+          </div>
+          <span>Horizons for Todoist</span>
+        </a>
+
+        <div class="footer-links">
+          <a href="index.html" class="footer-link">Overview</a>
+          <a href="privacy.html" class="footer-link">Privacy Policy</a>
+          <a href="terms.html" class="footer-link">Terms of Use</a>
+          <a href="https://github.com/todoisthorizons/todoisthorizons.github.io" target="_blank" rel="noopener" class="footer-link">GitHub Repository</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Horizons for Todoist. Open-source software.</p>
+        <p class="disclaimer-text">
+          Horizons for Todoist is an independent project and is not affiliated with, endorsed by, or sponsored by Doist Ltd or Todoist. Todoist is a registered trademark of Doist Ltd.
         </p>
       </div>
+    </div>
+  </footer>
 
-      <div class="card">
-        <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">Legal & Compliance Documents</h2>
-        <ul style="padding-left: 20px; margin-bottom: 12px; line-height: 1.8;">
-          <li>
-            <a href="privacy.html" style="font-weight: 600; color: var(--color-primary);">Privacy Policy</a>: Full disclosure of our zero-telemetry architecture, local storage policies, and Todoist API usage.
-          </li>
-          <li>
-            <a href="terms.html" style="font-weight: 600; color: var(--color-primary);">Terms of Use</a>: Fair-use terms, data ownership rights, backup recommendations, and liability notices.
-          </li>
-        </ul>
-      </div>
+  <script>
+    // Theme toggle handling
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const sunIcon = document.getElementById('themeIconSun');
+    const moonIcon = document.getElementById('themeIconMoon');
 
-      <div class="notice-box">
-        <strong>Trademark Disclaimer:</strong> Horizons for Todoist is an independent project and is not officially affiliated with, endorsed by, or sponsored by Doist Ltd or Todoist.
-      </div>
-    </main>
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+      }
+    }
 
-    <footer class="site-footer">
-      <p>&copy; 2026 Horizons for Todoist. All rights reserved.</p>
-      <p>Independent extension for Todoist.</p>
-    </footer>
-  </div>
+    const savedTheme = localStorage.getItem('th_theme');
+    if (savedTheme) {
+      applyTheme(savedTheme);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      applyTheme('dark');
+    } else {
+      applyTheme('light');
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('th_theme', next);
+      applyTheme(next);
+    });
+
+    // Interactive goal card toggle
+    function toggleGoal(card) {
+      const checkbox = card.querySelector('.td-checkbox');
+      const isChecked = checkbox.classList.toggle('checked');
+      card.classList.toggle('is-completed', isChecked);
+    }
+  </script>
 </body>
 </html>
