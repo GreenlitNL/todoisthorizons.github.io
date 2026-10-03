@@ -102,8 +102,12 @@ html {
 }
 
 #preview,
-#features {
-  scroll-margin-top: 88px;
+#features,
+#upgrades,
+#walkthrough,
+#privacy-by-design,
+#faq {
+  scroll-margin-top: 104px;
 }
 
 body {
