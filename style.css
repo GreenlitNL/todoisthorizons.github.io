@@ -444,28 +444,48 @@ button {
 }
 
 /* ==========================================================================
-   Stacked Workspaces (Year, Month, Week Below Each Other)
+   Three Workspaces (Year, Month, Week as Columns)
    ========================================================================== */
 
 .preview-workspaces {
   padding: 24px 28px 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: auto 1fr;
+  column-gap: 24px;
   background-color: var(--td-surface);
 }
 
+/* Each column spans the header row and the content row so lanes align across columns */
 .preview-tier-section {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-row: span 2;
+  grid-template-rows: subgrid;
+  min-width: 0;
 }
 
 .preview-section-header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
+  align-content: flex-start;
+  min-width: 0;
   padding: 4px 0 12px;
   user-select: none;
+}
+
+@media (max-width: 960px) {
+  .preview-workspaces {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .preview-tier-section {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .preview-section-left {
@@ -512,6 +532,7 @@ button {
 }
 
 .preview-seg-btn {
+  white-space: nowrap;
   border: none;
   background: none;
   font-size: 12px;
@@ -581,6 +602,7 @@ button {
 .tier-content {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .preview-tier-section.is-collapsed .tier-content {
@@ -631,6 +653,7 @@ button {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  min-width: 0;
   padding: 9px 12px;
   border-radius: 7px;
   background-color: var(--td-card-bg);
@@ -710,9 +733,7 @@ button {
   line-height: 18px;
   color: var(--td-text-primary);
   transition: color 0.15s ease, text-decoration 0.15s ease;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
 .mini-goal-row.is-completed .mini-goal-text {
