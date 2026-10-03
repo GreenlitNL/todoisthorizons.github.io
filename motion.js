@@ -287,3 +287,14 @@
   resetSequence();
   runSequence();
 })();
+
+document.querySelectorAll('.js-learn-more').forEach((link) => {
+  link.addEventListener('click', (event) => {
+    const target = document.querySelector('.journey-demo');
+    if (!target) return;
+    event.preventDefault();
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+    history.replaceState(null, '', '#walkthrough');
+  });
+});
