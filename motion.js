@@ -26,7 +26,6 @@
   const yearEntry = yearCard.querySelector('.journey-year-entry');
   const yearCount = demo.querySelector('.journey-year-count');
   const yearFill = demo.querySelector('.journey-year-fill');
-  const yearState = demo.querySelector('.journey-year-state');
   const yearCheck = demo.querySelector('.journey-year-check');
   const quarterCard = demo.querySelector('.journey-quarter');
   const quarterRows = [...demo.querySelectorAll('.journey-month-item')];
@@ -162,7 +161,6 @@
     clearEntry(yearEntry);
     yearCount.textContent = '10 / 12 stories';
     yearFill.style.width = `${10 * 100 / 12}%`;
-    yearState.textContent = '';
     yearCheck.classList.remove('is-complete');
 
     quarterRows.forEach((row) => {
@@ -250,7 +248,6 @@
         yearCard.classList.add('is-complete');
         yearCount.textContent = '12 / 12 stories';
         yearFill.style.width = '100%';
-        yearState.textContent = 'Year goal complete';
         yearCheck.classList.add('is-complete');
       }, version)) continue;
       cursor.classList.remove('is-visible');

@@ -1052,10 +1052,9 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  color: var(--td-text-secondary);
-  font-size: 12px;
+  color: var(--td-text-primary);
+  font-size: 14px;
   font-weight: 700;
-  text-transform: uppercase;
 }
 
 .journey-demo-controls {
@@ -1941,4 +1940,9 @@ button {
 
 .journey-year-state:empty {
   display: none;
+}
+
+.journey-demo-logo {
+  width: 24px;
+  height: 24px;
 }
