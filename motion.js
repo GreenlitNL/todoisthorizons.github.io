@@ -146,7 +146,7 @@
       copies.forEach((copy, i) => { copy.textContent = texts[i].slice(0, index + 1); });
     }
 
-    return wait(350, version);
+    return wait(250, version);
   };
 
   const clearEntry = (entry) => {
@@ -186,6 +186,8 @@
   const monthGoals = ['Write story 10', 'Write story 11', 'Write story 12'];
   const weekGoals = ['Choose the story idea', 'Outline story 12', 'Draft story 12', 'Revise story 12'];
 
+  const beat = 1100;
+
   const runSequence = async () => {
     while (true) {
       const version = sequenceVersion;
@@ -194,6 +196,7 @@
 
       yearCard.classList.add('is-current');
       if (!await typeGoals([yearEntry], ['Write 12 short stories'], version)) continue;
+      if (!await wait(beat, version)) continue;
       yearCard.classList.remove('is-current');
 
       quarterCard.classList.add('is-current');
@@ -203,13 +206,16 @@
         quarterRows[index].classList.add('is-complete');
         quarterRows[index].querySelector('.journey-month-check').classList.add('is-complete');
       });
+      if (!await wait(600, version)) continue;
       quarterCount.textContent = '2 / 3 months complete';
       quarterFill.style.width = `${200 / 3}%`;
+      if (!await wait(beat, version)) continue;
       quarterCard.classList.remove('is-current');
 
       weeklyCard.classList.add('is-current');
       const weekEntries = weeklyRows.map(row => row.querySelector('.journey-goal-entry'));
       if (!await typeGoals(weekEntries, weekGoals, version)) continue;
+      if (!await wait(beat, version)) continue;
 
       let ok = true;
       for (const [weekIndex, row] of weeklyRows.entries()) {
@@ -219,9 +225,10 @@
         }, version)) { ok = false; break; }
         weeklyCount.textContent = `${weekIndex + 1} / 4 weeks complete`;
         weeklyFill.style.width = `${(weekIndex + 1) * 25}%`;
-        if (!await wait(200, version)) { ok = false; break; }
+        if (!await wait(450, version)) { ok = false; break; }
       }
       if (!ok) continue;
+      if (!await wait(beat, version)) continue;
       weeklyCard.classList.remove('is-current');
 
       const december = quarterRows[2];
@@ -231,7 +238,7 @@
         quarterCount.textContent = '3 / 3 months complete';
         quarterFill.style.width = '100%';
       }, version)) continue;
-      if (!await wait(300, version)) continue;
+      if (!await wait(beat, version)) continue;
 
       if (!await clickTarget(yearCheck, () => {
         yearCard.classList.add('is-complete');
@@ -241,7 +248,7 @@
         yearCheck.classList.add('is-complete');
       }, version)) continue;
       cursor.classList.remove('is-visible');
-      if (!await wait(2000, version)) continue;
+      if (!await wait(3000, version)) continue;
     }
   };
 

@@ -1448,6 +1448,7 @@ button {
 .journey-connector {
   position: relative;
   height: 1px;
+  align-self: center;
   background: var(--td-border);
 }
 
