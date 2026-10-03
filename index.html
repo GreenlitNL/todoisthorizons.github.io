@@ -178,7 +178,63 @@
 
             <!-- Dynamic Goal List -->
             <div class="mini-goal-list" id="miniGoalList">
-              <!-- Rendered via JavaScript -->
+              <div class="mini-goal-row" data-id="1">
+                <div class="mini-goal-left" onclick="toggleGoalItem(1)">
+                  <div class="mini-checkbox" role="checkbox" aria-checked="false" tabindex="0">
+                    <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <span class="mini-goal-text">Run Amsterdam Marathon in sub-3h45m</span>
+                </div>
+                <div class="mini-goal-right">
+                  <span class="mini-goal-tag">Health</span>
+                  <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem(1, event)" title="Delete goal" aria-label="Delete goal">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="mini-goal-row" data-id="2">
+                <div class="mini-goal-left" onclick="toggleGoalItem(2)">
+                  <div class="mini-checkbox" role="checkbox" aria-checked="false" tabindex="0">
+                    <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <span class="mini-goal-text">Read 24 books on system design &amp; leadership</span>
+                </div>
+                <div class="mini-goal-right">
+                  <span class="mini-goal-tag">Learning</span>
+                  <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem(2, event)" title="Delete goal" aria-label="Delete goal">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="mini-goal-row is-completed" data-id="3">
+                <div class="mini-goal-left" onclick="toggleGoalItem(3)">
+                  <div class="mini-checkbox checked" role="checkbox" aria-checked="true" tabindex="0">
+                    <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <span class="mini-goal-text">Launch Horizons extension on Chrome Web Store</span>
+                </div>
+                <div class="mini-goal-right">
+                  <span class="mini-goal-tag">Projects</span>
+                  <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem(3, event)" title="Delete goal" aria-label="Delete goal">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                </div>
+              </div>
             </div>
 
             <!-- Add Goal Trigger Button -->
@@ -405,19 +461,23 @@
         row.setAttribute('data-id', goal.id);
 
         row.innerHTML = `
-          <div class="mini-checkbox ${goal.completed ? 'checked' : ''}" onclick="toggleGoalItem(${goal.id})" role="checkbox" aria-checked="${goal.completed}" tabindex="0">
-            <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
+          <div class="mini-goal-left" onclick="toggleGoalItem(${goal.id})">
+            <div class="mini-checkbox ${goal.completed ? 'checked' : ''}" role="checkbox" aria-checked="${goal.completed}" tabindex="0">
+              <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <span class="mini-goal-text">${escapeHtml(goal.text)}</span>
           </div>
-          <span class="mini-goal-text" onclick="toggleGoalItem(${goal.id})">${escapeHtml(goal.text)}</span>
-          <span class="mini-goal-tag">${escapeHtml(goal.tag)}</span>
-          <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem(${goal.id}, event)" title="Delete goal" aria-label="Delete goal">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
+          <div class="mini-goal-right">
+            <span class="mini-goal-tag">${escapeHtml(goal.tag)}</span>
+            <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem(${goal.id}, event)" title="Delete goal" aria-label="Delete goal">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
         `;
 
         listEl.appendChild(row);
@@ -466,6 +526,7 @@
       const input = document.getElementById('composerGoalInput');
       if (composer && trigger) {
         composer.classList.add('open');
+        composer.classList.add('is-open');
         trigger.style.display = 'none';
         if (input) {
           input.value = '';
@@ -480,6 +541,7 @@
       const input = document.getElementById('composerGoalInput');
       if (composer && trigger) {
         composer.classList.remove('open');
+        composer.classList.remove('is-open');
         trigger.style.display = 'inline-flex';
         if (input) input.value = '';
       }
@@ -523,7 +585,7 @@
       const trigger = document.getElementById('addGoalTriggerBtn');
 
       if (view === 'horizons') {
-        if (tabs) tabs.style.display = 'flex';
+        if (tabs) tabs.style.display = 'inline-flex';
         if (trigger) trigger.style.display = 'inline-flex';
         switchHorizon(currentHorizon, document.querySelector(`.horizon-tab-btn.active`));
       } else {
@@ -544,10 +606,12 @@
       return div.innerHTML;
     }
 
-    // Initialize goals on load
-    document.addEventListener('DOMContentLoaded', () => {
-      renderGoals();
-    });
+    // Initialize goals immediately and on load
+    renderGoals();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', renderGoals);
+    }
+    window.addEventListener('load', renderGoals);
   </script>
 </body>
 </html>
