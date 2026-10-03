@@ -4,9 +4,9 @@ This repository hosts the official documentation, Privacy Policy, and Terms of U
 
 ## Live Website
 
-- **Website / Overview:** [https://greenlitnl.github.io/todoisthorizons.github.io/](https://greenlitnl.github.io/todoisthorizons.github.io/)
-- **Privacy Policy:** [https://greenlitnl.github.io/todoisthorizons.github.io/privacy.html](https://greenlitnl.github.io/todoisthorizons.github.io/privacy.html)
-- **Terms of Use:** [https://greenlitnl.github.io/todoisthorizons.github.io/terms.html](https://greenlitnl.github.io/todoisthorizons.github.io/terms.html)
+- **Website / Overview:** [https://todoisthorizons.github.io/](https://todoisthorizons.github.io/)
+- **Privacy Policy:** [https://todoisthorizons.github.io/privacy.html](https://todoisthorizons.github.io/privacy.html)
+- **Terms of Use:** [https://todoisthorizons.github.io/terms.html](https://todoisthorizons.github.io/terms.html)
 
 ## Disclaimer
 
