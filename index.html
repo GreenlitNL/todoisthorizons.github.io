@@ -90,168 +90,286 @@
                 <path d="m8 12 3 3 5-5"></path>
               </svg>
             </div>
-            <span class="preview-title">Horizons for Todoist</span>
+            <span class="preview-title">Horizons</span>
             <span class="preview-pill-interactive">Interactive Preview</span>
           </div>
 
-          <div class="preview-hint">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="16" x2="12" y2="12"></line>
-              <line x1="12" y1="8" x2="12.01" y2="8"></line>
-            </svg>
-            <span>Click tabs to switch periods, check off goals, or add new ones</span>
+          <!-- Year Navigation Bar matching extension -->
+          <div class="preview-year-nav">
+            <button type="button" class="preview-year-arrow" onclick="shiftYear(-1)" title="Previous year" aria-label="Previous year">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            <div class="preview-year-buttons">
+              <button type="button" class="preview-year-btn" id="ybtn-2025" onclick="selectYear(2025)">2025</button>
+              <button type="button" class="preview-year-btn is-selected" id="ybtn-2026" onclick="selectYear(2026)">2026</button>
+              <button type="button" class="preview-year-btn" id="ybtn-2027" onclick="selectYear(2027)">2027</button>
+            </div>
+            <button type="button" class="preview-year-arrow" onclick="shiftYear(1)" title="Next year" aria-label="Next year">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
           </div>
         </div>
 
-        <div class="preview-app">
-          <!-- Mini Todoist Sidebar -->
-          <aside class="mini-sidebar">
-            <div class="mini-nav-item" onclick="switchSidebarView('inbox')">
-              <div class="mini-nav-left">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline>
-                  <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path>
+        <!-- Workspaces stacked vertically below each other -->
+        <div class="preview-workspaces">
+          <!-- 1. Yearly Vision Section -->
+          <section class="preview-tier-section" id="tier-year">
+            <header class="preview-tier-header" onclick="toggleTierCollapse('year')">
+              <div class="tier-header-left">
+                <svg class="tier-chevron" id="chevron-year" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
-                <span>Inbox</span>
+                <h3 class="tier-title" id="heading-year">Yearly Vision (2026)</h3>
               </div>
-              <span class="mini-nav-count">3</span>
-            </div>
-
-            <div class="mini-nav-item" onclick="switchSidebarView('today')">
-              <div class="mini-nav-left">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-                <span>Today</span>
-              </div>
-              <span class="mini-nav-count">4</span>
-            </div>
-
-            <div class="mini-nav-item" onclick="switchSidebarView('upcoming')">
-              <div class="mini-nav-left">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-                <span>Upcoming</span>
-              </div>
-            </div>
-
-            <div class="mini-nav-item active" id="sidebarHorizonsBtn" onclick="switchSidebarView('horizons')">
-              <div class="mini-nav-left">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <path d="m8 12 3 3 5-5"></path>
-                </svg>
-                <span>Horizons</span>
-              </div>
-              <span class="mini-nav-count" id="activeHorizonCount">3</span>
-            </div>
-          </aside>
-
-          <!-- Main Horizons View -->
-          <div class="mini-main">
-            <div class="mini-main-header">
-              <div class="mini-main-title">
-                <span id="horizonTitleLabel">Horizons</span>
-              </div>
-
-              <!-- Horizon Switcher Tabs -->
-              <div class="horizon-tabs" role="tablist">
-                <button type="button" class="horizon-tab-btn active" id="tabYear" onclick="switchHorizon('year', this)">
-                  Yearly Vision 2026
-                </button>
-                <button type="button" class="horizon-tab-btn" id="tabMonth" onclick="switchHorizon('month', this)">
-                  Monthly Focus (Oct)
-                </button>
-                <button type="button" class="horizon-tab-btn" id="tabWeek" onclick="switchHorizon('week', this)">
-                  Weekly Milestones (W40)
-                </button>
-              </div>
-            </div>
-
-            <!-- Dynamic Goal List -->
-            <div class="mini-goal-list" id="miniGoalList">
-              <div class="mini-goal-row" data-id="1">
-                <div class="mini-goal-left" onclick="toggleGoalItem(1)">
-                  <div class="mini-checkbox" role="checkbox" aria-checked="false" tabindex="0">
-                    <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                      <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
+              <span class="tier-count-badge" id="count-year">2</span>
+            </header>
+            <div class="tier-content" id="content-year">
+              <div class="tier-goal-list" id="goalList-year">
+                <div class="mini-goal-row" data-id="1">
+                  <div class="mini-goal-left" onclick="toggleGoalItem('year', 1)">
+                    <div class="mini-checkbox" role="checkbox" aria-checked="false" tabindex="0">
+                      <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                    <span class="mini-goal-text">Run Amsterdam Marathon in sub-3h45m</span>
                   </div>
-                  <span class="mini-goal-text">Run Amsterdam Marathon in sub-3h45m</span>
+                  <div class="mini-goal-right">
+                    <span class="mini-goal-tag">Health</span>
+                    <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem('year', 1, event)" title="Delete goal" aria-label="Delete goal">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                  </div>
                 </div>
-                <div class="mini-goal-right">
-                  <span class="mini-goal-tag">Health</span>
-                  <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem(1, event)" title="Delete goal" aria-label="Delete goal">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <line x1="18" y1="6" x2="6" y2="18"></line>
-                      <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                  </button>
+                <div class="mini-goal-row" data-id="2">
+                  <div class="mini-goal-left" onclick="toggleGoalItem('year', 2)">
+                    <div class="mini-checkbox" role="checkbox" aria-checked="false" tabindex="0">
+                      <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                    <span class="mini-goal-text">Read 24 books on system design &amp; leadership</span>
+                  </div>
+                  <div class="mini-goal-right">
+                    <span class="mini-goal-tag">Learning</span>
+                    <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem('year', 2, event)" title="Delete goal" aria-label="Delete goal">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="mini-goal-row is-completed" data-id="3">
+                  <div class="mini-goal-left" onclick="toggleGoalItem('year', 3)">
+                    <div class="mini-checkbox checked" role="checkbox" aria-checked="true" tabindex="0">
+                      <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                    <span class="mini-goal-text">Launch Horizons extension on Chrome Web Store</span>
+                  </div>
+                  <div class="mini-goal-right">
+                    <span class="mini-goal-tag">Projects</span>
+                    <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem('year', 3, event)" title="Delete goal" aria-label="Delete goal">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div class="mini-goal-row" data-id="2">
-                <div class="mini-goal-left" onclick="toggleGoalItem(2)">
-                  <div class="mini-checkbox" role="checkbox" aria-checked="false" tabindex="0">
-                    <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                      <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                  </div>
-                  <span class="mini-goal-text">Read 24 books on system design &amp; leadership</span>
-                </div>
-                <div class="mini-goal-right">
-                  <span class="mini-goal-tag">Learning</span>
-                  <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem(2, event)" title="Delete goal" aria-label="Delete goal">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <line x1="18" y1="6" x2="6" y2="18"></line>
-                      <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-              <div class="mini-goal-row is-completed" data-id="3">
-                <div class="mini-goal-left" onclick="toggleGoalItem(3)">
-                  <div class="mini-checkbox checked" role="checkbox" aria-checked="true" tabindex="0">
-                    <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                      <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                  </div>
-                  <span class="mini-goal-text">Launch Horizons extension on Chrome Web Store</span>
-                </div>
-                <div class="mini-goal-right">
-                  <span class="mini-goal-tag">Projects</span>
-                  <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem(3, event)" title="Delete goal" aria-label="Delete goal">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <line x1="18" y1="6" x2="6" y2="18"></line>
-                      <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                  </button>
+              <button type="button" class="mini-add-trigger" id="addBtn-year" onclick="openComposerForTier('year')">
+                <span class="plus-circle">+</span>
+                <span>Add goal</span>
+              </button>
+              <div class="mini-inline-composer" id="composer-year">
+                <input type="text" class="mini-composer-input" id="input-year" placeholder="Add yearly goal..." onkeydown="handleComposerKey(event, 'year')">
+                <div class="mini-composer-actions">
+                  <button type="button" class="mini-composer-btn-cancel" onclick="closeComposerForTier('year')">Cancel</button>
+                  <button type="button" class="mini-composer-btn-save" onclick="submitGoalForTier('year')">Add goal</button>
                 </div>
               </div>
             </div>
+          </section>
 
-            <!-- Add Goal Trigger Button -->
-            <button type="button" class="mini-add-trigger" id="addGoalTriggerBtn" onclick="openComposer()">
-              <span class="plus-circle">+</span>
-              <span>Add goal</span>
-            </button>
-
-            <!-- Inline Goal Composer -->
-            <div class="mini-inline-composer" id="miniComposer">
-              <input type="text" class="mini-composer-input" id="composerGoalInput" placeholder="Goal title (e.g. Read 20 pages daily, 15km weekend long run)..." onkeydown="handleComposerKey(event)">
-              <div class="mini-composer-actions">
-                <button type="button" class="mini-composer-btn-cancel" onclick="closeComposer()">Cancel</button>
-                <button type="button" class="mini-composer-btn-save" onclick="submitNewGoal()">Add goal</button>
+          <!-- 2. Monthly Focus Section -->
+          <section class="preview-tier-section" id="tier-month">
+            <header class="preview-tier-header" onclick="toggleTierCollapse('month')">
+              <div class="tier-header-left">
+                <svg class="tier-chevron" id="chevron-month" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+                <h3 class="tier-title" id="heading-month">Monthly Focus (October)</h3>
+              </div>
+              <span class="tier-count-badge" id="count-month">2</span>
+            </header>
+            <div class="tier-content" id="content-month">
+              <div class="tier-goal-list" id="goalList-month">
+                <div class="mini-goal-row" data-id="4">
+                  <div class="mini-goal-left" onclick="toggleGoalItem('month', 4)">
+                    <div class="mini-checkbox" role="checkbox" aria-checked="false" tabindex="0">
+                      <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                    <span class="mini-goal-text">Build weekly mileage base to 45km</span>
+                  </div>
+                  <div class="mini-goal-right">
+                    <span class="mini-goal-tag">Running</span>
+                    <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem('month', 4, event)" title="Delete goal" aria-label="Delete goal">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="mini-goal-row is-completed" data-id="5">
+                  <div class="mini-goal-left" onclick="toggleGoalItem('month', 5)">
+                    <div class="mini-checkbox checked" role="checkbox" aria-checked="true" tabindex="0">
+                      <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                    <span class="mini-goal-text">Finish chapters 1-6 of Designing Data-Intensive Apps</span>
+                  </div>
+                  <div class="mini-goal-right">
+                    <span class="mini-goal-tag">Study</span>
+                    <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem('month', 5, event)" title="Delete goal" aria-label="Delete goal">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="mini-goal-row" data-id="6">
+                  <div class="mini-goal-left" onclick="toggleGoalItem('month', 6)">
+                    <div class="mini-checkbox" role="checkbox" aria-checked="false" tabindex="0">
+                      <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                    <span class="mini-goal-text">Release v1.2 with automated backup sync</span>
+                  </div>
+                  <div class="mini-goal-right">
+                    <span class="mini-goal-tag">Release</span>
+                    <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem('month', 6, event)" title="Delete goal" aria-label="Delete goal">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="mini-add-trigger" id="addBtn-month" onclick="openComposerForTier('month')">
+                <span class="plus-circle">+</span>
+                <span>Add goal</span>
+              </button>
+              <div class="mini-inline-composer" id="composer-month">
+                <input type="text" class="mini-composer-input" id="input-month" placeholder="Add monthly focus..." onkeydown="handleComposerKey(event, 'month')">
+                <div class="mini-composer-actions">
+                  <button type="button" class="mini-composer-btn-cancel" onclick="closeComposerForTier('month')">Cancel</button>
+                  <button type="button" class="mini-composer-btn-save" onclick="submitGoalForTier('month')">Add goal</button>
+                </div>
               </div>
             </div>
-          </div>
+          </section>
+
+          <!-- 3. Weekly Milestones Section -->
+          <section class="preview-tier-section" id="tier-week">
+            <header class="preview-tier-header" onclick="toggleTierCollapse('week')">
+              <div class="tier-header-left">
+                <svg class="tier-chevron" id="chevron-week" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+                <h3 class="tier-title" id="heading-week">Weekly Milestones (Week 40)</h3>
+              </div>
+              <span class="tier-count-badge" id="count-week">2</span>
+            </header>
+            <div class="tier-content" id="content-week">
+              <div class="tier-goal-list" id="goalList-week">
+                <div class="mini-goal-row is-completed" data-id="7">
+                  <div class="mini-goal-left" onclick="toggleGoalItem('week', 7)">
+                    <div class="mini-checkbox checked" role="checkbox" aria-checked="true" tabindex="0">
+                      <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                    <span class="mini-goal-text">Tuesday interval session: 6x800m track workout</span>
+                  </div>
+                  <div class="mini-goal-right">
+                    <span class="mini-goal-tag">Training</span>
+                    <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem('week', 7, event)" title="Delete goal" aria-label="Delete goal">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="mini-goal-row" data-id="8">
+                  <div class="mini-goal-left" onclick="toggleGoalItem('week', 8)">
+                    <div class="mini-checkbox" role="checkbox" aria-checked="false" tabindex="0">
+                      <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                    <span class="mini-goal-text">Draft high-level architecture diagram for sync engine</span>
+                  </div>
+                  <div class="mini-goal-right">
+                    <span class="mini-goal-tag">Architecture</span>
+                    <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem('week', 8, event)" title="Delete goal" aria-label="Delete goal">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="mini-goal-row" data-id="9">
+                  <div class="mini-goal-left" onclick="toggleGoalItem('week', 9)">
+                    <div class="mini-checkbox" role="checkbox" aria-checked="false" tabindex="0">
+                      <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                    <span class="mini-goal-text">Review pull requests and run unit test suite</span>
+                  </div>
+                  <div class="mini-goal-right">
+                    <span class="mini-goal-tag">Code</span>
+                    <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem('week', 9, event)" title="Delete goal" aria-label="Delete goal">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="mini-add-trigger" id="addBtn-week" onclick="openComposerForTier('week')">
+                <span class="plus-circle">+</span>
+                <span>Add goal</span>
+              </button>
+              <div class="mini-inline-composer" id="composer-week">
+                <input type="text" class="mini-composer-input" id="input-week" placeholder="Add weekly milestone..." onkeydown="handleComposerKey(event, 'week')">
+                <div class="mini-composer-actions">
+                  <button type="button" class="mini-composer-btn-cancel" onclick="closeComposerForTier('week')">Cancel</button>
+                  <button type="button" class="mini-composer-btn-save" onclick="submitGoalForTier('week')">Add goal</button>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </section>
@@ -413,7 +531,8 @@
       applyTheme(next);
     });
 
-    // Interactive Preview State & Logic
+    // Interactive Preview State & Logic (Year, Month, Week Below Each Other)
+    let selectedYear = 2026;
     const horizonData = {
       year: [
         { id: 1, text: 'Run Amsterdam Marathon in sub-3h45m', completed: false, tag: 'Health' },
@@ -432,26 +551,18 @@
       ]
     };
 
-    let currentHorizon = 'year';
-
-    function updateNavCounter() {
-      const activeGoals = horizonData[currentHorizon].filter(g => !g.completed).length;
-      const counterEl = document.getElementById('activeHorizonCount');
-      if (counterEl) {
-        counterEl.textContent = activeGoals;
-      }
-    }
-
-    function renderGoals() {
-      const listEl = document.getElementById('miniGoalList');
+    function renderTier(tier) {
+      const listEl = document.getElementById(`goalList-${tier}`);
+      const countEl = document.getElementById(`count-${tier}`);
       if (!listEl) return;
 
-      const goals = horizonData[currentHorizon];
-      listEl.innerHTML = '';
+      const goals = horizonData[tier];
+      const activeCount = goals.filter(g => !g.completed).length;
+      if (countEl) countEl.textContent = activeCount;
 
+      listEl.innerHTML = '';
       if (goals.length === 0) {
-        listEl.innerHTML = '<div style="padding: 1.5rem 0; color: var(--text-tertiary); font-size: 0.875rem; text-align: center;">No goals for this horizon yet. Click "+ Add goal" below to start.</div>';
-        updateNavCounter();
+        listEl.innerHTML = '<div style="padding: 12px 0; color: var(--td-text-tertiary); font-size: 13px;">No goals in this section. Click "+ Add goal" below.</div>';
         return;
       }
 
@@ -461,7 +572,7 @@
         row.setAttribute('data-id', goal.id);
 
         row.innerHTML = `
-          <div class="mini-goal-left" onclick="toggleGoalItem(${goal.id})">
+          <div class="mini-goal-left" onclick="toggleGoalItem('${tier}', ${goal.id})">
             <div class="mini-checkbox ${goal.completed ? 'checked' : ''}" role="checkbox" aria-checked="${goal.completed}" tabindex="0">
               <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12"></polyline>
@@ -471,7 +582,7 @@
           </div>
           <div class="mini-goal-right">
             <span class="mini-goal-tag">${escapeHtml(goal.tag)}</span>
-            <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem(${goal.id}, event)" title="Delete goal" aria-label="Delete goal">
+            <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem('${tier}', ${goal.id}, event)" title="Delete goal" aria-label="Delete goal">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -479,55 +590,45 @@
             </button>
           </div>
         `;
-
         listEl.appendChild(row);
       });
-
-      updateNavCounter();
     }
 
-    function switchHorizon(horizon, btn) {
-      currentHorizon = horizon;
-      document.querySelectorAll('.horizon-tab-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-
-      const titleMap = {
-        year: 'Yearly Vision 2026',
-        month: 'Monthly Focus (October)',
-        week: 'Weekly Milestones (Week 40)'
-      };
-      const titleLabel = document.getElementById('horizonTitleLabel');
-      if (titleLabel) {
-        titleLabel.textContent = titleMap[horizon] || 'Horizons';
-      }
-
-      closeComposer();
-      renderGoals();
+    function renderAllTiers() {
+      renderTier('year');
+      renderTier('month');
+      renderTier('week');
     }
 
-    function toggleGoalItem(id) {
-      const goals = horizonData[currentHorizon];
-      const goal = goals.find(g => g.id === id);
+    function toggleGoalItem(tier, id) {
+      const goal = horizonData[tier].find(g => g.id === id);
       if (goal) {
         goal.completed = !goal.completed;
-        renderGoals();
+        renderTier(tier);
       }
     }
 
-    function deleteGoalItem(id, event) {
+    function deleteGoalItem(tier, id, event) {
       if (event) event.stopPropagation();
-      horizonData[currentHorizon] = horizonData[currentHorizon].filter(g => g.id !== id);
-      renderGoals();
+      horizonData[tier] = horizonData[tier].filter(g => g.id !== id);
+      renderTier(tier);
     }
 
-    function openComposer() {
-      const composer = document.getElementById('miniComposer');
-      const trigger = document.getElementById('addGoalTriggerBtn');
-      const input = document.getElementById('composerGoalInput');
-      if (composer && trigger) {
+    function toggleTierCollapse(tier) {
+      const section = document.getElementById(`tier-${tier}`);
+      if (section) {
+        section.classList.toggle('is-collapsed');
+      }
+    }
+
+    function openComposerForTier(tier) {
+      const composer = document.getElementById(`composer-${tier}`);
+      const btn = document.getElementById(`addBtn-${tier}`);
+      const input = document.getElementById(`input-${tier}`);
+      if (composer && btn) {
         composer.classList.add('open');
         composer.classList.add('is-open');
-        trigger.style.display = 'none';
+        btn.style.display = 'none';
         if (input) {
           input.value = '';
           input.focus();
@@ -535,68 +636,61 @@
       }
     }
 
-    function closeComposer() {
-      const composer = document.getElementById('miniComposer');
-      const trigger = document.getElementById('addGoalTriggerBtn');
-      const input = document.getElementById('composerGoalInput');
-      if (composer && trigger) {
+    function closeComposerForTier(tier) {
+      const composer = document.getElementById(`composer-${tier}`);
+      const btn = document.getElementById(`addBtn-${tier}`);
+      const input = document.getElementById(`input-${tier}`);
+      if (composer && btn) {
         composer.classList.remove('open');
         composer.classList.remove('is-open');
-        trigger.style.display = 'inline-flex';
+        btn.style.display = 'inline-flex';
         if (input) input.value = '';
       }
     }
 
-    function submitNewGoal() {
-      const input = document.getElementById('composerGoalInput');
+    function submitGoalForTier(tier) {
+      const input = document.getElementById(`input-${tier}`);
       if (!input) return;
       const text = input.value.trim();
       if (!text) return;
 
-      const newId = Date.now();
       const tags = { year: 'Vision', month: 'Focus', week: 'Milestone' };
-      horizonData[currentHorizon].push({
-        id: newId,
+      horizonData[tier].push({
+        id: Date.now(),
         text: text,
         completed: false,
-        tag: tags[currentHorizon] || 'Goal'
+        tag: tags[tier] || 'Goal'
       });
 
-      closeComposer();
-      renderGoals();
+      closeComposerForTier(tier);
+      renderTier(tier);
     }
 
-    function handleComposerKey(event) {
+    function handleComposerKey(event, tier) {
       if (event.key === 'Enter') {
         event.preventDefault();
-        submitNewGoal();
+        submitGoalForTier(tier);
       } else if (event.key === 'Escape') {
         event.preventDefault();
-        closeComposer();
+        closeComposerForTier(tier);
       }
     }
 
-    function switchSidebarView(view, el) {
-      document.querySelectorAll('.mini-nav-item').forEach(item => item.classList.remove('active'));
-      if (el) el.classList.add('active');
+    function selectYear(yr) {
+      selectedYear = yr;
+      document.querySelectorAll('.preview-year-btn').forEach(btn => {
+        btn.classList.toggle('is-selected', btn.textContent.trim() === String(yr));
+      });
+      const heading = document.getElementById('heading-year');
+      if (heading) {
+        heading.textContent = `Yearly Vision (${yr})`;
+      }
+    }
 
-      const titleLabel = document.getElementById('horizonTitleLabel');
-      const tabs = document.querySelector('.horizon-tabs');
-      const trigger = document.getElementById('addGoalTriggerBtn');
-
-      if (view === 'horizons') {
-        if (tabs) tabs.style.display = 'inline-flex';
-        if (trigger) trigger.style.display = 'inline-flex';
-        switchHorizon(currentHorizon, document.querySelector(`.horizon-tab-btn.active`));
-      } else {
-        if (tabs) tabs.style.display = 'none';
-        closeComposer();
-        if (trigger) trigger.style.display = 'none';
-        const listEl = document.getElementById('miniGoalList');
-        if (titleLabel) titleLabel.textContent = view === 'inbox' ? 'Inbox' : view === 'today' ? 'Today' : 'Upcoming';
-        if (listEl) {
-          listEl.innerHTML = `<div style="padding: 2.5rem 1rem; color: var(--text-tertiary); font-size: 0.875rem; text-align: center;">Click <strong>Horizons</strong> in the sidebar to return to your goals view.</div>`;
-        }
+    function shiftYear(delta) {
+      const targetYear = selectedYear + delta;
+      if (targetYear >= 2024 && targetYear <= 2028) {
+        selectYear(targetYear);
       }
     }
 
@@ -606,12 +700,12 @@
       return div.innerHTML;
     }
 
-    // Initialize goals immediately and on load
-    renderGoals();
+    // Render immediately and on load
+    renderAllTiers();
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', renderGoals);
+      document.addEventListener('DOMContentLoaded', renderAllTiers);
     }
-    window.addEventListener('load', renderGoals);
+    window.addEventListener('load', renderAllTiers);
   </script>
 </body>
 </html>

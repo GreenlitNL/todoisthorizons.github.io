@@ -338,6 +338,8 @@ button {
   padding: 16px 24px;
   background-color: var(--td-surface);
   border-bottom: 1px solid var(--td-border);
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .preview-title-area {
@@ -360,6 +362,7 @@ button {
 .preview-title {
   font-weight: 700;
   font-size: 16px;
+  color: var(--td-text-primary);
 }
 
 .preview-pill-interactive {
@@ -373,143 +376,149 @@ button {
   border-radius: var(--td-radius-pill);
 }
 
-.preview-hint {
-  font-size: 13px;
-  color: var(--td-text-tertiary);
+/* Year Navigation Bar */
+.preview-year-nav {
   display: flex;
   align-items: center;
   gap: 6px;
-}
-
-/* ==========================================================================
-   Simplified Authentic Preview App (Matching Real Extension)
-   ========================================================================== */
-
-.preview-app {
-  display: flex;
-  min-height: 420px;
-  background-color: var(--td-surface);
-  border-top: 1px solid var(--td-border);
-}
-
-/* Left Mini Sidebar */
-.mini-sidebar {
-  width: 190px;
-  min-width: 190px;
   background-color: var(--td-bg);
-  border-right: 1px solid var(--td-border);
-  padding: 16px 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  border: 1px solid var(--td-border);
+  padding: 3px;
+  border-radius: var(--td-radius-md);
 }
 
-.mini-nav-item {
+.preview-year-arrow {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--td-radius-sm);
+  border: none;
+  background: none;
+  color: var(--td-text-secondary);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 8px 12px;
-  border-radius: var(--td-radius-sm);
-  font-size: 13.5px;
-  font-weight: 500;
-  color: var(--td-text-secondary);
+  justify-content: center;
   cursor: pointer;
   transition: all 0.15s ease;
-  user-select: none;
+  padding: 0;
 }
 
-.mini-nav-item:hover {
+.preview-year-arrow:hover {
   background-color: var(--td-surface-hover);
   color: var(--td-text-primary);
 }
 
-.mini-nav-item.active {
-  background-color: var(--td-brand-subtle);
-  color: var(--td-brand);
-  font-weight: 600;
-}
-
-.mini-nav-left {
+.preview-year-buttons {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 3px;
 }
 
-.mini-nav-count {
-  font-size: 11px;
-  color: var(--td-text-tertiary);
-  font-weight: 600;
-}
-
-.mini-nav-item.active .mini-nav-count {
-  color: var(--td-brand);
-}
-
-/* Right Main Content Area */
-.mini-main {
-  flex: 1;
-  padding: 24px 28px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.mini-main-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.mini-main-title {
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: -0.3px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* Horizon Tabs */
-.horizon-tabs {
-  display: inline-flex;
-  background-color: var(--td-bg);
-  padding: 3px;
-  border-radius: var(--td-radius-md);
-  border: 1px solid var(--td-border);
-  gap: 2px;
-}
-
-.horizon-tab-btn {
-  padding: 6px 14px;
-  font-size: 12.5px;
-  font-weight: 600;
+.preview-year-btn {
+  height: 28px;
+  padding: 0 10px;
   border-radius: var(--td-radius-sm);
-  color: var(--td-text-secondary);
-  transition: all 0.15s ease;
-  cursor: pointer;
   border: none;
   background: none;
+  color: var(--td-text-secondary);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-.horizon-tab-btn:hover {
+.preview-year-btn:hover {
   color: var(--td-text-primary);
 }
 
-.horizon-tab-btn.active {
+.preview-year-btn.is-selected {
   background-color: var(--td-surface);
-  color: var(--td-text-primary);
+  color: var(--td-brand);
+  font-weight: 700;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-/* Goal List Container */
-.mini-goal-list {
+[data-theme="dark"] .preview-year-btn.is-selected {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   Stacked Workspaces (Year, Month, Week Below Each Other)
+   ========================================================================== */
+
+.preview-workspaces {
+  padding: 24px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background-color: var(--td-surface);
+}
+
+.preview-tier-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-tier-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 4px 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.tier-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tier-chevron {
+  color: var(--td-text-tertiary);
+  transition: transform 0.2s ease, color 0.15s ease;
+}
+
+.preview-tier-section:hover .tier-chevron {
+  color: var(--td-text-primary);
+}
+
+.preview-tier-section.is-collapsed .tier-chevron {
+  transform: rotate(-90deg);
+}
+
+.tier-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--td-text-primary);
+  letter-spacing: -0.2px;
+}
+
+.tier-count-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--td-text-tertiary);
+  background-color: var(--td-bg);
+  border: 1px solid var(--td-border);
+  padding: 1px 7px;
+  border-radius: var(--td-radius-pill);
+}
+
+.tier-content {
+  display: flex;
+  flex-direction: column;
+  padding-left: 24px;
+}
+
+.preview-tier-section.is-collapsed .tier-content {
+  display: none;
+}
+
+.tier-goal-list {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .mini-goal-row {
@@ -521,7 +530,6 @@ button {
   background-color: var(--td-card-bg);
   border: 1px solid var(--td-border);
   transition: all 0.15s ease;
-  cursor: pointer;
 }
 
 .mini-goal-row:hover {
@@ -540,9 +548,10 @@ button {
   gap: 12px;
   flex: 1;
   min-width: 0;
+  cursor: pointer;
 }
 
-/* Authentic Checkbox */
+/* Authentic Todoist Checkbox */
 .mini-checkbox {
   width: 18px;
   height: 18px;
@@ -637,7 +646,7 @@ button {
   background-color: var(--td-surface-hover);
 }
 
-/* Add Goal Button & Inline Composer */
+/* Add Goal Trigger & Inline Composer */
 .mini-add-trigger {
   display: inline-flex;
   align-items: center;
@@ -645,7 +654,7 @@ button {
   color: var(--td-text-secondary);
   font-size: 13.5px;
   font-weight: 500;
-  padding: 8px 12px;
+  padding: 6px 10px;
   border-radius: var(--td-radius-sm);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -661,15 +670,15 @@ button {
 }
 
 .mini-add-trigger .plus-circle {
-  width: 18px;
-  height: 18px;
+  width: 17px;
+  height: 17px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: var(--td-brand);
   color: #fff;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1;
 }
 
@@ -680,7 +689,7 @@ button {
   border-radius: var(--td-radius-md);
   padding: 12px 14px;
   box-shadow: var(--td-shadow-sm);
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .mini-inline-composer.open,
@@ -747,15 +756,12 @@ button {
 }
 
 @media (max-width: 680px) {
-  .mini-sidebar {
-    display: none;
-  }
-  .mini-main {
+  .preview-workspaces {
     padding: 16px;
+    gap: 18px;
   }
-  .horizon-tabs {
-    width: 100%;
-    justify-content: flex-start;
+  .tier-content {
+    padding-left: 12px;
   }
 }
 
