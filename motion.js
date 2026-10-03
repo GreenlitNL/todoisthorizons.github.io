@@ -232,6 +232,7 @@
         if (!await typeGoals([entry], [monthGoals[i]], version)) { typed = false; break; }
       }
       if (!typed) continue;
+      if (!await wait(250, version)) continue;
       [0, 1].forEach((index) => {
         quarterRows[index].classList.add('is-complete');
         quarterRows[index].querySelector('.journey-month-check').classList.add('is-complete');
@@ -248,6 +249,7 @@
         if (!await typeGoals([entry], [weekGoals[i]], version)) { typed = false; break; }
       }
       if (!typed) continue;
+      if (!await wait(250, version)) continue;
 
       let ok = true;
       for (const [weekIndex, row] of weeklyRows.entries()) {
