@@ -381,85 +381,331 @@ button {
   gap: 6px;
 }
 
-.horizons-board {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  padding: 24px;
-  background-color: var(--td-bg);
+/* ==========================================================================
+   Simplified Authentic Preview App (Matching Real Extension)
+   ========================================================================== */
+
+.preview-app {
+  display: flex;
+  min-height: 420px;
+  background-color: var(--td-surface);
+  border-top: 1px solid var(--td-border);
 }
 
-.horizon-column {
-  background-color: var(--td-surface);
-  border: 1px solid var(--td-border);
-  border-radius: var(--td-radius-md);
-  padding: 18px;
+/* Left Mini Sidebar */
+.mini-sidebar {
+  width: 190px;
+  min-width: 190px;
+  background-color: var(--td-bg);
+  border-right: 1px solid var(--td-border);
+  padding: 16px 10px;
   display: flex;
   flex-direction: column;
+  gap: 4px;
 }
 
-.column-header {
+.mini-nav-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--td-border-subtle);
+  padding: 8px 12px;
+  border-radius: var(--td-radius-sm);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--td-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
 }
 
-.column-title-group {
+.mini-nav-item:hover {
+  background-color: var(--td-surface-hover);
+  color: var(--td-text-primary);
+}
+
+.mini-nav-item.active {
+  background-color: var(--td-brand-subtle);
+  color: var(--td-brand);
+  font-weight: 600;
+}
+
+.mini-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mini-nav-count {
+  font-size: 11px;
+  color: var(--td-text-tertiary);
+  font-weight: 600;
+}
+
+.mini-nav-item.active .mini-nav-count {
+  color: var(--td-brand);
+}
+
+/* Right Main Content Area */
+.mini-main {
+  flex: 1;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.mini-main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.mini-main-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.column-title {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: -0.1px;
+/* Horizon Tabs */
+.horizon-tabs {
+  display: inline-flex;
+  background-color: var(--td-bg);
+  padding: 3px;
+  border-radius: var(--td-radius-md);
+  border: 1px solid var(--td-border);
+  gap: 2px;
 }
 
-.column-count {
-  font-size: 12px;
+.horizon-tab-btn {
+  padding: 6px 14px;
+  font-size: 12.5px;
   font-weight: 600;
+  border-radius: var(--td-radius-sm);
+  color: var(--td-text-secondary);
+  transition: all 0.15s ease;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.horizon-tab-btn:hover {
+  color: var(--td-text-primary);
+}
+
+.horizon-tab-btn.active {
+  background-color: var(--td-surface);
+  color: var(--td-text-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Goal List Container */
+.mini-goal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.mini-goal-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: var(--td-radius-md);
+  background-color: var(--td-card-bg);
+  border: 1px solid var(--td-border);
+  transition: all 0.15s ease;
+}
+
+.mini-goal-row:hover {
+  border-color: #d6d0c7;
+  transform: translateY(-1px);
+  box-shadow: var(--td-shadow-sm);
+}
+
+[data-theme="dark"] .mini-goal-row:hover {
+  border-color: #444;
+}
+
+.mini-goal-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.mini-goal-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--td-text-primary);
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mini-goal-row.is-completed .mini-goal-text {
+  color: var(--td-text-tertiary);
+  text-decoration: line-through;
+}
+
+.mini-goal-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 12px;
+}
+
+.mini-cascade-tag {
+  font-size: 11px;
   color: var(--td-text-tertiary);
   background: var(--td-surface-hover);
-  padding: 2px 7px;
-  border-radius: 12px;
+  padding: 3px 8px;
+  border-radius: var(--td-radius-sm);
+  white-space: nowrap;
 }
 
-.column-period {
-  font-size: 12px;
+.mini-delete-btn {
+  opacity: 0;
+  color: var(--td-text-tertiary);
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.mini-goal-row:hover .mini-delete-btn {
+  opacity: 0.7;
+}
+
+.mini-delete-btn:hover {
+  opacity: 1 !important;
+  color: var(--td-p1);
+  background-color: var(--td-surface-hover);
+}
+
+/* Add Goal Button & Inline Composer */
+.mini-add-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   color: var(--td-text-secondary);
+  font-size: 13.5px;
   font-weight: 500;
+  padding: 8px 12px;
+  border-radius: var(--td-radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  align-self: flex-start;
+  border: none;
+  background: none;
 }
 
-.goal-list {
+.mini-add-trigger:hover {
+  color: var(--td-brand);
+  background-color: var(--td-brand-subtle);
+}
+
+.mini-add-trigger .plus-circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--td-brand);
+  color: #fff;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.mini-inline-composer {
+  display: none;
+  background-color: var(--td-card-bg);
+  border: 1px solid var(--td-border);
+  border-radius: var(--td-radius-md);
+  padding: 12px 14px;
+  box-shadow: var(--td-shadow-sm);
+  margin-top: 4px;
+}
+
+.mini-inline-composer.is-open {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.goal-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 12px;
-  background: var(--td-card-bg);
+.mini-composer-input {
+  width: 100%;
   border: 1px solid var(--td-border);
+  background: var(--td-surface);
+  color: var(--td-text-primary);
+  font-family: inherit;
+  font-size: 13.5px;
+  padding: 8px 12px;
   border-radius: var(--td-radius-sm);
-  transition: var(--td-transition);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.mini-composer-input:focus {
+  border-color: var(--td-brand);
+}
+
+.mini-composer-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.mini-composer-btn-save {
+  background-color: var(--td-brand);
+  color: #fff;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: var(--td-radius-sm);
   cursor: pointer;
+  border: none;
 }
 
-.goal-card:hover {
-  border-color: #d0cbc3;
-  transform: translateY(-1px);
-  box-shadow: var(--td-shadow-sm);
+.mini-composer-btn-save:hover {
+  background-color: var(--td-brand-hover);
 }
 
-[data-theme="dark"] .goal-card:hover {
-  border-color: #4a4a4a;
+.mini-composer-btn-cancel {
+  background-color: var(--td-surface-hover);
+  color: var(--td-text-secondary);
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--td-radius-sm);
+  cursor: pointer;
+  border: none;
+}
+
+.mini-composer-btn-cancel:hover {
+  background-color: var(--td-surface-active);
+  color: var(--td-text-primary);
+}
+
+@media (max-width: 680px) {
+  .mini-sidebar {
+    display: none;
+  }
+  .mini-main {
+    padding: 16px;
+  }
 }
 
 /* Authentic Todoist Task Checkbox */

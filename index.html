@@ -90,7 +90,7 @@
                 <path d="m8 12 3 3 5-5"></path>
               </svg>
             </div>
-            <span class="preview-title">Horizons Board</span>
+            <span class="preview-title">Horizons for Todoist</span>
             <span class="preview-pill-interactive">Interactive Preview</span>
           </div>
 
@@ -100,235 +100,99 @@
               <line x1="12" y1="16" x2="12" y2="12"></line>
               <line x1="12" y1="8" x2="12.01" y2="8"></line>
             </svg>
-            <span>Click any circle to complete goals</span>
+            <span>Click tabs to switch periods, check off goals, or add new ones</span>
           </div>
         </div>
 
-        <div class="horizons-board">
-          <!-- Column 1: Yearly Vision -->
-          <div class="horizon-column">
-            <div class="column-header">
-              <div class="column-title-group">
-                <span class="column-title">Yearly Vision</span>
-                <span class="column-count">3</span>
+        <div class="preview-app">
+          <!-- Mini Todoist Sidebar -->
+          <aside class="mini-sidebar">
+            <div class="mini-nav-item" onclick="switchSidebarView('inbox')">
+              <div class="mini-nav-left">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline>
+                  <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path>
+                </svg>
+                <span>Inbox</span>
               </div>
-              <span class="column-period">2026</span>
+              <span class="mini-nav-count">3</span>
             </div>
 
-            <div class="goal-list">
-              <div class="goal-card" onclick="toggleGoal(this)">
-                <div class="td-checkbox">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </div>
-                <div class="goal-content">
-                  <div class="goal-title">Run a full marathon in October</div>
-                  <div class="goal-meta">
-                    <span class="priority-tag p1">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
-                        <line x1="4" y1="22" x2="4" y2="15"></line>
-                      </svg>
-                      P1
-                    </span>
-                    <span class="parent-tag">Health & Fitness</span>
-                  </div>
-                </div>
+            <div class="mini-nav-item" onclick="switchSidebarView('today')">
+              <div class="mini-nav-left">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span>Today</span>
               </div>
-
-              <div class="goal-card" onclick="toggleGoal(this)">
-                <div class="td-checkbox">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </div>
-                <div class="goal-content">
-                  <div class="goal-title">Launch Horizons to 1,000 active planners</div>
-                  <div class="goal-meta">
-                    <span class="priority-tag p1">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
-                        <line x1="4" y1="22" x2="4" y2="15"></line>
-                      </svg>
-                      P1
-                    </span>
-                    <span class="parent-tag">Projects</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="goal-card is-completed" onclick="toggleGoal(this)">
-                <div class="td-checkbox checked">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </div>
-                <div class="goal-content">
-                  <div class="goal-title">Read 24 books on product and design</div>
-                  <div class="goal-meta">
-                    <span class="priority-tag p2">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
-                        <line x1="4" y1="22" x2="4" y2="15"></line>
-                      </svg>
-                      P2
-                    </span>
-                    <span class="parent-tag">Learning</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Column 2: Monthly Focus -->
-          <div class="horizon-column">
-            <div class="column-header">
-              <div class="column-title-group">
-                <span class="column-title">Monthly Focus</span>
-                <span class="column-count">3</span>
-              </div>
-              <span class="column-period">October 2026</span>
+              <span class="mini-nav-count">4</span>
             </div>
 
-            <div class="goal-list">
-              <div class="goal-card" onclick="toggleGoal(this)">
-                <div class="td-checkbox">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </div>
-                <div class="goal-content">
-                  <div class="goal-title">Reach 30km weekly training mileage</div>
-                  <div class="goal-meta">
-                    <span class="priority-tag p1">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
-                        <line x1="4" y1="22" x2="4" y2="15"></line>
-                      </svg>
-                      P1
-                    </span>
-                    <span class="parent-tag">↗ Run a full marathon</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="goal-card" onclick="toggleGoal(this)">
-                <div class="td-checkbox">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </div>
-                <div class="goal-content">
-                  <div class="goal-title">Publish extension to Chrome Web Store</div>
-                  <div class="goal-meta">
-                    <span class="priority-tag p1">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
-                        <line x1="4" y1="22" x2="4" y2="15"></line>
-                      </svg>
-                      P1
-                    </span>
-                    <span class="parent-tag">↗ Launch Horizons</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="goal-card" onclick="toggleGoal(this)">
-                <div class="td-checkbox">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </div>
-                <div class="goal-content">
-                  <div class="goal-title">Finish 2 books on modern architecture</div>
-                  <div class="goal-meta">
-                    <span class="priority-tag p3">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
-                        <line x1="4" y1="22" x2="4" y2="15"></line>
-                      </svg>
-                      P3
-                    </span>
-                    <span class="parent-tag">↗ Read 24 books</span>
-                  </div>
-                </div>
+            <div class="mini-nav-item" onclick="switchSidebarView('upcoming')">
+              <div class="mini-nav-left">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span>Upcoming</span>
               </div>
             </div>
-          </div>
 
-          <!-- Column 3: Weekly Milestones -->
-          <div class="horizon-column">
-            <div class="column-header">
-              <div class="column-title-group">
-                <span class="column-title">Weekly Milestones</span>
-                <span class="column-count">3</span>
+            <div class="mini-nav-item active" id="sidebarHorizonsBtn" onclick="switchSidebarView('horizons')">
+              <div class="mini-nav-left">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="m8 12 3 3 5-5"></path>
+                </svg>
+                <span>Horizons</span>
               </div>
-              <span class="column-period">Week 40</span>
+              <span class="mini-nav-count" id="activeHorizonCount">3</span>
+            </div>
+          </aside>
+
+          <!-- Main Horizons View -->
+          <div class="mini-main">
+            <div class="mini-main-header">
+              <div class="mini-main-title">
+                <span id="horizonTitleLabel">Horizons</span>
+              </div>
+
+              <!-- Horizon Switcher Tabs -->
+              <div class="horizon-tabs" role="tablist">
+                <button type="button" class="horizon-tab-btn active" id="tabYear" onclick="switchHorizon('year', this)">
+                  Yearly Vision 2026
+                </button>
+                <button type="button" class="horizon-tab-btn" id="tabMonth" onclick="switchHorizon('month', this)">
+                  Monthly Focus (Oct)
+                </button>
+                <button type="button" class="horizon-tab-btn" id="tabWeek" onclick="switchHorizon('week', this)">
+                  Weekly Milestones (W40)
+                </button>
+              </div>
             </div>
 
-            <div class="goal-list">
-              <div class="goal-card" onclick="toggleGoal(this)">
-                <div class="td-checkbox">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </div>
-                <div class="goal-content">
-                  <div class="goal-title">Tuesday 8km pace run</div>
-                  <div class="goal-meta">
-                    <span class="priority-tag p1">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
-                        <line x1="4" y1="22" x2="4" y2="15"></line>
-                      </svg>
-                      P1
-                    </span>
-                    <span class="parent-tag">↗ Reach 30km mileage</span>
-                  </div>
-                </div>
-              </div>
+            <!-- Dynamic Goal List -->
+            <div class="mini-goal-list" id="miniGoalList">
+              <!-- Rendered via JavaScript -->
+            </div>
 
-              <div class="goal-card" onclick="toggleGoal(this)">
-                <div class="td-checkbox">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </div>
-                <div class="goal-content">
-                  <div class="goal-title">Draft store screenshots and description</div>
-                  <div class="goal-meta">
-                    <span class="priority-tag p2">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
-                        <line x1="4" y1="22" x2="4" y2="15"></line>
-                      </svg>
-                      P2
-                    </span>
-                    <span class="parent-tag">↗ Publish extension</span>
-                  </div>
-                </div>
-              </div>
+            <!-- Add Goal Trigger Button -->
+            <button type="button" class="mini-add-trigger" id="addGoalTriggerBtn" onclick="openComposer()">
+              <span class="plus-circle">+</span>
+              <span>Add goal</span>
+            </button>
 
-              <div class="goal-card is-completed" onclick="toggleGoal(this)">
-                <div class="td-checkbox checked">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </div>
-                <div class="goal-content">
-                  <div class="goal-title">Design authentic Todoist website</div>
-                  <div class="goal-meta">
-                    <span class="priority-tag p1">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
-                        <line x1="4" y1="22" x2="4" y2="15"></line>
-                      </svg>
-                      P1
-                    </span>
-                    <span class="parent-tag">↗ Launch Horizons</span>
-                  </div>
-                </div>
+            <!-- Inline Goal Composer -->
+            <div class="mini-inline-composer" id="miniComposer">
+              <input type="text" class="mini-composer-input" id="composerGoalInput" placeholder="Goal title (e.g. Read 20 pages daily, 15km weekend long run)..." onkeydown="handleComposerKey(event)">
+              <div class="mini-composer-actions">
+                <button type="button" class="mini-composer-btn-cancel" onclick="closeComposer()">Cancel</button>
+                <button type="button" class="mini-composer-btn-save" onclick="submitNewGoal()">Add goal</button>
               </div>
             </div>
           </div>
@@ -493,12 +357,197 @@
       applyTheme(next);
     });
 
-    // Interactive goal card toggle
-    function toggleGoal(card) {
-      const checkbox = card.querySelector('.td-checkbox');
-      const isChecked = checkbox.classList.toggle('checked');
-      card.classList.toggle('is-completed', isChecked);
+    // Interactive Preview State & Logic
+    const horizonData = {
+      year: [
+        { id: 1, text: 'Run Amsterdam Marathon in sub-3h45m', completed: false, tag: 'Health' },
+        { id: 2, text: 'Read 24 books on system design & leadership', completed: false, tag: 'Learning' },
+        { id: 3, text: 'Launch Horizons extension on Chrome Web Store', completed: true, tag: 'Projects' }
+      ],
+      month: [
+        { id: 4, text: 'Build weekly mileage base to 45km', completed: false, tag: 'Running' },
+        { id: 5, text: 'Finish chapters 1-6 of Designing Data-Intensive Apps', completed: true, tag: 'Study' },
+        { id: 6, text: 'Release v1.2 with automated backup sync', completed: false, tag: 'Release' }
+      ],
+      week: [
+        { id: 7, text: 'Tuesday interval session: 6x800m track workout', completed: true, tag: 'Training' },
+        { id: 8, text: 'Draft high-level architecture diagram for sync engine', completed: false, tag: 'Architecture' },
+        { id: 9, text: 'Review pull requests and run unit test suite', completed: false, tag: 'Code' }
+      ]
+    };
+
+    let currentHorizon = 'year';
+
+    function updateNavCounter() {
+      const activeGoals = horizonData[currentHorizon].filter(g => !g.completed).length;
+      const counterEl = document.getElementById('activeHorizonCount');
+      if (counterEl) {
+        counterEl.textContent = activeGoals;
+      }
     }
+
+    function renderGoals() {
+      const listEl = document.getElementById('miniGoalList');
+      if (!listEl) return;
+
+      const goals = horizonData[currentHorizon];
+      listEl.innerHTML = '';
+
+      if (goals.length === 0) {
+        listEl.innerHTML = '<div style="padding: 1.5rem 0; color: var(--text-tertiary); font-size: 0.875rem; text-align: center;">No goals for this horizon yet. Click "+ Add goal" below to start.</div>';
+        updateNavCounter();
+        return;
+      }
+
+      goals.forEach(goal => {
+        const row = document.createElement('div');
+        row.className = `mini-goal-row ${goal.completed ? 'is-completed' : ''}`;
+        row.setAttribute('data-id', goal.id);
+
+        row.innerHTML = `
+          <div class="mini-checkbox ${goal.completed ? 'checked' : ''}" onclick="toggleGoalItem(${goal.id})" role="checkbox" aria-checked="${goal.completed}" tabindex="0">
+            <svg class="check-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <span class="mini-goal-text" onclick="toggleGoalItem(${goal.id})">${escapeHtml(goal.text)}</span>
+          <span class="mini-goal-tag">${escapeHtml(goal.tag)}</span>
+          <button type="button" class="mini-goal-del-btn" onclick="deleteGoalItem(${goal.id}, event)" title="Delete goal" aria-label="Delete goal">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        `;
+
+        listEl.appendChild(row);
+      });
+
+      updateNavCounter();
+    }
+
+    function switchHorizon(horizon, btn) {
+      currentHorizon = horizon;
+      document.querySelectorAll('.horizon-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      const titleMap = {
+        year: 'Yearly Vision 2026',
+        month: 'Monthly Focus (October)',
+        week: 'Weekly Milestones (Week 40)'
+      };
+      const titleLabel = document.getElementById('horizonTitleLabel');
+      if (titleLabel) {
+        titleLabel.textContent = titleMap[horizon] || 'Horizons';
+      }
+
+      closeComposer();
+      renderGoals();
+    }
+
+    function toggleGoalItem(id) {
+      const goals = horizonData[currentHorizon];
+      const goal = goals.find(g => g.id === id);
+      if (goal) {
+        goal.completed = !goal.completed;
+        renderGoals();
+      }
+    }
+
+    function deleteGoalItem(id, event) {
+      if (event) event.stopPropagation();
+      horizonData[currentHorizon] = horizonData[currentHorizon].filter(g => g.id !== id);
+      renderGoals();
+    }
+
+    function openComposer() {
+      const composer = document.getElementById('miniComposer');
+      const trigger = document.getElementById('addGoalTriggerBtn');
+      const input = document.getElementById('composerGoalInput');
+      if (composer && trigger) {
+        composer.classList.add('open');
+        trigger.style.display = 'none';
+        if (input) {
+          input.value = '';
+          input.focus();
+        }
+      }
+    }
+
+    function closeComposer() {
+      const composer = document.getElementById('miniComposer');
+      const trigger = document.getElementById('addGoalTriggerBtn');
+      const input = document.getElementById('composerGoalInput');
+      if (composer && trigger) {
+        composer.classList.remove('open');
+        trigger.style.display = 'inline-flex';
+        if (input) input.value = '';
+      }
+    }
+
+    function submitNewGoal() {
+      const input = document.getElementById('composerGoalInput');
+      if (!input) return;
+      const text = input.value.trim();
+      if (!text) return;
+
+      const newId = Date.now();
+      const tags = { year: 'Vision', month: 'Focus', week: 'Milestone' };
+      horizonData[currentHorizon].push({
+        id: newId,
+        text: text,
+        completed: false,
+        tag: tags[currentHorizon] || 'Goal'
+      });
+
+      closeComposer();
+      renderGoals();
+    }
+
+    function handleComposerKey(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        submitNewGoal();
+      } else if (event.key === 'Escape') {
+        event.preventDefault();
+        closeComposer();
+      }
+    }
+
+    function switchSidebarView(view, el) {
+      document.querySelectorAll('.mini-nav-item').forEach(item => item.classList.remove('active'));
+      if (el) el.classList.add('active');
+
+      const titleLabel = document.getElementById('horizonTitleLabel');
+      const tabs = document.querySelector('.horizon-tabs');
+      const trigger = document.getElementById('addGoalTriggerBtn');
+
+      if (view === 'horizons') {
+        if (tabs) tabs.style.display = 'flex';
+        if (trigger) trigger.style.display = 'inline-flex';
+        switchHorizon(currentHorizon, document.querySelector(`.horizon-tab-btn.active`));
+      } else {
+        if (tabs) tabs.style.display = 'none';
+        closeComposer();
+        if (trigger) trigger.style.display = 'none';
+        const listEl = document.getElementById('miniGoalList');
+        if (titleLabel) titleLabel.textContent = view === 'inbox' ? 'Inbox' : view === 'today' ? 'Today' : 'Upcoming';
+        if (listEl) {
+          listEl.innerHTML = `<div style="padding: 2.5rem 1rem; color: var(--text-tertiary); font-size: 0.875rem; text-align: center;">Click <strong>Horizons</strong> in the sidebar to return to your goals view.</div>`;
+        }
+      }
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // Initialize goals on load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderGoals();
+    });
   </script>
 </body>
 </html>
