@@ -1393,7 +1393,7 @@ button {
 
 .journey-week-item {
   display: grid;
-  grid-template-columns: 42px minmax(0, 1fr) 35px 18px;
+  grid-template-columns: 42px minmax(0, 1fr) 18px;
   align-items: center;
   gap: 6px;
   min-height: 48px;
@@ -1923,4 +1923,33 @@ button {
   .faq-item summary {
     font-size: 15px;
   }
+}
+
+/* Goal rows as cards */
+.journey-month-list,
+.journey-week-list {
+  display: grid;
+  gap: 6px;
+}
+
+.journey-month-item,
+.journey-week-item {
+  border: 1px solid var(--td-border);
+  border-radius: var(--td-radius-sm);
+  background: var(--td-surface);
+  padding: 4px 10px;
+}
+
+.journey-month-item .journey-goal-entry,
+.journey-week-item .journey-goal-entry {
+  border-bottom: 0;
+}
+
+.journey-month-item.is-current,
+.journey-week-item.is-current {
+  border-color: var(--td-brand);
+}
+
+.journey-year-entry {
+  justify-content: space-between;
 }
