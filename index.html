@@ -47,8 +47,10 @@
         </button>
 
         <a href="https://chromewebstore.google.com/" target="_blank" rel="noopener" class="btn btn-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M8 12h8"></path>
+            <path d="M12 8v8"></path>
           </svg>
           <span>Add to Chrome</span>
         </a>
@@ -58,23 +60,29 @@
 
   <main>
     <!-- Hero Section -->
-    <section class="hero">
-      <h1>See the big picture directly inside Todoist.</h1>
+    <section class="hero page-intro">
+      <h1>See the big picture<br>directly inside Todoist.</h1>
 
       <p class="lead">
-        Horizons connects your daily tasks to your biggest life goals. Plan across yearly vision, monthly focus, and weekly milestones without ever leaving your Todoist workflow.
+        Turn your big goals into everyday action. Horizons helps you map out what matters across years, months, and weeks.
       </p>
 
       <div class="hero-cta">
         <a href="https://chromewebstore.google.com/" target="_blank" rel="noopener" class="btn btn-primary btn-lg">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
-            <polygon points="12 8 8 12 12 16 12 8"></polygon>
+            <path d="M8 12h8"></path>
+            <path d="M12 8v8"></path>
           </svg>
-          <span>Install for Chrome</span>
+          <span>Add to Chrome</span>
         </a>
         <a href="#preview" class="btn btn-secondary btn-lg">
-          <span>Interactive Demo</span>
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 8v8"></path>
+            <path d="m8 12 4 4 4-4"></path>
+          </svg>
+          <span>Interactive demo</span>
         </a>
       </div>
     </section>
@@ -83,7 +91,7 @@
     <section class="preview-container">
       <div class="preview-shell">
         <!-- Authentic Horizons Header -->
-        <div class="preview-app-topbar" id="preview">
+        <div class="preview-app-topbar scroll-reveal" id="preview">
           <div class="preview-app-brand">
             <h2 class="preview-app-heading">Horizons</h2>
             <div class="preview-status-indicator" title="Sync Status: All goals synced">
@@ -113,7 +121,7 @@
         <!-- Workspaces stacked vertically matching actual extension -->
         <div class="preview-workspaces">
           <!-- 1. Year Section -->
-          <section class="preview-tier-section" id="tier-year">
+          <section class="preview-tier-section scroll-reveal" id="tier-year">
             <div class="preview-section-header">
               <div class="preview-section-left" role="button" tabindex="0" aria-expanded="true" aria-controls="content-year" onclick="toggleTierCollapse('year')" onkeydown="handleTierCollapseKey(event, 'year')">
                 <svg class="tier-chevron" id="chevron-year" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -154,7 +162,7 @@
           </section>
 
           <!-- 2. Month Section -->
-          <section class="preview-tier-section" id="tier-month">
+          <section class="preview-tier-section scroll-reveal" id="tier-month">
             <div class="preview-section-header">
               <div class="preview-section-left" role="button" tabindex="0" aria-expanded="true" aria-controls="content-month" onclick="toggleTierCollapse('month')" onkeydown="handleTierCollapseKey(event, 'month')">
                 <svg class="tier-chevron" id="chevron-month" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -195,7 +203,7 @@
           </section>
 
           <!-- 3. Week Section -->
-          <section class="preview-tier-section" id="tier-week">
+          <section class="preview-tier-section scroll-reveal" id="tier-week">
             <div class="preview-section-header">
               <div class="preview-section-left" role="button" tabindex="0" aria-expanded="true" aria-controls="content-week" onclick="toggleTierCollapse('week')" onkeydown="handleTierCollapseKey(event, 'week')">
                 <svg class="tier-chevron" id="chevron-week" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -239,19 +247,129 @@
           </section>
         </div>
       </div>
-      <p class="preview-disclaimer">An illustrative preview of the experience; the installed extension may look and behave differently.</p>
+      <p class="preview-disclaimer scroll-reveal">An illustrative preview of the experience; the installed extension may look and behave differently.</p>
+    </section>
+
+    <section class="section-container upgrade-section" id="upgrades" aria-labelledby="upgrades-title">
+      <div class="section-header">
+        <h2 id="upgrades-title">Your goals, connected.</h2>
+        <p>A practical planning layer inside Todoist, from long-term direction to this week's next step.</p>
+      </div>
+
+      <div class="upgrade-grid">
+        <article class="upgrade-item scroll-reveal">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="17" rx="2"></rect>
+            <path d="M16 2v4M8 2v4M3 10h18M8 14h3M8 18h6"></path>
+          </svg>
+          <h3>Plan across horizons</h3>
+          <p>Connect yearly goals to monthly focus and weekly milestones.</p>
+        </article>
+
+        <article class="upgrade-item scroll-reveal">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+            <path d="M9 3v18M14 8h3M14 12h3M14 16h3"></path>
+          </svg>
+          <h3>Stay inside Todoist</h3>
+          <p>Open your planning space right from the Todoist sidebar.</p>
+        </article>
+
+        <article class="upgrade-item scroll-reveal">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="17" rx="2"></rect>
+            <path d="M16 2v4M8 2v4M3 10h18M12 14v4m-2-2h4"></path>
+          </svg>
+          <h3>Move through dates</h3>
+          <p>Use the mini-calendar to find the planning window you need.</p>
+        </article>
+
+        <article class="upgrade-item scroll-reveal">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m17 2 4 4-4 4"></path>
+            <path d="M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4"></path>
+            <path d="M21 13v2a3 3 0 0 1-3 3H3"></path>
+          </svg>
+          <h3>Sync when you choose</h3>
+          <p>Optional sync keeps your plan available across computers through Todoist.</p>
+        </article>
+
+        <article class="upgrade-item scroll-reveal">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <path d="m7 10 5 5 5-5M12 15V3"></path>
+          </svg>
+          <h3>Back up and export</h3>
+          <p>Recover from automatic snapshots or export your plan as JSON.</p>
+        </article>
+
+        <article class="upgrade-item scroll-reveal">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"></path>
+            <path d="m17 3 1 2 2 .5-2 1.5.2 2.2L16.5 8l-2 1 .6-2.2-1.6-1.5 2.2-.2L17 3Z"></path>
+          </svg>
+          <h3>Match your Todoist theme</h3>
+          <p>Horizons follows the light or dark appearance you already use.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-container walkthrough-section" id="walkthrough" aria-labelledby="walkthrough-title">
+      <div class="section-header">
+        <h2 id="walkthrough-title">See a goal become this week's next step.</h2>
+        <p>This looping illustration uses sample goals to show how a year, a month, and a week can connect.</p>
+      </div>
+
+      <div class="journey-demo scroll-reveal" aria-label="Illustrative animated planning walkthrough">
+        <div class="journey-demo-toolbar">
+          <span class="journey-demo-label"><span class="journey-demo-dot"></span> Sample planning flow</span>
+          <button class="journey-demo-toggle" type="button" aria-pressed="false" hidden>Pause animation</button>
+        </div>
+
+        <div class="journey-flow">
+          <article class="journey-step journey-year">
+            <div class="journey-step-label"><span>Year</span><span>2026</span></div>
+            <h3>Run my first 10K</h3>
+            <p>Build a steady habit by December.</p>
+            <span class="journey-step-meta">Long-term goal</span>
+          </article>
+
+          <span class="journey-connector" aria-hidden="true"></span>
+
+          <article class="journey-step journey-month">
+            <div class="journey-step-label"><span>Month</span><span>October</span></div>
+            <h3>Build consistent mileage</h3>
+            <p>Make room for three runs each week.</p>
+            <span class="journey-step-meta">Monthly focus</span>
+          </article>
+
+          <span class="journey-connector" aria-hidden="true"></span>
+
+          <article class="journey-step journey-week">
+            <div class="journey-step-label"><span>Week</span><span>Oct 12–18</span></div>
+            <h3>Run three times</h3>
+            <div class="journey-task-example">
+              <svg class="journey-task-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m5 12 4 4L19 6"></path>
+              </svg>
+              <span>Saturday easy run</span>
+            </div>
+            <span class="journey-step-meta">A next action</span>
+          </article>
+        </div>
+      </div>
     </section>
 
     <!-- Bento Features Section -->
     <section class="section-container" id="features">
-      <div class="section-header">
+      <div class="section-header scroll-reveal">
         <h2>Designed to feel native to Todoist</h2>
         <p>A natural extension of your workflow that respects your privacy and enhances your productivity.</p>
       </div>
 
       <div class="bento-grid">
         <!-- Card 1 (Span 2) -->
-        <div class="bento-card span-2">
+        <div class="bento-card span-2 scroll-reveal">
           <div class="card-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -266,7 +384,7 @@
         </div>
 
         <!-- Card 2 -->
-        <div class="bento-card">
+        <div class="bento-card scroll-reveal">
           <div class="card-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
@@ -281,7 +399,7 @@
         </div>
 
         <!-- Card 3 -->
-        <div class="bento-card">
+        <div class="bento-card scroll-reveal">
           <div class="card-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -295,7 +413,7 @@
         </div>
 
         <!-- Card 4 -->
-        <div class="bento-card">
+        <div class="bento-card scroll-reveal">
           <div class="card-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
@@ -308,7 +426,7 @@
         </div>
 
         <!-- Card 5 -->
-        <div class="bento-card">
+        <div class="bento-card scroll-reveal">
           <div class="card-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -322,7 +440,7 @@
       </div>
 
       <!-- Bottom Call To Action Banner -->
-      <div class="cta-banner">
+      <div class="cta-banner scroll-reveal">
         <h2>Start planning with clarity today</h2>
         <p>No separate sign-up, no monthly fees, and zero tracking. Install the extension in seconds and elevate your Todoist setup.</p>
         <a href="https://chromewebstore.google.com/" target="_blank" rel="noopener" class="btn btn-primary btn-lg">
@@ -334,11 +452,80 @@
         </a>
       </div>
     </section>
+
+    <section class="section-container privacy-section" id="privacy-by-design" aria-labelledby="privacy-title">
+      <div class="section-header">
+        <h2 id="privacy-title">Private by design.</h2>
+        <p>Your plan stays yours. Here is what happens to your data.</p>
+      </div>
+
+      <div class="privacy-grid">
+        <article class="privacy-point scroll-reveal">
+          <h3>Stored on your device</h3>
+          <p>Your goals and preferences live in Chrome's local extension storage.</p>
+        </article>
+        <article class="privacy-point scroll-reveal">
+          <h3>Sync is optional</h3>
+          <p>When enabled, sync and backups go directly to Todoist's official API and your own account.</p>
+        </article>
+        <article class="privacy-point scroll-reveal">
+          <h3>No extension analytics</h3>
+          <p>Horizons does not track your activity. If you send support feedback, it is delivered through Web3Forms.</p>
+        </article>
+      </div>
+
+      <a class="privacy-link" href="privacy.html">Read the full privacy policy <span aria-hidden="true">→</span></a>
+    </section>
+
+    <section class="section-container faq-section" id="faq" aria-labelledby="faq-title">
+      <div class="section-header">
+        <h2 id="faq-title">Questions, answered.</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item scroll-reveal">
+          <summary>How do the year, month, and week horizons fit together?</summary>
+          <div class="faq-answer"><p>Yearly goals set your direction. Monthly focuses and weekly milestones break that direction into manageable steps inside Todoist.</p></div>
+        </details>
+        <details class="faq-item scroll-reveal">
+          <summary>Where are my goals stored?</summary>
+          <div class="faq-answer"><p>Goals and preferences are stored locally in your browser. If you choose to use sync or backups, the extension communicates directly with Todoist's official API.</p></div>
+        </details>
+        <details class="faq-item scroll-reveal">
+          <summary>Do I have to turn on sync?</summary>
+          <div class="faq-answer"><p>No. Sync and backups are optional. You can keep your planning data on this device.</p></div>
+        </details>
+        <details class="faq-item scroll-reveal">
+          <summary>Can I back up or export my plan?</summary>
+          <div class="faq-answer"><p>Yes. Horizons includes automatic snapshots and a JSON export so you can keep a copy of your plan.</p></div>
+        </details>
+        <details class="faq-item scroll-reveal">
+          <summary>Does Horizons work inside Todoist?</summary>
+          <div class="faq-answer"><p>Yes. Open Horizons from the Todoist sidebar and plan alongside your existing tasks.</p></div>
+        </details>
+        <details class="faq-item scroll-reveal">
+          <summary>Is Horizons free?</summary>
+          <div class="faq-answer"><p>Yes. Horizons is free to use, with no separate sign-up or monthly fee.</p></div>
+        </details>
+      </div>
+    </section>
+
+    <section class="section-container final-install scroll-reveal" aria-labelledby="final-install-title">
+      <h2 id="final-install-title">Make room for the big picture.</h2>
+      <p>Bring your yearly goals, monthly focus, and weekly steps together in Todoist.</p>
+      <a href="https://chromewebstore.google.com/" target="_blank" rel="noopener" class="btn btn-primary btn-lg">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M8 12h8M12 8v8"></path>
+        </svg>
+        <span>Add to Chrome</span>
+      </a>
+    </section>
   </main>
 
   <footer class="site-footer">
     <div class="footer-inner">
-      <div class="footer-top">
+      <div class="footer-top scroll-reveal">
         <a href="index.html" class="brand">
           <div class="brand-icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -356,7 +543,7 @@
         </div>
       </div>
 
-      <div class="footer-bottom">
+      <div class="footer-bottom scroll-reveal">
         <p>&copy; 2026 Horizons for Todoist. All rights reserved.</p>
         <p class="disclaimer-text">
           Horizons for Todoist is an independent project and is not affiliated with, endorsed by, or sponsored by Doist Ltd or Todoist. Todoist is a registered trademark of Doist Ltd.
@@ -844,6 +1031,8 @@
       document.addEventListener('DOMContentLoaded', renderAllTiers);
     }
     window.addEventListener('load', renderAllTiers);
+
   </script>
+  <script src="motion.js"></script>
 </body>
 </html>

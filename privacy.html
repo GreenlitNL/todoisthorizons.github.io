@@ -57,12 +57,12 @@
   </header>
 
   <main class="legal-page-container">
-    <div class="legal-header">
+    <div class="legal-header page-intro">
       <h1>Privacy Policy</h1>
       <p class="lead">Last updated: October 3, 2026</p>
     </div>
 
-    <div class="summary-box">
+    <div class="summary-box scroll-reveal">
       <h3>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
@@ -75,11 +75,14 @@
     </div>
 
     <div class="legal-card">
+      <section class="legal-section scroll-reveal">
       <h2>1. Single Purpose & Data Collection</h2>
       <p>
         Horizons for Todoist exists solely to provide multi-tiered horizon planning (Yearly, Monthly, and Weekly time horizons) within the Todoist web application. We adhere strictly to the principle of data minimization and the Chrome Web Store Limited Use Requirements.
       </p>
+      </section>
 
+      <section class="legal-section scroll-reveal">
       <h2>2. Where Your Data is Stored</h2>
       <p>
         Your horizon goals, time period selections, collapsed section preferences, and backup snapshots are stored locally on your device using Chrome's extension storage engine (<code>chrome.storage.local</code>).
@@ -87,7 +90,9 @@
       <p>
         This data remains sandboxed within your browser. It is never transmitted to any servers operated by the developers of this extension.
       </p>
+      </section>
 
+      <section class="legal-section scroll-reveal">
       <h2>3. Synchronization & Backups via Todoist</h2>
       <p>
         If you choose to use the extension's cross-device synchronization or automated backups:
@@ -97,7 +102,9 @@
         <li>Synchronized goal records and backup comments are stored directly inside a private, hidden project within your own personal Todoist account (titled "Horizons sync (do not delete)").</li>
         <li>No third-party intermediary servers ever see, intercept, or process your goal data.</li>
       </ul>
+      </section>
 
+      <section class="legal-section scroll-reveal">
       <h2>4. Zero Telemetry, Analytics, or Tracking</h2>
       <p>
         The extension contains <strong>zero third-party analytics scripts, zero tracking pixels, zero telemetry beacons, and zero advertising libraries</strong>.
@@ -107,7 +114,9 @@
         <li>We do not record the content of your tasks or personal notes.</li>
         <li>We do not set tracking cookies.</li>
       </ul>
+      </section>
 
+      <section class="legal-section scroll-reveal">
       <h2>5. User-Initiated Support & Feedback</h2>
       <p>
         If you voluntarily submit a message through the extension's built-in Support or Feedback forms:
@@ -117,7 +126,9 @@
         <li>If the "Include system diagnostics" checkbox is selected, non-identifying technical metadata (extension version, browser platform, locale, and timestamp) is included to help troubleshoot your issue.</li>
         <li>This information is used strictly to respond to your inquiry and is never shared, marketed, or sold.</li>
       </ul>
+      </section>
 
+      <section class="legal-section scroll-reveal">
       <h2>6. Data Retention and Deletion</h2>
       <p>
         Because your data is stored locally in your browser and in your own Todoist account:
@@ -126,22 +137,27 @@
         <li><strong>Local Data:</strong> You can completely erase all local extension data at any time by uninstalling the extension or clearing extension data in your browser settings.</li>
         <li><strong>Cloud Backups & Sync:</strong> You can view, restore, or permanently delete individual backups from the Backup Manager in the extension popup, or delete the sync project directly from your Todoist account.</li>
       </ul>
+      </section>
 
+      <section class="legal-section scroll-reveal">
       <h2>7. Compliance & Changes</h2>
       <p>
         We may update this Privacy Policy from time to time to reflect improvements to the extension or updates to regulatory requirements. Any modifications will be posted to this page with an updated revision date.
       </p>
+      </section>
 
+      <section class="legal-section scroll-reveal">
       <h2>8. Contact</h2>
       <p>
         For questions, concerns, or requests regarding this Privacy Policy, please contact us via the built-in Support & Feedback form in the extension popup.
       </p>
+      </section>
     </div>
   </main>
 
   <footer class="site-footer">
     <div class="footer-inner">
-      <div class="footer-top">
+      <div class="footer-top scroll-reveal">
         <a href="index.html" class="brand">
           <div class="brand-icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -159,7 +175,7 @@
         </div>
       </div>
 
-      <div class="footer-bottom">
+      <div class="footer-bottom scroll-reveal">
         <p>&copy; 2026 Horizons for Todoist. All rights reserved.</p>
         <p class="disclaimer-text">
           Horizons for Todoist is an independent project and is not affiliated with, endorsed by, or sponsored by Doist Ltd or Todoist. Todoist is a registered trademark of Doist Ltd.
@@ -201,5 +217,6 @@
       applyTheme(next);
     });
   </script>
+  <script src="motion.js"></script>
 </body>
 </html>
