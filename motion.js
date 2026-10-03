@@ -24,7 +24,8 @@
   let isPaused = false;
 
   const updatePlayback = () => {
-    demo.classList.toggle('is-playing', isInView && !isPaused && !document.hidden);
+    demo.classList.add('is-playing');
+    demo.classList.toggle('is-paused', isPaused || !isInView || document.hidden);
   };
 
   toggle.hidden = false;
@@ -42,9 +43,8 @@
     }, { threshold: 0.2 });
 
     demoObserver.observe(demo);
-  } else {
-    updatePlayback();
   }
 
+  updatePlayback();
   document.addEventListener('visibilitychange', updatePlayback);
 })();

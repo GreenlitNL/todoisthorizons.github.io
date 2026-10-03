@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Horizons for Todoist: Plan Long-Term Goals Directly Inside Todoist</title>
   <meta name="description" content="Connect your daily tasks to your biggest life goals. Multi-tiered horizon planning (Year, Month, Week) for Todoist. 100% private and free to use.">
-  <link rel="stylesheet" href="style.css?v=20261003-b">
+  <link rel="stylesheet" href="style.css?v=20261004-a">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23dc4c3e' stroke-width='2.5'><circle cx='12' cy='12' r='10'/><path d='m8 12 3 3 5-5'/></svg>">
 </head>
 <body>
@@ -317,47 +317,88 @@
     <section class="section-container walkthrough-section" id="walkthrough" aria-labelledby="walkthrough-title">
       <div class="section-header">
         <h2 id="walkthrough-title">Plan the year. Shape the month. Move this week.</h2>
-        <p>This looping illustration uses sample goals to show how a year, a month, and a week can connect.</p>
+        <p>Four weekly milestones finish the month, then complete the annual goal.</p>
       </div>
 
-      <div class="journey-demo scroll-reveal" aria-label="Illustrative animated planning walkthrough">
-        <div class="journey-demo-toolbar">
-          <span class="journey-demo-label"><span class="journey-demo-dot"></span> Sample planning flow</span>
+      <figure class="journey-demo scroll-reveal" aria-labelledby="journey-demo-label">
+        <figcaption class="journey-demo-toolbar">
+          <span class="journey-demo-label" id="journey-demo-label"><span class="journey-demo-dot"></span> Sample planning flow</span>
           <button class="journey-demo-toggle" type="button" aria-pressed="false" hidden>Pause animation</button>
-        </div>
+        </figcaption>
 
         <div class="journey-flow">
           <article class="journey-step journey-year">
-            <div class="journey-step-label"><span>Year</span><span>2026</span></div>
-            <h3>Run my first 10K</h3>
-            <p>Build a steady habit by December.</p>
-            <span class="journey-step-meta">Long-term goal</span>
+            <div class="journey-step-label"><span>Year goal</span><span>2026</span></div>
+            <h3>Write 12 short stories</h3>
+            <p>Finish one story each month.</p>
+            <div class="journey-progress" aria-hidden="true">
+              <div class="journey-progress-line">
+                <span>Annual progress</span>
+                <span class="journey-count">
+                  <span class="journey-year-count-before">11 / 12</span>
+                  <span class="journey-year-count-after">12 / 12</span>
+                </span>
+              </div>
+              <div class="journey-progress-track"><span class="journey-year-fill"></span></div>
+              <div class="journey-progress-line">
+                <span class="journey-year-state-before">In progress</span>
+                <span class="journey-year-state-after">Complete</span>
+              </div>
+            </div>
           </article>
 
           <span class="journey-connector" aria-hidden="true"></span>
 
           <article class="journey-step journey-month">
-            <div class="journey-step-label"><span>Month</span><span>October</span></div>
-            <h3>Build consistent mileage</h3>
-            <p>Make room for three runs each week.</p>
-            <span class="journey-step-meta">Monthly focus</span>
+            <div class="journey-step-label"><span>Month goal</span><span>December</span></div>
+            <h3>Write story 12</h3>
+            <p>Use four weekly goals to finish the final story.</p>
+            <div class="journey-progress" aria-hidden="true">
+              <div class="journey-progress-line">
+                <span>Weekly goals</span>
+                <span class="journey-count">
+                  <span class="journey-month-count-before">0 / 4</span>
+                  <span class="journey-month-count-after">4 / 4</span>
+                </span>
+              </div>
+              <div class="journey-progress-track"><span class="journey-month-fill"></span></div>
+              <div class="journey-progress-line">
+                <span class="journey-month-state-before">In progress</span>
+                <span class="journey-month-state-after">Complete</span>
+              </div>
+            </div>
           </article>
 
           <span class="journey-connector" aria-hidden="true"></span>
 
-          <article class="journey-step journey-week">
-            <div class="journey-step-label"><span>Week</span><span>Oct 12–18</span></div>
-            <h3>Run three times</h3>
-            <div class="journey-task-example">
-              <svg class="journey-task-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m5 12 4 4L19 6"></path>
-              </svg>
-              <span>Saturday easy run</span>
-            </div>
-            <span class="journey-step-meta">A next action</span>
+          <article class="journey-step journey-weeks">
+            <div class="journey-step-label"><span>Weekly goals</span><span>December</span></div>
+            <h3>Finish the final story</h3>
+            <ul class="journey-week-list">
+              <li class="journey-week-item journey-week-one">
+                <span class="journey-week-number">Week 1</span>
+                <span class="journey-week-task">Outline the story</span>
+                <svg class="journey-week-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 2.5 2.5L16 9"></path></svg>
+              </li>
+              <li class="journey-week-item journey-week-two">
+                <span class="journey-week-number">Week 2</span>
+                <span class="journey-week-task">Draft the first half</span>
+                <svg class="journey-week-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 2.5 2.5L16 9"></path></svg>
+              </li>
+              <li class="journey-week-item journey-week-three">
+                <span class="journey-week-number">Week 3</span>
+                <span class="journey-week-task">Finish the draft</span>
+                <svg class="journey-week-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 2.5 2.5L16 9"></path></svg>
+              </li>
+              <li class="journey-week-item journey-week-four">
+                <span class="journey-week-number">Week 4</span>
+                <span class="journey-week-task">Revise and submit</span>
+                <svg class="journey-week-check" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 2.5 2.5L16 9"></path></svg>
+              </li>
+            </ul>
           </article>
         </div>
-      </div>
+      </figure>
     </section>
 
     <section class="section-container privacy-section" id="privacy-by-design" aria-labelledby="privacy-title">
