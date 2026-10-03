@@ -1344,7 +1344,7 @@ button {
 }
 
 .journey-month-item .journey-goal-entry {
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .journey-week-heading {
@@ -1391,7 +1391,7 @@ button {
 .journey-week-item .journey-goal-entry {
   gap: 4px;
   padding: 6px 0;
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .journey-week-item .journey-save,
