@@ -122,20 +122,20 @@
     cursor.style.setProperty('--cursor-x', `${targetRect.left - demoRect.left + targetRect.width / 2}px`);
     cursor.style.setProperty('--cursor-y', `${targetRect.top - demoRect.top + targetRect.height / 2}px`);
     cursor.classList.add('is-visible');
-    return wait(140, version);
+    return wait(115, version);
   };
 
   const clickTarget = async (target, action, version) => {
     if (!await moveCursor(target, version)) return false;
     if (!await waitUntilPlaying(version)) return false;
     cursor.classList.add('is-pressing');
-    if (!await wait(55, version) || !await waitUntilPlaying(version)) {
+    if (!await wait(45, version) || !await waitUntilPlaying(version)) {
       cursor.classList.remove('is-pressing');
       return false;
     }
     action();
     cursor.classList.remove('is-pressing');
-    return wait(90, version);
+    return wait(70, version);
   };
 
   const typeGoals = async (entries, texts, version) => {
@@ -150,7 +150,7 @@
       copies.forEach((copy, i) => { copy.textContent = texts[i].slice(0, index + 1); });
     }
 
-    return wait(80, version);
+    return wait(60, version);
   };
 
   const clearEntry = (entry) => {
@@ -158,7 +158,27 @@
     entry.querySelector('.journey-goal-copy').textContent = '';
   };
 
+  const confettiColors = ['#dc4c3e', '#f2b84b', '#3fa66b', '#3d7bd9', '#9b59d0'];
+  const launchConfetti = () => {
+    const layer = document.createElement('span');
+    layer.className = 'journey-confetti';
+    layer.setAttribute('aria-hidden', 'true');
+    for (let i = 0; i < 36; i += 1) {
+      const piece = document.createElement('i');
+      piece.style.left = `${Math.random() * 100}%`;
+      piece.style.background = confettiColors[i % confettiColors.length];
+      piece.style.setProperty('--drift', `${(Math.random() - 0.5) * 80}px`);
+      piece.style.setProperty('--spin', `${(Math.random() - 0.5) * 720}deg`);
+      piece.style.animationDelay = `${Math.random() * 250}ms`;
+      piece.style.animationDuration = `${1400 + Math.random() * 900}ms`;
+      layer.append(piece);
+    }
+    yearCard.append(layer);
+    window.setTimeout(() => layer.remove(), 2800);
+  };
+
   const resetSequence = () => {
+    yearCard.querySelectorAll('.journey-confetti').forEach(layer => layer.remove());
     flow.classList.remove('is-year-stage', 'is-quarter-stage');
     flow.classList.add('is-full-stage');
     cursor.classList.remove('is-visible', 'is-pressing');
@@ -234,7 +254,7 @@
         }, version)) { ok = false; break; }
         weeklyCount.textContent = `${weekIndex + 1} / 4 weeks`;
         weeklyFill.style.width = `${(weekIndex + 1) * 25}%`;
-        if (!await wait(100, version)) { ok = false; break; }
+        if (!await wait(75, version)) { ok = false; break; }
       }
       if (!ok) continue;
       if (!await wait(beat, version)) continue;
@@ -254,6 +274,7 @@
         yearCount.textContent = '12 / 12 stories';
         yearFill.style.width = '100%';
         yearCheck.classList.add('is-complete');
+        launchConfetti();
       }, version)) continue;
       cursor.classList.remove('is-visible');
       if (!await wait(5000, version)) continue;
