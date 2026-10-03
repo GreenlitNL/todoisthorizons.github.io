@@ -17,8 +17,9 @@
 
   const demo = document.querySelector('.journey-demo');
   const toggle = document.querySelector('.journey-demo-toggle');
+  const restart = document.querySelector('.journey-demo-restart');
 
-  if (!demo || !toggle || prefersReducedMotion) return;
+  if (!demo || !toggle || !restart || prefersReducedMotion) return;
 
   const flow = demo.querySelector('.journey-flow');
   const yearCard = demo.querySelector('.journey-year');
@@ -40,17 +41,29 @@
 
   let isInView = !('IntersectionObserver' in window);
   let isPaused = false;
+  let sequenceVersion = 0;
 
   const updatePlayback = () => {
-    demo.classList.add('is-playing');
-    demo.classList.toggle('is-paused', isPaused || !isInView || document.hidden);
+    const shouldPlay = !isPaused && isInView && !document.hidden;
+    demo.classList.toggle('is-playing', shouldPlay);
+    demo.classList.toggle('is-paused', !shouldPlay);
   };
 
   toggle.hidden = false;
+  restart.hidden = false;
   toggle.addEventListener('click', () => {
     isPaused = !isPaused;
     toggle.setAttribute('aria-pressed', String(isPaused));
     toggle.textContent = isPaused ? 'Play sequence' : 'Pause sequence';
+    updatePlayback();
+  });
+
+  restart.addEventListener('click', () => {
+    sequenceVersion += 1;
+    isPaused = false;
+    toggle.setAttribute('aria-pressed', 'false');
+    toggle.textContent = 'Pause sequence';
+    resetSequence();
     updatePlayback();
   });
 
@@ -66,10 +79,12 @@
   updatePlayback();
   document.addEventListener('visibilitychange', updatePlayback);
 
-  const wait = async (duration) => {
+  const wait = async (duration, version) => {
     let remaining = duration;
 
     while (remaining > 0) {
+      if (version !== sequenceVersion) return false;
+
       if (!demo.classList.contains('is-playing')) {
         await new Promise(resolve => window.setTimeout(resolve, 80));
         continue;
@@ -77,62 +92,80 @@
 
       const frameStart = performance.now();
       await new Promise(requestAnimationFrame);
-      if (demo.classList.contains('is-playing')) {
+      if (version === sequenceVersion && demo.classList.contains('is-playing')) {
         remaining -= performance.now() - frameStart;
       }
     }
+
+    return version === sequenceVersion;
   };
 
-  const moveCursor = async (target) => {
-    if (!target) return;
+  const waitUntilPlaying = async (version) => {
+    while (version === sequenceVersion && !demo.classList.contains('is-playing')) {
+      await new Promise(resolve => window.setTimeout(resolve, 80));
+    }
+
+    return version === sequenceVersion;
+  };
+
+  const moveCursor = async (target, version) => {
+    if (!target || version !== sequenceVersion) return false;
     const demoRect = demo.getBoundingClientRect();
     const targetRect = target.getBoundingClientRect();
     cursor.style.setProperty('--cursor-x', `${targetRect.left - demoRect.left + targetRect.width / 2}px`);
     cursor.style.setProperty('--cursor-y', `${targetRect.top - demoRect.top + targetRect.height / 2}px`);
     cursor.classList.add('is-visible');
-    await wait(360);
+    return wait(170, version);
   };
 
-  const clickTarget = async (target, action) => {
-    await moveCursor(target);
+  const clickTarget = async (target, action, version) => {
+    if (!await moveCursor(target, version)) return false;
+    if (!await waitUntilPlaying(version)) return false;
     cursor.classList.add('is-pressing');
-    await wait(110);
+    if (!await wait(55, version) || !await waitUntilPlaying(version)) {
+      cursor.classList.remove('is-pressing');
+      return false;
+    }
     action();
     cursor.classList.remove('is-pressing');
-    await wait(200);
+    return wait(90, version);
   };
 
-  const typeGoal = async (entry, text) => {
+  const typeGoal = async (entry, text, version) => {
     const copy = entry.querySelector('.journey-goal-copy');
     entry.classList.remove('is-saved');
     copy.textContent = '';
-    await moveCursor(copy);
+    if (!await moveCursor(copy, version)) return false;
+    entry.classList.remove('is-skeleton');
 
     for (const character of text) {
-      await wait(24);
+      if (!await wait(15, version) || !await waitUntilPlaying(version)) return false;
       copy.textContent += character;
     }
 
-    await clickTarget(entry.querySelector('.journey-save'), () => entry.classList.add('is-saved'));
+    return clickTarget(entry.querySelector('.journey-save'), () => entry.classList.add('is-saved'), version);
   };
 
   const resetSequence = () => {
     flow.classList.remove('is-quarter-stage', 'is-full-stage');
     flow.classList.add('is-year-stage');
-    quarterCard.hidden = true;
-    weeklyCard.hidden = true;
     cursor.classList.remove('is-visible', 'is-pressing');
+    yearCard.classList.remove('is-current', 'is-complete');
+    quarterCard.classList.remove('is-current');
+    weeklyCard.classList.remove('is-current');
 
+    yearEntry.classList.add('is-skeleton');
     yearEntry.classList.remove('is-saved');
     yearCard.classList.remove('is-complete');
     yearEntry.querySelector('.journey-goal-copy').textContent = '';
-    yearCount.textContent = '9 / 12 stories';
-    yearFill.style.width = '75%';
-    yearState.textContent = '9 stories complete';
+    yearCount.textContent = '0 / 3 months';
+    yearFill.style.width = '0%';
+    yearState.textContent = 'In progress';
     yearCheck.classList.remove('is-complete');
 
     quarterRows.forEach((row) => {
       row.classList.remove('is-current', 'is-complete');
+      row.querySelector('.journey-goal-entry').classList.add('is-skeleton');
       row.querySelector('.journey-goal-entry').classList.remove('is-saved');
       row.querySelector('.journey-goal-copy').textContent = '';
       row.querySelector('.journey-month-check').classList.remove('is-complete');
@@ -142,10 +175,12 @@
 
     weeklyRows.forEach((row) => {
       row.classList.remove('is-current', 'is-complete');
+      row.querySelector('.journey-goal-entry').classList.add('is-skeleton');
       row.querySelector('.journey-goal-entry').classList.remove('is-saved');
       row.querySelector('.journey-goal-copy').textContent = '';
       row.querySelector('.journey-week-check').classList.remove('is-complete');
     });
+    weeklyMonth.textContent = 'October';
     weeklyCount.textContent = '0 / 4 weeks';
     weeklyFill.style.width = '0%';
   };
@@ -154,49 +189,54 @@
     {
       name: 'October',
       goal: 'Write story 10',
-      weeks: ['Choose the story idea', 'Outline the story', 'Write the first draft', 'Revise and submit']
+      weeks: ['Choose the story idea', 'Outline story 10', 'Draft story 10', 'Revise story 10']
     },
     {
       name: 'November',
       goal: 'Write story 11',
-      weeks: ['Choose the story idea', 'Outline the story', 'Write the first draft', 'Revise and submit']
+      weeks: ['Choose the story idea', 'Outline story 11', 'Draft story 11', 'Revise story 11']
     },
     {
       name: 'December',
       goal: 'Write story 12',
-      weeks: ['Choose the story idea', 'Outline the story', 'Write the first draft', 'Revise and submit']
+      weeks: ['Choose the story idea', 'Outline story 12', 'Draft story 12', 'Revise story 12']
     }
   ];
 
   const runSequence = async () => {
     while (true) {
+      const version = sequenceVersion;
       resetSequence();
-      await wait(450);
-      await typeGoal(yearEntry, 'Write 12 short stories');
+      if (!await wait(250, version)) continue;
+      if (!await typeGoal(yearEntry, 'Write 12 short stories', version)) continue;
+      yearCard.classList.add('is-current');
 
-      quarterCard.hidden = false;
       flow.classList.remove('is-year-stage');
       flow.classList.add('is-quarter-stage');
-      await wait(350);
+      if (!await wait(180, version)) continue;
 
       for (const [monthIndex, month] of months.entries()) {
+        if (version !== sequenceVersion) break;
         const row = quarterRows[monthIndex];
         row.classList.add('is-current');
-        await typeGoal(row.querySelector('.journey-goal-entry'), month.goal);
+        if (!await typeGoal(row.querySelector('.journey-goal-entry'), month.goal, version)) break;
         row.classList.remove('is-current');
       }
+      if (version !== sequenceVersion) continue;
+      yearCard.classList.remove('is-current');
 
-      weeklyCard.hidden = false;
       flow.classList.remove('is-quarter-stage');
       flow.classList.add('is-full-stage');
 
       let completedMonths = 0;
       for (const [monthIndex, month] of months.entries()) {
+        if (version !== sequenceVersion) break;
         const monthRow = quarterRows[monthIndex];
         weeklyMonth.textContent = month.name;
         monthRow.classList.add('is-current');
         weeklyRows.forEach((row) => {
-          row.classList.remove('is-saved', 'is-complete');
+          row.classList.remove('is-current', 'is-complete');
+          row.querySelector('.journey-goal-entry').classList.add('is-skeleton');
           row.querySelector('.journey-goal-entry').classList.remove('is-saved');
           row.querySelector('.journey-goal-copy').textContent = '';
           row.querySelector('.journey-week-check').classList.remove('is-complete');
@@ -204,42 +244,46 @@
         weeklyCount.textContent = '0 / 4 weeks';
         weeklyFill.style.width = '0%';
 
-        await wait(350);
+        if (!await wait(180, version)) break;
         for (const [weekIndex, row] of weeklyRows.entries()) {
+          if (version !== sequenceVersion) break;
           row.classList.add('is-current');
-          await typeGoal(row.querySelector('.journey-goal-entry'), month.weeks[weekIndex]);
+          if (!await typeGoal(row.querySelector('.journey-goal-entry'), month.weeks[weekIndex], version)) break;
           row.classList.remove('is-current');
         }
+        if (version !== sequenceVersion) break;
 
         for (const [weekIndex, row] of weeklyRows.entries()) {
-          await clickTarget(row.querySelector('.journey-week-check'), () => row.classList.add('is-complete'));
+          if (!await clickTarget(row.querySelector('.journey-week-check'), () => row.classList.add('is-complete'), version)) break;
           weeklyCount.textContent = `${weekIndex + 1} / 4 weeks complete`;
           weeklyFill.style.width = `${(weekIndex + 1) * 25}%`;
         }
+        if (version !== sequenceVersion) break;
 
-        await clickTarget(monthRow.querySelector('.journey-month-check'), () => monthRow.classList.add('is-complete'));
+        if (!await clickTarget(monthRow.querySelector('.journey-month-check'), () => monthRow.classList.add('is-complete'), version)) break;
         monthRow.classList.remove('is-current');
         completedMonths += 1;
         quarterCount.textContent = `${completedMonths} / 3 months complete`;
         quarterFill.style.width = `${completedMonths * 100 / 3}%`;
-        const completedStories = 9 + completedMonths;
-        yearCount.textContent = `${completedStories} / 12 stories`;
-        yearFill.style.width = `${completedStories * 100 / 12}%`;
-        yearState.textContent = `${completedStories} stories complete`;
-        await wait(400);
+        yearCount.textContent = `${completedMonths} / 3 months`;
+        yearFill.style.width = `${completedMonths * 100 / 3}%`;
+        yearState.textContent = `${completedMonths} of 3 months complete`;
+        if (!await wait(180, version)) break;
       }
+      if (version !== sequenceVersion) continue;
 
-      await clickTarget(yearCheck, () => {
+      if (!await clickTarget(yearCheck, () => {
         yearCard.classList.add('is-complete');
-        yearCount.textContent = '12 / 12 stories';
+        yearCount.textContent = '3 / 3 months';
         yearFill.style.width = '100%';
         yearState.textContent = 'Year goal complete';
         yearCheck.classList.add('is-complete');
-      });
+      }, version)) continue;
       cursor.classList.remove('is-visible');
-      await wait(1800);
+      if (!await wait(800, version)) continue;
     }
   };
 
+  resetSequence();
   runSequence();
 })();

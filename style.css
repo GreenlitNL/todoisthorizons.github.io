@@ -1058,6 +1058,12 @@ button {
   text-transform: uppercase;
 }
 
+.journey-demo-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
 .journey-demo-dot {
   width: 8px;
   height: 8px;
@@ -1065,18 +1071,21 @@ button {
   background: var(--td-brand);
 }
 
-.journey-demo-toggle {
+.journey-demo-toggle,
+.journey-demo-restart {
   color: var(--td-text-secondary);
   font-size: 13px;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
-.journey-demo-toggle:hover {
+.journey-demo-toggle:hover,
+.journey-demo-restart:hover {
   color: var(--td-brand);
 }
 
 .journey-demo-toggle:focus-visible,
+.journey-demo-restart:focus-visible,
 .faq-item summary:focus-visible,
 .privacy-link:focus-visible {
   outline: 2px solid var(--td-brand);
@@ -1092,23 +1101,18 @@ button {
   background: var(--td-bg);
 }
 
-.journey-flow.is-year-stage {
-  grid-template-columns: minmax(0, 460px);
-  justify-content: center;
+.journey-flow .journey-step {
+  transition: opacity 0.25s ease, border-color 0.25s ease;
 }
 
-.journey-flow.is-quarter-stage {
-  grid-template-columns: minmax(0, 0.85fr) 28px minmax(0, 1.15fr);
-  justify-content: center;
+.journey-flow.is-year-stage .journey-quarter,
+.journey-flow.is-year-stage .journey-weeks,
+.journey-flow.is-quarter-stage .journey-weeks {
+  opacity: 0.62;
 }
 
-.journey-flow.is-year-stage .journey-connector,
-.journey-flow.is-quarter-stage .journey-connector-quarter-weeks {
-  display: none;
-}
-
-.journey-step[hidden] {
-  display: none;
+.journey-flow.is-full-stage .journey-step {
+  opacity: 1;
 }
 
 .journey-step {
@@ -1193,6 +1197,7 @@ button {
 }
 
 .journey-year-entry {
+  width: 100%;
   margin-top: 18px;
   border: 1px solid var(--td-border);
   border-radius: var(--td-radius-sm);
@@ -1209,6 +1214,34 @@ button {
 .journey-goal-copy:empty::before {
   color: var(--td-text-tertiary);
   content: attr(data-placeholder);
+}
+
+.journey-goal-entry.is-skeleton .journey-goal-copy {
+  font-size: 0;
+}
+
+.journey-goal-entry.is-skeleton .journey-goal-copy:empty::before {
+  display: block;
+  width: var(--skeleton-width, 72%);
+  height: 10px;
+  border-radius: var(--td-radius-pill);
+  background: linear-gradient(90deg, var(--td-surface-hover) 25%, var(--td-surface-active) 50%, var(--td-surface-hover) 75%);
+  background-size: 200% 100%;
+  content: "";
+}
+
+.journey-goal-entry.is-skeleton .journey-save {
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .journey-goal-entry.is-skeleton .journey-goal-copy:empty::before {
+    animation: journey-skeleton-shimmer 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes journey-skeleton-shimmer {
+  to { background-position: -200% 0; }
 }
 
 .journey-save,
@@ -1381,7 +1414,7 @@ button {
   pointer-events: none;
   transform: translate3d(var(--cursor-x, -40px), var(--cursor-y, -40px), 0) scale(var(--cursor-scale, 1));
   filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
-  transition: transform 0.42s cubic-bezier(0.2, 0.65, 0.3, 1), opacity 0.16s ease;
+  transition: transform 0.22s cubic-bezier(0.2, 0.65, 0.3, 1), opacity 0.12s ease;
 }
 
 .journey-cursor.is-visible {
@@ -1825,13 +1858,6 @@ button {
     gap: 0;
     margin: 0 auto;
     padding: 24px;
-  }
-
-  .journey-flow.is-year-stage,
-  .journey-flow.is-quarter-stage,
-  .journey-flow.is-full-stage {
-    grid-template-columns: minmax(0, 1fr);
-    justify-content: stretch;
   }
 
   .journey-step {
