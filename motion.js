@@ -317,3 +317,55 @@ document.querySelectorAll('.js-learn-more').forEach((link) => {
     history.replaceState(null, '', '#walkthrough');
   });
 });
+
+(() => {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'back-to-top';
+  button.setAttribute('aria-label', 'Back to top');
+  button.title = 'Back to top';
+  button.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 7-7 7 7"></path><path d="M12 19V5"></path></svg>';
+  document.body.appendChild(button);
+
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const visible = window.scrollY > window.innerHeight * 0.9;
+    button.classList.toggle('is-visible', visible);
+    button.tabIndex = visible ? 0 : -1;
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }, { passive: true });
+  update();
+
+  let animation = 0;
+  button.addEventListener('click', () => {
+    const start = window.scrollY;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || start <= 0) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      return;
+    }
+    const duration = Math.min(450, 250 + start / 40);
+    const startTime = performance.now();
+    const root = document.documentElement;
+    const previousBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    cancelAnimationFrame(animation);
+    const step = (now) => {
+      const t = Math.min(1, (now - startTime) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      window.scrollTo(0, Math.round(start * (1 - eased)));
+      if (t < 1) {
+        animation = requestAnimationFrame(step);
+      } else {
+        root.style.scrollBehavior = previousBehavior;
+        if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+      }
+    };
+    animation = requestAnimationFrame(step);
+  });
+})();
