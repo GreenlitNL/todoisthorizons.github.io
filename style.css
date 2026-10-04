@@ -2189,7 +2189,7 @@ button {
 }
 
 /* ==========================================================================
-   Final CTA - Option A: Horizon zoom-out
+   Final CTA: horizon zoom-out
    ========================================================================== */
 
 .cta-zoom {
@@ -2198,7 +2198,7 @@ button {
 }
 
 .cta-zoom.is-enhanced {
-  height: 300vh;
+  height: 340vh;
 }
 
 .cta-zoom-sticky {
@@ -2225,55 +2225,69 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-shrink: 0;
 }
 
-.cta-zoom-levels {
-  position: relative;
-  display: inline-grid;
-  grid-template-columns: repeat(3, 76px);
-  padding: 4px;
-  border: 1px solid var(--td-border);
-  border-radius: var(--td-radius-pill);
-  background: var(--td-surface);
-  box-shadow: var(--td-shadow-sm);
+/* Read-only progress timeline (deliberately not styled like a control). */
+.cta-zoom-steps {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
 }
 
-.cta-zoom-levels::before {
+.cta-zoom-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--td-text-tertiary);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.cta-zoom-step::before {
   content: "";
-  position: absolute;
-  top: 4px;
-  bottom: 4px;
-  left: 4px;
-  width: 76px;
-  border-radius: var(--td-radius-pill);
-  background: var(--td-brand);
-  transform: translateX(calc(var(--zoom-level, 0) * 76px));
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 7px;
+  height: 7px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.cta-zoom-level {
+.cta-zoom-step.is-reached {
+  color: var(--td-brand);
+}
+
+.cta-zoom-step.is-reached::before {
+  background: currentColor;
+  transform: scale(1.15);
+}
+
+.cta-zoom-step-line {
   position: relative;
-  z-index: 1;
-  padding: 6px 0;
-  color: var(--td-text-secondary);
-  font-size: 13px;
-  font-weight: 600;
-  text-align: center;
-  transition: color 0.25s ease;
+  width: 44px;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--td-border);
 }
 
-.cta-zoom[data-level="0"] .cta-zoom-level:nth-child(1),
-.cta-zoom[data-level="1"] .cta-zoom-level:nth-child(2),
-.cta-zoom[data-level="2"] .cta-zoom-level:nth-child(3) {
-  color: #ffffff;
+.cta-zoom-step-line i {
+  position: absolute;
+  inset: 0;
+  background: var(--td-brand);
+  transform: scaleX(var(--fill, 0));
+  transform-origin: left center;
 }
 
 .cta-zoom-caption {
   min-height: 1.4em;
   color: var(--td-text-primary);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
@@ -2302,13 +2316,6 @@ button {
   mask-composite: intersect;
 }
 
-.cta-zoom.is-enhanced .cta-zoom-finale {
-  position: absolute;
-  left: 24px;
-  right: 24px;
-  bottom: 32px;
-}
-
 .cta-zoom.is-enhanced .cta-zoom-map {
   position: absolute;
   top: 50%;
@@ -2320,23 +2327,22 @@ button {
   display: grid;
   justify-items: center;
   gap: 28px;
-  width: 880px;
+  width: 600px;
   margin: 0 auto;
 }
 
 .cta-zoom-year,
-.cta-zoom-month,
-.cta-zoom-more {
+.cta-zoom-month {
+  position: relative;
   border: 1px solid var(--td-border);
   border-radius: 14px;
   background: var(--td-surface);
   box-shadow: var(--td-shadow-md);
-  transition: opacity 0.45s ease, filter 0.45s ease;
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .cta-zoom-year {
-  position: relative;
-  width: 360px;
+  width: 340px;
   padding: 16px 18px;
 }
 
@@ -2353,8 +2359,8 @@ button {
 .cta-zoom-months {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(3, 1fr) 120px;
-  gap: 14px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
   width: 100%;
   padding-top: 14px;
 }
@@ -2363,19 +2369,18 @@ button {
   content: "";
   position: absolute;
   top: 0;
-  left: calc((100% - 120px - 42px) / 6);
-  right: 60px;
+  left: 25%;
+  right: 25%;
   height: 1px;
   background: var(--td-border);
+  transition: opacity 0.5s ease;
 }
 
 .cta-zoom-month {
-  position: relative;
   padding: 14px;
 }
 
-.cta-zoom-month::before,
-.cta-zoom-more::before {
+.cta-zoom-month::before {
   content: "";
   position: absolute;
   left: 50%;
@@ -2383,20 +2388,28 @@ button {
   width: 1px;
   height: 14px;
   background: var(--td-border);
+  transition: opacity 0.5s ease;
 }
 
-.cta-zoom-more {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-style: dashed;
-  background: transparent;
-  box-shadow: none;
-  color: var(--td-text-tertiary);
-  font-size: 13px;
-  font-weight: 600;
-  text-align: center;
+/* Reveal states: December and the year goal only appear once the scroll reaches them. */
+.cta-zoom.is-enhanced:not(.show-dec) [data-zoom-month="dec"] {
+  opacity: 0;
+  transform: translateX(-24px) scale(0.96);
+}
+
+.cta-zoom.is-enhanced:not(.show-year) .cta-zoom-year {
+  opacity: 0;
+  transform: translateY(18px) scale(0.94);
+}
+
+.cta-zoom.is-enhanced:not(.show-year) .cta-zoom-months::before,
+.cta-zoom.is-enhanced:not(.show-year) .cta-zoom-month::before {
+  opacity: 0;
+}
+
+.cta-zoom-year.is-done {
+  border-color: #3fa66b;
+  box-shadow: var(--td-shadow-md), 0 0 0 4px rgba(63, 166, 107, 0.16);
 }
 
 .cta-zoom-card-head {
@@ -2478,7 +2491,7 @@ button {
   border-radius: 9px;
   background: var(--td-bg);
   font-size: 13px;
-  transition: opacity 0.45s ease, border-color 0.3s ease, background-color 0.3s ease;
+  transition: opacity 0.45s ease, border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .cta-zoom-week-label {
@@ -2500,10 +2513,23 @@ button {
   text-decoration: line-through;
 }
 
-.cta-zoom-week[data-zoom-focus] {
+.cta-zoom.is-week-focus .cta-zoom-week[data-zoom-focus] {
   border-color: var(--td-brand);
   background: var(--td-surface);
   box-shadow: 0 0 0 3px var(--td-brand-subtle);
+}
+
+.cta-zoom.is-week-focus .cta-zoom-week:not([data-zoom-focus]),
+.cta-zoom.is-week-focus .cta-zoom-month .cta-zoom-card-head,
+.cta-zoom.is-week-focus .cta-zoom-month .cta-zoom-title,
+.cta-zoom.is-week-focus .cta-zoom-bar {
+  opacity: 0.35;
+}
+
+.cta-zoom-card-head,
+.cta-zoom-title,
+.cta-zoom-bar {
+  transition: opacity 0.45s ease;
 }
 
 .cta-zoom-bar {
@@ -2538,7 +2564,10 @@ button {
 
 .cta-zoom-pips i.is-done {
   background: #3fa66b;
-  transform: scaleY(1.25);
+}
+
+.cta-zoom-pips i.is-new {
+  transform: scaleY(1.5);
 }
 
 .cta-zoom-count {
@@ -2548,18 +2577,6 @@ button {
 
 .cta-zoom-count b {
   color: var(--td-text-primary);
-}
-
-/* Elements outside the current zoom level recede until the camera reaches them. */
-.cta-zoom[data-level="0"] .cta-zoom-week:not([data-zoom-focus]),
-.cta-zoom[data-level="0"] .cta-zoom-month:not(:first-child),
-.cta-zoom[data-level="1"] .cta-zoom-month:not(:first-child),
-.cta-zoom[data-level="0"] .cta-zoom-more,
-.cta-zoom[data-level="1"] .cta-zoom-more,
-.cta-zoom[data-level="0"] .cta-zoom-year,
-.cta-zoom[data-level="1"] .cta-zoom-year {
-  opacity: 0.35;
-  filter: saturate(0.4);
 }
 
 .cta-zoom-hint {
@@ -2599,12 +2616,36 @@ button {
   50% { transform: translateY(3px); }
 }
 
+.cta-zoom-confetti {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cta-zoom-confetti i {
+  position: absolute;
+  width: 8px;
+  height: 12px;
+  border-radius: 2px;
+  opacity: 0;
+  animation: journey-confetti-fall linear forwards;
+}
+
 .cta-zoom-finale {
   position: relative;
   z-index: 2;
   flex-shrink: 0;
   text-align: center;
   transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cta-zoom.is-enhanced .cta-zoom-finale {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 32px;
 }
 
 .cta-zoom.is-enhanced:not(.is-finale) .cta-zoom-finale {
@@ -2628,7 +2669,7 @@ button {
 
 @media (max-width: 760px) {
   .cta-zoom-map {
-    width: 340px;
+    width: 320px;
     gap: 22px;
   }
 
@@ -2645,13 +2686,8 @@ button {
     display: none;
   }
 
-  .cta-zoom-month::before,
-  .cta-zoom-more::before {
+  .cta-zoom-month::before {
     height: 22px;
-  }
-
-  .cta-zoom-more {
-    padding: 14px;
   }
 
   .cta-zoom-finale h2 {
@@ -2659,7 +2695,7 @@ button {
   }
 
   .cta-zoom-caption {
-    font-size: 16px;
+    font-size: 17px;
   }
 }
 

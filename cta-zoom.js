@@ -2,13 +2,17 @@
   const section = document.getElementById('cta-zoom');
   if (!section) return;
 
+  const sticky = section.querySelector('.cta-zoom-sticky');
   const stage = section.querySelector('.cta-zoom-stage');
   const map = section.querySelector('.cta-zoom-map');
-  const sticky = section.querySelector('.cta-zoom-sticky');
-  const caption = section.querySelector('.cta-zoom-caption');
   const finale = section.querySelector('.cta-zoom-finale');
-  const focus = section.querySelector('[data-zoom-focus]');
-  const months = [...section.querySelectorAll('.cta-zoom-month')];
+  const caption = section.querySelector('.cta-zoom-caption');
+  const steps = [...section.querySelectorAll('.cta-zoom-step')];
+  const stepLines = [...section.querySelectorAll('.cta-zoom-step-line i')];
+  const focusWeek = section.querySelector('[data-zoom-focus]');
+  const nov = section.querySelector('[data-zoom-month="nov"]');
+  const dec = section.querySelector('[data-zoom-month="dec"]');
+  const yearCard = section.querySelector('.cta-zoom-year');
   const pips = [...section.querySelectorAll('.cta-zoom-pips i')];
   const yearCount = section.querySelector('[data-zoom-year-count]');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -19,56 +23,107 @@
     'Months add up to your year.'
   ];
 
-  // Scroll progress (0-1) at which each item gets checked off as the camera pulls back.
-  const weekSchedule = [
-    [0.22, 0.06, 0.27, 0.32],
-    [0.45, 0.49, 0.53, 0.57],
-    [0.66, 0.7, 2, 2]
-  ];
-  const monthSchedule = [0.38, 0.61, 2];
+  // Scroll progress (0-1) at which each beat happens.
+  const T = {
+    novWeeks: [0.06, 0.11, 0.15, 0.19],
+    novDone: 0.23,
+    decReveal: 0.27,
+    decWeeks: [0.39, 0.43, 0.47, 0.51],
+    decDone: 0.55,
+    yearReveal: 0.59,
+    pips: [0.69, 0.73],
+    yearDone: 0.77,
+    finale: 0.85,
+    levels: [0.12, 0.58],
+    weekFocusEnd: 0.09
+  };
 
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
-  const easeInOut = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const ease = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
-  let geometry = null;
+  let camera = null;
   let currentLevel = -1;
   let captionTimer = 0;
   let ticking = false;
+  let celebrated = null;
 
-  const offsetWithin = (element, ancestor) => {
+  const rectWithin = (element) => {
     let x = 0;
     let y = 0;
     let node = element;
-    while (node && node !== ancestor) {
+    while (node && node !== map) {
       x += node.offsetLeft;
       y += node.offsetTop;
       node = node.offsetParent;
     }
-    return { x, y };
+    return { x, y, w: element.offsetWidth, h: element.offsetHeight };
   };
 
+  const union = (a, b) => {
+    const x = Math.min(a.x, b.x);
+    const y = Math.min(a.y, b.y);
+    return { x, y, w: Math.max(a.x + a.w, b.x + b.w) - x, h: Math.max(a.y + a.h, b.y + b.h) - y };
+  };
+
+  // Camera keyframes: each frames a region of the map, from one week out to the whole year.
   const measure = () => {
-    const mapWidth = map.offsetWidth;
-    const mapHeight = map.offsetHeight;
-    const stageWidth = stage.clientWidth;
-    const stageHeight = stage.clientHeight;
-    const enhanced = section.classList.contains('is-enhanced');
-    // In the sticky layout the finale overlays the bottom of the stage, so the fully zoomed-out map must fit above it.
-    const finaleSpace = enhanced ? finale.offsetHeight + 24 : 0;
-    const fit = Math.min(1, (stageWidth - 48) / mapWidth, (stageHeight - finaleSpace - 40) / mapHeight);
-    const focusOffset = offsetWithin(focus, map);
-    const focusX = focusOffset.x + focus.offsetWidth / 2 - mapWidth / 2;
-    const focusY = focusOffset.y + focus.offsetHeight / 2 - mapHeight / 2;
-    const startZoom = clamp((Math.min(stageWidth, 760) * 0.5) / (focus.offsetWidth * fit), 1.8, 3);
-    geometry = { fit, focusX, focusY, startZoom, finaleSpace };
+    const mapW = map.offsetWidth;
+    const mapH = map.offsetHeight;
+    const availW = stage.clientWidth - 64;
+    const availH = stage.clientHeight - 56;
+    const finaleSpace = finale.offsetHeight + 28;
+
+    const frame = (rect, fill, maxScale, heightCut = 0) => ({
+      scale: Math.min(maxScale, (availW * fill) / rect.w, ((availH - heightCut) * fill) / rect.h),
+      cx: rect.x + rect.w / 2 - mapW / 2,
+      cy: rect.y + rect.h / 2 - mapH / 2,
+      oy: -heightCut / 2
+    });
+
+    const novRect = rectWithin(nov);
+    const monthsRect = union(novRect, rectWithin(dec));
+    const fullRect = { x: 0, y: 0, w: mapW, h: mapH };
+
+    const novFrame = frame(novRect, 0.92, 1.6);
+    const weekFrame = frame(rectWithin(focusWeek), 0.6, 2.6);
+    weekFrame.scale = Math.max(weekFrame.scale, novFrame.scale * 1.5);
+    const monthsFrame = frame(monthsRect, 0.94, novFrame.scale);
+    const fullFrame = frame(fullRect, 0.94, monthsFrame.scale);
+    const finalFrame = frame(fullRect, 0.94, fullFrame.scale, finaleSpace);
+
+    camera = [
+      [0.02, weekFrame],
+      [0.2, novFrame],
+      [0.33, monthsFrame],
+      [0.57, monthsFrame],
+      [0.68, fullFrame],
+      [T.finale, finalFrame]
+    ];
+  };
+
+  const cameraAt = (progress) => {
+    if (progress <= camera[0][0]) return camera[0][1];
+    for (let i = 1; i < camera.length; i += 1) {
+      const [end, to] = camera[i];
+      const [start, from] = camera[i - 1];
+      if (progress <= end) {
+        const t = ease((progress - start) / (end - start));
+        return {
+          scale: from.scale * Math.pow(to.scale / from.scale, t),
+          cx: from.cx + (to.cx - from.cx) * t,
+          cy: from.cy + (to.cy - from.cy) * t,
+          oy: from.oy + (to.oy - from.oy) * t
+        };
+      }
+    }
+    return camera[camera.length - 1][1];
   };
 
   const setLevel = (level) => {
     if (level === currentLevel) return;
     const firstRender = currentLevel === -1;
     currentLevel = level;
-    section.dataset.level = String(level);
-    section.style.setProperty('--zoom-level', String(level));
+    steps.forEach((step, index) => step.classList.toggle('is-reached', index <= level));
     window.clearTimeout(captionTimer);
     if (firstRender || reduceMotion.matches) {
       caption.textContent = captions[level];
@@ -81,53 +136,94 @@
     }, 180);
   };
 
-  const renderChecks = (progress) => {
-    let completedMonths = 0;
-    months.forEach((month, monthIndex) => {
-      const weeks = month.querySelectorAll('.cta-zoom-week');
-      let doneWeeks = 0;
-      weeks.forEach((week, weekIndex) => {
-        const done = progress >= weekSchedule[monthIndex][weekIndex];
-        week.classList.toggle('is-done', done);
-        if (done) doneWeeks += 1;
-      });
-      month.querySelector('.cta-zoom-bar i').style.setProperty('--fill', String(doneWeeks / weeks.length));
-      const monthDone = progress >= monthSchedule[monthIndex];
-      month.classList.toggle('is-done', monthDone);
-      if (monthDone) completedMonths += 1;
+  const renderMonth = (month, schedule, doneAt, progress) => {
+    const weeks = month.querySelectorAll('.cta-zoom-week');
+    let done = 0;
+    weeks.forEach((week, index) => {
+      const isDone = progress >= schedule[index];
+      week.classList.toggle('is-done', isDone);
+      if (isDone) done += 1;
     });
-    pips.forEach((pip, index) => pip.classList.toggle('is-done', index < completedMonths));
-    yearCount.textContent = String(completedMonths);
+    month.querySelector('.cta-zoom-bar i').style.setProperty('--fill', String(done / weeks.length));
+    month.classList.toggle('is-done', progress >= doneAt);
+  };
+
+  const confettiColors = ['#dc4c3e', '#f2b84b', '#3fa66b', '#3d7bd9', '#9b59d0'];
+  const launchConfetti = () => {
+    const stickyRect = sticky.getBoundingClientRect();
+    const cardRect = yearCard.getBoundingClientRect();
+    const layer = document.createElement('span');
+    layer.className = 'cta-zoom-confetti';
+    layer.setAttribute('aria-hidden', 'true');
+    [cardRect.left, cardRect.right].forEach((originX, side) => {
+      for (let i = 0; i < 34; i += 1) {
+        const piece = document.createElement('i');
+        const angle = (40 + Math.random() * 45) * Math.PI / 180;
+        const power = 160 + Math.random() * 200;
+        piece.style.left = `${originX - stickyRect.left - 4}px`;
+        piece.style.top = `${cardRect.bottom - stickyRect.top - 10}px`;
+        piece.style.background = confettiColors[i % confettiColors.length];
+        piece.style.setProperty('--dx', `${Math.cos(angle) * power * (side ? 1 : -1)}px`);
+        piece.style.setProperty('--dy', `${-Math.sin(angle) * power}px`);
+        piece.style.setProperty('--fall', `${80 + Math.random() * 140}px`);
+        piece.style.setProperty('--spin', `${(Math.random() - 0.5) * 800}deg`);
+        piece.style.animationDelay = `${Math.random() * 150}ms`;
+        piece.style.animationDuration = `${1400 + Math.random() * 800}ms`;
+        layer.append(piece);
+      }
+    });
+    sticky.append(layer);
+    window.setTimeout(() => layer.remove(), 2800);
   };
 
   const render = () => {
     ticking = false;
-    if (!geometry) measure();
+    const enhanced = section.classList.contains('is-enhanced');
+    if (enhanced && !camera) measure();
 
     let progress = 1;
-    if (section.classList.contains('is-enhanced')) {
-      const rect = section.getBoundingClientRect();
+    if (enhanced) {
       const stickyTop = parseFloat(getComputedStyle(sticky).top) || 0;
       const travel = section.offsetHeight - sticky.offsetHeight;
-      progress = travel > 0 ? clamp((stickyTop - rect.top) / travel, 0, 1) : 1;
-    }
-
-    const zoomT = easeInOut(clamp((progress - 0.04) / 0.68, 0, 1));
-    const zoom = Math.pow(geometry.startZoom, 1 - zoomT);
-    const scale = geometry.fit * zoom;
-    const pull = (zoom - 1) / (geometry.startZoom - 1 || 1);
-    const tx = -geometry.focusX * scale * pull;
-    const ty = -geometry.focusY * scale * pull - (geometry.finaleSpace / 2) * zoomT;
-    if (section.classList.contains('is-enhanced')) {
-      map.style.transform = `translate(-50%, -50%) translate(${tx.toFixed(2)}px, ${ty.toFixed(2)}px) scale(${scale.toFixed(4)})`;
+      progress = travel > 0 ? clamp((stickyTop - section.getBoundingClientRect().top) / travel, 0, 1) : 1;
+      const view = cameraAt(progress);
+      const tx = -view.cx * view.scale;
+      const ty = -view.cy * view.scale + view.oy;
+      map.style.transform = `translate(-50%, -50%) translate(${tx.toFixed(2)}px, ${ty.toFixed(2)}px) scale(${view.scale.toFixed(4)})`;
     } else {
       map.style.transform = '';
     }
 
-    setLevel(progress < 0.2 ? 0 : progress < 0.5 ? 1 : 2);
-    renderChecks(progress);
+    setLevel(progress < T.levels[0] ? 0 : progress < T.levels[1] ? 1 : 2);
+    stepLines[0].style.setProperty('--fill', String(clamp(progress / T.levels[0], 0, 1)));
+    stepLines[1].style.setProperty('--fill', String(clamp((progress - T.levels[0]) / (T.levels[1] - T.levels[0]), 0, 1)));
+
+    renderMonth(nov, T.novWeeks, T.novDone, progress);
+    renderMonth(dec, T.decWeeks, T.decDone, progress);
+
+    const monthsDone = 10 + T.pips.filter(at => progress >= at).length;
+    pips.forEach((pip, index) => {
+      pip.classList.toggle('is-done', index < monthsDone);
+      pip.classList.toggle('is-new', index >= 10 && index < monthsDone);
+    });
+    yearCount.textContent = String(monthsDone);
+
+    const yearDone = progress >= T.yearDone;
+    yearCard.classList.toggle('is-done', yearDone);
+    if (celebrated === null) {
+      celebrated = yearDone;
+    } else if (yearDone && !celebrated) {
+      celebrated = true;
+      if (enhanced) launchConfetti();
+    } else if (!yearDone && progress < T.yearDone - 0.03) {
+      celebrated = false;
+    }
+
+    section.classList.toggle('is-week-focus', progress < T.weekFocusEnd);
+    section.classList.toggle('show-dec', progress >= T.decReveal);
+    section.classList.toggle('show-year', progress >= T.yearReveal);
     section.classList.toggle('is-past-start', progress > 0.03);
-    section.classList.toggle('is-finale', progress >= 0.76);
+    section.classList.toggle('is-finale', progress >= T.finale);
   };
 
   const requestRender = () => {
@@ -138,14 +234,14 @@
 
   const applyMode = () => {
     section.classList.toggle('is-enhanced', !reduceMotion.matches);
-    geometry = null;
+    camera = null;
     currentLevel = -1;
     render();
   };
 
   window.addEventListener('scroll', requestRender, { passive: true });
   window.addEventListener('resize', () => {
-    geometry = null;
+    camera = null;
     requestRender();
   });
   if (reduceMotion.addEventListener) reduceMotion.addEventListener('change', applyMode);
