@@ -70,7 +70,7 @@
         Privacy at a Glance: Local-First and Zero-Telemetry
       </h3>
       <p>
-        Horizons for Todoist is built on strict data minimization. We do not operate external analytics servers, we do not monitor your web browsing, we do not collect personal identifiers, and we never sell user data. All your goals stay on your machine and inside your own private Todoist account.
+        Horizons for Todoist is built on data minimization. We do not monitor your browsing or sell user data. Your goals stay on your device, or in your Todoist account if you enable sync. Information is sent to Web3Forms only when you choose to submit a support, contact, or uninstall feedback form.
       </p>
     </div>
 
@@ -89,6 +89,9 @@
       </p>
       <p>
         This data remains sandboxed within your browser. It is never transmitted to any servers operated by the developers of this extension.
+      </p>
+      <p>
+        The extension also stores its installation timestamp locally to calculate an approximate days-installed value for the uninstall feedback page. The timestamp itself is not sent or synced; that page's URL contains only the extension version and calculated day count.
       </p>
       </section>
 
@@ -123,11 +126,14 @@
       </p>
       <ul>
         <li>The form data (your message, selected category/topic, and optional reply email) is transmitted securely via HTTPS to Web3Forms (<code>https://api.web3forms.com/*</code>) solely for delivery to our support team.</li>
-        <li>If the "Include system diagnostics" checkbox is selected, non-identifying technical metadata (extension version, browser platform, locale, and timestamp) is included to help troubleshoot your issue.</li>
+        <li>If the "Include system diagnostics" checkbox is selected, technical metadata (extension version, browser and operating-system user-agent, locale, and timestamp) is included to help troubleshoot your issue.</li>
         <li>This information is used strictly to respond to your inquiry and is never shared, marketed, or sold.</li>
       </ul>
       <p>
         The contact form on our website works the same way: your name, email address, selected topic, and message are sent securely via HTTPS to Web3Forms solely so we can reply to you.
+      </p>
+      <p>
+        After removal, Chrome opens an uninstall feedback page. The page request contains only the extension version and approximate days installed, with no Todoist account, task, or goal data. If you choose to submit the survey, your selected reason, optional message and reply email, extension version, days installed, and browser language are sent securely via HTTPS to Web3Forms for product feedback.
       </p>
       </section>
 
