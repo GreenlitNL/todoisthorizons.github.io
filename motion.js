@@ -73,6 +73,7 @@
     const columns = [...demo.querySelectorAll('.journey-step')];
     let hasStarted = false;
     let frame = 0;
+    let startNotBefore = 0;
     const checkColumns = () => {
       frame = 0;
       const top = Math.min(...columns.map(col => col.getBoundingClientRect().top));
@@ -80,6 +81,12 @@
       const viewport = window.innerHeight;
       const visibleHeight = Math.min(bottom, viewport) - Math.max(top, 0);
       const columnsInView = (top >= -2 && bottom <= viewport + 2) || visibleHeight >= viewport * 0.9;
+      // Give visitors a moment to take in the page when the demo is already fully visible on load.
+      const delay = startNotBefore - performance.now();
+      if (columnsInView && !hasStarted && delay > 0) {
+        window.setTimeout(scheduleCheck, delay);
+        return;
+      }
       if (columnsInView) hasStarted = true;
       const nextInView = columnsInView || (hasStarted && bottom > 0 && top < viewport);
       if (nextInView !== isInView) {
@@ -93,7 +100,9 @@
     isInView = false;
     window.addEventListener('scroll', scheduleCheck, { passive: true });
     window.addEventListener('resize', scheduleCheck);
+    startNotBefore = performance.now() + 1000;
     checkColumns();
+    startNotBefore = 0;
   }
 
   updatePlayback();
