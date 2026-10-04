@@ -67,18 +67,24 @@
 
   // Camera keyframes: each frames a region of the map, from one week out to the whole year.
   const measure = () => {
+    // Pin the closing CTA to the bottom of the stage so it never floats far below the map on tall screens.
+    finale.style.bottom = 'auto';
+    finale.style.top = `${stage.offsetTop + stage.offsetHeight - finale.offsetHeight - 8}px`;
+
     const mapW = map.offsetWidth;
     const mapH = map.offsetHeight;
     const availW = stage.clientWidth - 64;
     const availH = stage.clientHeight - 56;
     const finaleSpace = finale.offsetHeight + 28;
 
-    const frame = (rect, fill, maxScale, heightCut = 0) => ({
-      scale: Math.min(maxScale, (availW * fill) / rect.w, ((availH - heightCut) * fill) / rect.h),
-      cx: rect.x + rect.w / 2 - mapW / 2,
-      cy: rect.y + rect.h / 2 - mapH / 2,
-      oy: -heightCut / 2
-    });
+    const frame = (rect, fill, maxScale, heightCut = 0) => {
+      const scale = Math.min(maxScale, (availW * fill) / rect.w, ((availH - heightCut) * fill) / rect.h);
+      let oy = -heightCut / 2;
+      // Lift short content toward the caption rather than leaving a gap above it.
+      const top = stage.clientHeight / 2 - (rect.h * scale) / 2 + oy;
+      if (!heightCut && top > 36) oy -= top - 36;
+      return { scale, cx: rect.x + rect.w / 2 - mapW / 2, cy: rect.y + rect.h / 2 - mapH / 2, oy };
+    };
 
     const novRect = rectWithin(nov);
     const monthsRect = union(novRect, rectWithin(dec));
@@ -87,6 +93,9 @@
     const novFrame = frame(novRect, 0.92, 1.6);
     const weekFrame = frame(rectWithin(focusWeek), 0.6, 2.6);
     weekFrame.scale = Math.max(weekFrame.scale, novFrame.scale * 1.5);
+    // Keep the November card's top edge just below the caption instead of centring the week in the stage.
+    const novTopOnStage = stage.clientHeight / 2 + (novRect.y - mapH / 2 - weekFrame.cy) * weekFrame.scale;
+    weekFrame.oy = novTopOnStage > 36 ? 36 - novTopOnStage : 0;
     const monthsFrame = frame(monthsRect, 0.94, novFrame.scale);
     const fullFrame = frame(fullRect, 0.94, monthsFrame.scale);
     const finalFrame = frame(fullRect, 0.94, fullFrame.scale, finaleSpace);
