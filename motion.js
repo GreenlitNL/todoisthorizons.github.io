@@ -308,7 +308,7 @@
         launchConfetti();
       }, version)) continue;
       cursor.classList.remove('is-visible');
-      if (!await wait(5000, version)) continue;
+      if (!await wait(10000, version)) continue;
     }
   };
 
