@@ -109,6 +109,11 @@ html {
   scroll-margin-top: 104px;
 }
 
+/* Offset the section's top padding + border so its heading lands where the others do. */
+#privacy-by-design {
+  scroll-margin-top: 39px;
+}
+
 body {
   font-family: var(--td-font);
   background-color: var(--td-bg);
