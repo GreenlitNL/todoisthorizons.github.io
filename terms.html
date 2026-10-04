@@ -190,6 +190,14 @@
       applyTheme('light');
     }
 
+    const systemThemeQuery = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+    if (systemThemeQuery && systemThemeQuery.addEventListener) {
+      systemThemeQuery.addEventListener('change', (event) => {
+        localStorage.removeItem('th_theme');
+        applyTheme(event.matches ? 'dark' : 'light');
+      });
+    }
+
     themeToggleBtn.addEventListener('click', () => {
       const current = document.documentElement.getAttribute('data-theme');
       const next = current === 'dark' ? 'light' : 'dark';
