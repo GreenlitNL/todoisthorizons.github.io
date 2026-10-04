@@ -336,6 +336,34 @@ button {
   flex-wrap: wrap;
 }
 
+.hero-perks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 20px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--td-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.hero-perks li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hero-perks li::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background: #3fa66b;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
 /* ==========================================================================
   Interactive Demo
    ========================================================================== */
