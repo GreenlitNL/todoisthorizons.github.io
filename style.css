@@ -2120,3 +2120,8 @@ button {
   color: var(--text-muted, inherit);
   opacity: 0.75;
 }
+
+.contact-required {
+  color: #e5484d;
+  font-weight: 600;
+}
