@@ -2336,7 +2336,7 @@ button {
   display: grid;
   justify-items: center;
   gap: 28px;
-  width: 600px;
+  width: 780px;
   margin: 0 auto;
 }
 
@@ -2368,7 +2368,7 @@ button {
 .cta-zoom-months {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 150px repeat(2, 1fr);
   gap: 16px;
   width: 100%;
   padding-top: 14px;
@@ -2378,8 +2378,8 @@ button {
   content: "";
   position: absolute;
   top: 0;
-  left: 25%;
-  right: 25%;
+  left: 75px;
+  right: calc((100% - 182px) / 4);
   height: 1px;
   background: var(--td-border);
   transition: opacity 0.5s ease;
@@ -2400,10 +2400,50 @@ button {
   transition: opacity 0.5s ease;
 }
 
+/* Collapsed stack standing in for January to October. */
+.cta-zoom-more {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0 0 12px 12px;
+  text-align: center;
+  box-shadow:
+    -6px 6px 0 -1px var(--td-surface),
+    -6px 6px 0 0 var(--td-border),
+    -12px 12px 0 -2px var(--td-surface),
+    -12px 12px 0 -1px var(--td-border),
+    var(--td-shadow-md);
+}
+
+.cta-zoom-more-count {
+  color: var(--td-text-primary);
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.cta-zoom-more-label {
+  color: var(--td-text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cta-zoom-more .cta-zoom-check {
+  margin-top: 6px;
+}
+
 /* Reveal states: December and the year goal only appear once the scroll reaches them. */
 .cta-zoom.is-enhanced:not(.show-dec) [data-zoom-month="dec"] {
   opacity: 0;
   transform: translateX(-24px) scale(0.96);
+}
+
+.cta-zoom.is-enhanced:not(.show-year) .cta-zoom-more {
+  opacity: 0;
+  transform: translateX(24px) scale(0.96);
 }
 
 .cta-zoom.is-enhanced:not(.show-year) .cta-zoom-year {
@@ -2693,6 +2733,21 @@ button {
 
   .cta-zoom-months::before {
     display: none;
+  }
+
+  .cta-zoom-more {
+    flex-direction: row;
+    gap: 10px;
+    margin: 0 0 12px 12px;
+    padding: 10px 14px;
+  }
+
+  .cta-zoom-more-count {
+    font-size: 22px;
+  }
+
+  .cta-zoom-more .cta-zoom-check {
+    margin: 0 0 0 auto;
   }
 
   .cta-zoom-month::before {
