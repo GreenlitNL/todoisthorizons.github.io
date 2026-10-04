@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Horizons for Todoist: Plan Long-Term Goals Directly Inside Todoist</title>
   <meta name="description" content="Connect your daily tasks to your biggest life goals. Multi-tiered horizon planning (Year, Month, Week) for Todoist. 100% private and free to use.">
-  <link rel="stylesheet" href="style.css?v=20261004-r">
+  <link rel="stylesheet" href="style.css?v=20261004-s">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23dc4c3e' stroke-width='2.5'><circle cx='12' cy='12' r='10'/><path d='m8 12 3 3 5-5'/></svg>">
 </head>
 <body>
@@ -521,6 +521,46 @@
         </svg>
         <span>Add to Chrome</span>
       </a>
+    </section>
+
+    <section class="section-container contact-section scroll-reveal" id="contact" aria-labelledby="contact-title">
+      <div class="section-header">
+        <h2 id="contact-title">Get in touch.</h2>
+        <p>Questions, ideas, or something not working? Send us a message and we'll get back to you.</p>
+      </div>
+      <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="f91a7e7a-2f77-4b8a-9de7-323b3e25a975">
+        <input type="hidden" name="subject" value="New message from the Horizons website">
+        <input type="hidden" name="from_name" value="Horizons website">
+        <input type="checkbox" name="botcheck" class="contact-botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="contact-row">
+          <label class="contact-field">
+            <span>Name</span>
+            <input type="text" name="name" autocomplete="name" required>
+          </label>
+          <label class="contact-field">
+            <span>Email</span>
+            <input type="email" name="email" autocomplete="email" required>
+          </label>
+        </div>
+        <label class="contact-field">
+          <span>Topic</span>
+          <select name="topic">
+            <option>Question</option>
+            <option>Bug report</option>
+            <option>Feature idea</option>
+            <option>Other</option>
+          </select>
+        </label>
+        <label class="contact-field">
+          <span>Message</span>
+          <textarea name="message" rows="5" required></textarea>
+        </label>
+        <div class="contact-actions">
+          <button type="submit" class="btn btn-primary">Send message</button>
+          <p class="contact-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
     </section>
   </main>
 
@@ -1049,5 +1089,6 @@
 
   </script>
   <script src="motion.js?v=20261004-za"></script>
+  <script src="contact.js?v=20261004-a"></script>
 </body>
 </html>

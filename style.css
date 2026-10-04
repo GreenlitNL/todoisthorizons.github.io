@@ -2009,3 +2009,102 @@ button {
   outline: 2px solid var(--td-brand);
   outline-offset: 1px;
 }
+
+/* Contact form */
+.contact-section {
+  padding-top: 24px;
+  padding-bottom: 80px;
+}
+
+.contact-form {
+  display: grid;
+  gap: 16px;
+  max-width: 640px;
+  margin: 0 auto;
+  border: 1px solid var(--td-border);
+  border-radius: var(--td-radius-lg);
+  background: var(--td-surface);
+  padding: 28px;
+}
+
+.contact-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.contact-field {
+  display: grid;
+  gap: 6px;
+  color: var(--td-text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.contact-field input,
+.contact-field select,
+.contact-field textarea {
+  width: 100%;
+  border: 1px solid var(--td-border);
+  border-radius: var(--td-radius-sm);
+  background: var(--td-bg);
+  color: var(--td-text-primary);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 10px 12px;
+  transition: border-color 0.15s ease;
+}
+
+.contact-field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.contact-field input:focus-visible,
+.contact-field select:focus-visible,
+.contact-field textarea:focus-visible {
+  border-color: var(--td-border-focus);
+  outline: 2px solid var(--td-brand-glow);
+  outline-offset: 0;
+}
+
+.contact-botcheck {
+  display: none;
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.contact-actions .btn:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+.contact-status {
+  margin: 0;
+  color: var(--td-text-secondary);
+  font-size: 13px;
+}
+
+.contact-status[data-state="success"] {
+  color: #2e8b57;
+}
+
+.contact-status[data-state="error"] {
+  color: var(--td-brand);
+}
+
+@media (max-width: 640px) {
+  .contact-form {
+    padding: 20px;
+  }
+
+  .contact-row {
+    grid-template-columns: 1fr;
+  }
+}
