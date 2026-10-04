@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src https://api.web3forms.com; form-action https://api.web3forms.com; object-src 'none'; base-uri 'self'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Privacy Policy: Horizons for Todoist</title>
-  <meta name="description" content="Privacy Policy for Horizons for Todoist browser extension. Plain-language transparency detailing local data storage and zero telemetry.">
+  <meta name="description" content="Privacy Policy for Horizons for Todoist browser extension, including information about data collection, use, storage, sharing, and retention.">
   <link rel="stylesheet" href="style.css?v=20261005-k">
   <link rel="icon" type="image/svg+xml" href="assets/icon/icon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/icon/32.png">
@@ -47,8 +47,10 @@
         </button>
 
         <a href="https://chromewebstore.google.com/" target="_blank" rel="noopener" class="btn btn-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M8 12h8"></path>
+            <path d="M12 8v8"></path>
           </svg>
           <span>Add to Chrome</span>
         </a>
@@ -59,99 +61,78 @@
   <main class="legal-page-container">
     <div class="legal-header page-intro">
       <h1>Privacy Policy</h1>
-      <p class="lead">Last updated: October 3, 2026</p>
-    </div>
-
-    <div class="summary-box scroll-reveal">
-      <h3>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-        </svg>
-        Privacy at a Glance: Local-First and Zero-Telemetry
-      </h3>
-      <p>
-        Horizons for Todoist is built on data minimization. We do not monitor your browsing or sell user data. Your goals stay on your device, or in your Todoist account if you enable sync. Information is sent to Web3Forms only when you choose to submit a support, contact, or uninstall feedback form.
-      </p>
+      <p class="lead">Last updated: October 4, 2026</p>
     </div>
 
     <div class="legal-card">
       <section class="legal-section scroll-reveal">
       <h2>1. Single Purpose & Data Collection</h2>
       <p>
-        Horizons for Todoist exists solely to provide multi-tiered horizon planning (Yearly, Monthly, and Weekly time horizons) within the Todoist web application. We adhere strictly to the principle of data minimization and the Chrome Web Store Limited Use Requirements.
+        Horizons for Todoist provides year, month, and week planning inside Todoist. It processes the goals and preferences you enter. When you use the task picker, it reads relevant Todoist task details to let you find and link tasks; it does not edit or delete your regular tasks or projects.
+      </p>
+      <p>
+        The extension also temporarily uses your Todoist session for API requests. If you contact us, the information you submit and, unless you opt out, technical diagnostics may be processed to respond or troubleshoot.
       </p>
       </section>
 
       <section class="legal-section scroll-reveal">
       <h2>2. Where Your Data is Stored</h2>
       <p>
-        Your horizon goals, time period selections, collapsed section preferences, and backup snapshots are stored locally on your device using Chrome's extension storage engine (<code>chrome.storage.local</code>).
+        Your goals, settings, and preferences are stored in your browser using Chrome's extension storage (<code>chrome.storage.local</code>). If that API is unavailable, the extension can use page <code>localStorage</code> as a fallback. The Todoist session token is held temporarily in extension session storage.
       </p>
       <p>
-        This data remains sandboxed within your browser. It is never transmitted to any servers operated by the developers of this extension.
-      </p>
-      <p>
-        The extension also stores its installation timestamp locally to calculate an approximate days-installed value for the uninstall feedback page. The timestamp itself is not sent or synced; that page's URL contains only the extension version and calculated day count.
+        Website theme and contact-form rate-limit preferences are stored in your browser's <code>localStorage</code>. The extension also stores its installation date locally to calculate an approximate days-installed value for the uninstall feedback page; only the extension version and calculated day count are included in that page's URL.
       </p>
       </section>
 
       <section class="legal-section scroll-reveal">
       <h2>3. Synchronization & Backups via Todoist</h2>
       <p>
-        If you choose to use the extension's cross-device synchronization or automated backups:
+        Sync and backups are separate features, both enabled by default. When enabled, Horizons sends the necessary data over HTTPS directly to Todoist's API using your active Todoist session.
       </p>
       <ul>
-        <li>The extension communicates directly and exclusively with official Todoist API endpoints (<code>https://api.todoist.com/*</code>) using your active Todoist session.</li>
-        <li>Synchronized goal records and backup comments are stored directly inside a private, hidden project within your own personal Todoist account (titled "Horizons sync (do not delete)").</li>
-        <li>No third-party intermediary servers ever see, intercept, or process your goal data.</li>
+        <li>Synced goals are stored in a marked task in a separate project named "Horizons sync (do not delete)".</li>
+        <li>Backup snapshots are stored as comments on a separate task in that project. Automatic backups keep the 14 newest snapshots; manual backups remain until deleted.</li>
       </ul>
+      <p>
+        Horizons does not store your goals on a developer-operated server. JSON exports are saved wherever you choose on your device.
+      </p>
       </section>
 
-      <section class="legal-section scroll-reveal">
-      <h2>4. Zero Telemetry, Analytics, or Tracking</h2>
+      <section class="legal-section legal-section--work-in-progress scroll-reveal">
+      <h2>4. Analytics and Tracking <span class="work-in-progress-badge">WORK IN PROGRESS</span></h2>
       <p>
-        The extension contains <strong>zero third-party analytics scripts, zero tracking pixels, zero telemetry beacons, and zero advertising libraries</strong>.
+        Analytics are a work in progress and are not currently included. This section will be updated with details before analytics are introduced. We do not monitor the websites you visit or sell your data.
       </p>
-      <ul>
-        <li>We do not record what websites you visit.</li>
-        <li>We do not record the content of your tasks or personal notes.</li>
-        <li>We do not set tracking cookies.</li>
-      </ul>
+      <p class="work-in-progress-note"><strong>Developer note:</strong> Replace this placeholder with the final analytics and tracking details before enabling analytics.</p>
       </section>
 
       <section class="legal-section scroll-reveal">
       <h2>5. User-Initiated Support & Feedback</h2>
       <p>
-        If you voluntarily submit a message through the extension's built-in Support or Feedback forms:
-      </p>
-      <ul>
-        <li>The form data (your message, selected category/topic, and optional reply email) is transmitted securely via HTTPS to Web3Forms (<code>https://api.web3forms.com/*</code>) solely for delivery to our support team.</li>
-        <li>If the "Include system diagnostics" checkbox is selected, technical metadata (extension version, browser and operating-system user-agent, locale, and timestamp) is included to help troubleshoot your issue.</li>
-        <li>This information is used strictly to respond to your inquiry and is never shared, marketed, or sold.</li>
-      </ul>
-      <p>
-        The contact form on our website works the same way: your name, email address, selected topic, and message are sent securely via HTTPS to Web3Forms solely so we can reply to you.
+        If you send us a message through the extension, we send your message, topic, and reply email (if provided) to Web3Forms so we can respond. Basic technical details are included by default to help us troubleshoot. You can turn this off before sending.
       </p>
       <p>
-        After removal, Chrome opens an uninstall feedback page. The page request contains only the extension version and approximate days installed, with no Todoist account, task, or goal data. If you choose to submit the survey, your selected reason, optional message and reply email, extension version, days installed, and browser language are sent securely via HTTPS to Web3Forms for product feedback.
+        The website contact form sends your email, message, topic, and optional name to Web3Forms. After uninstalling, you can choose to send feedback through a survey. The survey includes your selected reason and any message or email you provide.
       </p>
       </section>
 
       <section class="legal-section scroll-reveal">
       <h2>6. Data Retention and Deletion</h2>
       <p>
-        Because your data is stored locally in your browser and in your own Todoist account:
+        Local extension data is removed when you uninstall the extension or clear its data in your browser. Uninstalling does not delete data already stored in Todoist.
       </p>
       <ul>
-        <li><strong>Local Data:</strong> You can completely erase all local extension data at any time by uninstalling the extension or clearing extension data in your browser settings.</li>
-        <li><strong>Cloud Backups & Sync:</strong> You can view, restore, or permanently delete individual backups from the Backup Manager in the extension popup, or delete the sync project directly from your Todoist account.</li>
+        <li>You can delete individual backups in the extension's Backup Manager or remove the Horizons project from Todoist.</li>
+        <li>Turning sync or backups off stops new writes but does not delete existing Todoist data. Automatic backups keep the 14 newest snapshots; manual backups remain until deleted.</li>
+        <li>Web3Forms processes submitted form data under its own privacy practices and retention policies.</li>
       </ul>
       </section>
 
       <section class="legal-section scroll-reveal">
       <h2>7. Compliance & Changes</h2>
       <p>
-        We may update this Privacy Policy from time to time to reflect improvements to the extension or updates to regulatory requirements. Any modifications will be posted to this page with an updated revision date.
+        We may update this Privacy Policy as the extension or its data practices change. Updates will be posted here with a revised date.
       </p>
       </section>
 
@@ -182,7 +163,7 @@
       <div class="footer-bottom scroll-reveal">
         <p>&copy; 2026 Horizons for Todoist. All rights reserved.</p>
         <p class="disclaimer-text">
-          Horizons for Todoist is an independent project and is not affiliated with, endorsed by, or sponsored by Doist Ltd or Todoist. Todoist is a registered trademark of Doist Ltd.
+          Horizons for Todoist is an independent project and is not affiliated with, endorsed by, or sponsored by Todoist Inc. or Todoist. Todoist is a trademark of Todoist Inc.
         </p>
       </div>
     </div>

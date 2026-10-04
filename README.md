@@ -10,4 +10,4 @@ This repository hosts the official documentation, Privacy Policy, and Terms of U
 
 ## Disclaimer
 
-Horizons for Todoist is an independent project and is not affiliated with, endorsed by, or sponsored by Doist Ltd or Todoist.
+Horizons for Todoist is an independent project and is not affiliated with, endorsed by, or sponsored by Todoist Inc. or Todoist.

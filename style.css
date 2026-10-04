@@ -718,7 +718,8 @@ button {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
-.mini-goal-row.is-linked-highlight {
+.mini-goal-row.is-linked-highlight,
+.mini-goal-row.is-linked-highlight:hover {
   border-color: var(--td-brand);
 }
 
@@ -728,6 +729,10 @@ button {
 
 [data-theme="dark"] .mini-goal-row:hover {
   border-color: #444;
+}
+
+[data-theme="dark"] .mini-goal-row.is-linked-highlight:hover {
+  border-color: #de4c4a;
 }
 
 .mini-goal-left {
@@ -1404,6 +1409,12 @@ button {
   background: var(--td-brand);
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .journey-progress-track > span {
+    transition: width 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
 .journey-year-progress .journey-progress-track {
   margin: 8px 0;
 }
@@ -1586,6 +1597,14 @@ button {
   line-height: 1.6;
 }
 
+.faq-answer p {
+  margin: 0;
+}
+
+.faq-answer p + p {
+  margin-block-start: 1em;
+}
+
 .final-install {
   padding-top: 48px;
   padding-bottom: 72px;
@@ -1675,6 +1694,42 @@ button {
 
 .legal-card .legal-section + .legal-section {
   margin-top: 32px;
+}
+
+.legal-section--work-in-progress {
+  padding: 18px;
+  border: 1px dashed #b7791f;
+  border-left: 4px solid #b7791f;
+  border-radius: var(--td-radius-md);
+  background: rgba(245, 158, 11, 0.08);
+}
+
+.legal-section--work-in-progress h2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+}
+
+.work-in-progress-badge {
+  padding: 4px 8px;
+  border: 1px solid #b7791f;
+  border-radius: var(--td-radius-pill);
+  background: #fff3cd;
+  color: #704214;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+}
+
+.legal-card .work-in-progress-note {
+  margin-bottom: 0;
+  padding: 10px 12px;
+  border-radius: var(--td-radius-sm);
+  background: rgba(245, 158, 11, 0.12);
+  color: var(--td-text-primary);
 }
 
 .legal-card p,
@@ -2050,7 +2105,8 @@ button {
 /* Contact form */
 .contact-section {
   padding-top: 24px;
-  padding-bottom: 80px;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
 }
 
 .contact-form {
@@ -3009,5 +3065,48 @@ button {
 @media (prefers-reduced-motion: reduce) {
   .cta-zoom-hint svg {
     animation: none;
+  }
+}
+
+/* Optional horizon-line signature: remove this block to revert the motif. */
+.journey-demo,
+.cta-zoom {
+  --horizon-rail-muted: linear-gradient(
+    90deg,
+    rgba(220, 76, 62, 0.16),
+    rgba(220, 76, 62, 0.28) 52%,
+    rgba(225, 164, 84, 0.38)
+  );
+  --horizon-rail-active: linear-gradient(90deg, var(--td-brand), #e1a454);
+}
+
+.journey-connector {
+  height: 2px;
+  background: var(--horizon-rail-muted);
+}
+
+.journey-connector::after {
+  border-color: var(--td-brand);
+}
+
+.cta-zoom-step-line {
+  height: 2px;
+  background: var(--horizon-rail-muted);
+}
+
+.cta-zoom-step-line i {
+  background: var(--horizon-rail-active);
+}
+
+@media (max-width: 860px) {
+  .journey-connector {
+    width: 2px;
+    height: 24px;
+    background: linear-gradient(
+      180deg,
+      rgba(220, 76, 62, 0.16),
+      rgba(220, 76, 62, 0.28) 52%,
+      rgba(225, 164, 84, 0.38)
+    );
   }
 }

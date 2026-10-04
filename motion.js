@@ -209,7 +209,7 @@
     cursor.classList.remove('is-visible', 'is-pressing');
     yearCard.classList.remove('is-current', 'is-complete');
     clearEntry(yearEntry);
-    yearCount.textContent = '10 / 12 stories';
+    yearCount.textContent = '10 / 12 months';
     yearFill.style.width = `${10 * 100 / 12}%`;
     yearCheck.classList.remove('is-complete');
 
@@ -231,8 +231,13 @@
     weeklyFill.style.width = '0%';
   };
 
-  const monthGoals = ['Write story 10', 'Write story 11', 'Write story 12'];
-  const weekGoals = ['Choose the story idea', 'Outline story 12', 'Draft story 12', 'Revise story 12'];
+  const monthGoals = ['Run 28 km in one go', 'Run 32 km in one go', 'Race day: 42.2 km'];
+  const weekGoals = [
+    'Aerobic 20 km run',
+    'Aerobic 12 km run',
+    '8 km, including 3 km fast',
+    'Race day: 42.2 km'
+  ];
 
   const beat = 250;
 
@@ -243,7 +248,7 @@
       if (!await wait(50, version)) continue;
 
       yearCard.classList.add('is-current');
-      if (!await typeGoals([yearEntry], ['Write 12 short stories'], version)) continue;
+      if (!await typeGoals([yearEntry], ['Run my first marathon'], version)) continue;
       if (!await wait(beat, version)) continue;
       yearCard.classList.remove('is-current');
 
@@ -281,7 +286,7 @@
         }, version)) { ok = false; break; }
         weeklyCount.textContent = `${weekIndex + 1} / 4 weeks`;
         weeklyFill.style.width = `${(weekIndex + 1) * 25}%`;
-        if (!await wait(45, version)) { ok = false; break; }
+        if (!await wait(110, version)) { ok = false; break; }
       }
       if (!ok) continue;
       if (!await wait(beat, version)) continue;
@@ -302,7 +307,7 @@
 
       if (!await clickTarget(yearCheck, () => {
         yearCard.classList.add('is-complete');
-        yearCount.textContent = '12 / 12 stories';
+        yearCount.textContent = '12 / 12 months';
         yearFill.style.width = '100%';
         yearCheck.classList.add('is-complete');
         launchConfetti();
