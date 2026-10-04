@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src https://api.web3forms.com; form-action https://api.web3forms.com; object-src 'none'; base-uri 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Horizons for Todoist: Plan Long-Term Goals Directly Inside Todoist</title>
   <meta name="description" content="Connect your daily tasks to your biggest life goals. Multi-tiered horizon planning (Year, Month, Week) for Todoist. 100% private and free to use.">
-  <link rel="stylesheet" href="style.css?v=20261004-s">
+  <link rel="stylesheet" href="style.css?v=20261004-t">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23dc4c3e' stroke-width='2.5'><circle cx='12' cy='12' r='10'/><path d='m8 12 3 3 5-5'/></svg>">
 </head>
 <body>
@@ -530,17 +532,19 @@
       </div>
       <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" value="f91a7e7a-2f77-4b8a-9de7-323b3e25a975">
-        <input type="hidden" name="subject" value="New message from the Horizons website">
-        <input type="hidden" name="from_name" value="Horizons website">
-        <input type="checkbox" name="botcheck" class="contact-botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="subject" value="[Horizons Website] Contact">
+        <input type="hidden" name="from_name" value="Horizons Website">
+        <div class="contact-botcheck" aria-hidden="true">
+          <input type="text" name="botcheck" tabindex="-1" autocomplete="off">
+        </div>
         <div class="contact-row">
           <label class="contact-field">
             <span>Name</span>
-            <input type="text" name="name" autocomplete="name" required>
+            <input type="text" name="name" autocomplete="name" maxlength="100" required>
           </label>
           <label class="contact-field">
             <span>Email</span>
-            <input type="email" name="email" autocomplete="email" required>
+            <input type="email" name="email" autocomplete="email" maxlength="100" required>
           </label>
         </div>
         <label class="contact-field">
@@ -554,7 +558,7 @@
         </label>
         <label class="contact-field">
           <span>Message</span>
-          <textarea name="message" rows="5" required></textarea>
+          <textarea name="message" rows="5" minlength="10" maxlength="3000" required></textarea>
         </label>
         <div class="contact-actions">
           <button type="submit" class="btn btn-primary">Send message</button>
@@ -1089,6 +1093,6 @@
 
   </script>
   <script src="motion.js?v=20261004-za"></script>
-  <script src="contact.js?v=20261004-a"></script>
+  <script src="contact.js?v=20261004-b"></script>
 </body>
 </html>
