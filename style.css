@@ -2113,3 +2113,10 @@ button {
     grid-template-columns: 1fr;
   }
 }
+
+.contact-optional {
+  font-size: 0.85em;
+  font-weight: 400;
+  color: var(--text-muted, inherit);
+  opacity: 0.75;
+}

@@ -75,7 +75,7 @@
       return;
     }
 
-    if (!name || !email || !message) return;
+    if (!email || !message) return;
     if (!EMAIL_REGEX.test(email)) {
       setStatus('Please enter a valid email address.', 'error');
       return;
@@ -98,7 +98,7 @@
     payload.append('botcheck', '');
     payload.append('subject', `[Horizons Website] ${topic}`);
     payload.append('from_name', 'Horizons Website');
-    payload.append('name', name);
+    if (name) payload.append('name', name);
     payload.append('email', email);
     payload.append('topic', topic);
     payload.append('message', message);
