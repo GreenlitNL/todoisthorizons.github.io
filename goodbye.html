@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src https://api.web3forms.com; form-action https://api.web3forms.com; object-src 'none'; base-uri 'self'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <title>Terms of Use: Horizons for Todoist</title>
-  <meta name="description" content="Terms of Use for Horizons for Todoist browser extension. User data ownership, backup responsibilities, and service disclaimers.">
+  <title>Sorry to see you go: Horizons for Todoist</title>
+  <meta name="description" content="Horizons for Todoist has been removed. Tell us why so we can make it better.">
+  <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="style.css?v=20261005-j">
   <link rel="icon" type="image/svg+xml" href="assets/icon/icon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/icon/32.png">
@@ -47,8 +48,10 @@
         </button>
 
         <a href="https://chromewebstore.google.com/" target="_blank" rel="noopener" class="btn btn-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M8 12h8"></path>
+            <path d="M12 8v8"></path>
           </svg>
           <span>Add to Chrome</span>
         </a>
@@ -56,88 +59,81 @@
     </div>
   </header>
 
-  <main class="legal-page-container">
-    <div class="legal-header page-intro">
-      <h1>Terms of Use</h1>
-      <p class="lead">Last updated: October 3, 2026</p>
+  <main class="goodbye-page">
+    <div class="goodbye-intro page-intro">
+      <span class="brand-icon goodbye-logo" aria-hidden="true"><img src="assets/icon/icon.svg" alt="" width="56" height="56"></span>
+      <h1>Sorry to see you go.</h1>
+      <p class="lead">Horizons has been removed from your browser. Would you tell us why? It takes ten seconds and helps us make Horizons better for everyone.</p>
     </div>
 
-    <div class="summary-box scroll-reveal">
-      <h3>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-          <polyline points="14 2 14 8 20 8"></polyline>
-          <line x1="16" y1="13" x2="8" y2="13"></line>
-          <line x1="16" y1="17" x2="8" y2="17"></line>
-          <polyline points="10 9 9 9 8 9"></polyline>
-        </svg>
-        Terms at a Glance: Complete Ownership & Transparency
-      </h3>
-      <p>
-        You retain 100% full and unconditional ownership of all goals, records, and data created with the extension. Horizons is provided as free software without hidden charges or lock-in.
-      </p>
+    <form class="contact-form goodbye-form scroll-reveal" id="goodbye-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+      <input type="hidden" name="access_key" value="0c10ac19-3ae4-4728-b9e1-c7d0590e8fdd">
+      <input type="hidden" name="subject" value="[Horizons Uninstall] Feedback">
+      <input type="hidden" name="from_name" value="Horizons Uninstall Survey">
+      <div class="contact-botcheck" aria-hidden="true">
+        <input type="text" name="botcheck" tabindex="-1" autocomplete="off">
+      </div>
+
+      <fieldset class="goodbye-reasons">
+        <legend>Why did you remove Horizons? <span class="contact-required" aria-hidden="true">*</span></legend>
+        <div class="goodbye-reason-list">
+            <label class="goodbye-reason">
+              <input type="radio" name="reason" value="didnt-understand" required>
+              <span>I didn’t understand how to use it</span>
+            </label>
+            <label class="goodbye-reason">
+              <input type="radio" name="reason" value="workflow">
+              <span>It didn’t fit my workflow</span>
+            </label>
+            <label class="goodbye-reason">
+              <input type="radio" name="reason" value="missing-feature">
+              <span>A feature I need is missing</span>
+            </label>
+            <label class="goodbye-reason">
+              <input type="radio" name="reason" value="broken">
+              <span>Something didn’t work</span>
+            </label>
+            <label class="goodbye-reason">
+              <input type="radio" name="reason" value="stopped-todoist">
+              <span>I stopped using Todoist</span>
+            </label>
+            <label class="goodbye-reason">
+              <input type="radio" name="reason" value="trying">
+              <span>I was just trying it out</span>
+            </label>
+            <label class="goodbye-reason">
+              <input type="radio" name="reason" value="other">
+              <span>Something else</span>
+            </label>
+        </div>
+      </fieldset>
+
+      <label class="contact-field">
+        <span>What could we do better? <small class="contact-optional">(optional)</small></span>
+        <textarea name="message" rows="4" maxlength="3000" placeholder="Anything you’d like to share helps."></textarea>
+      </label>
+
+      <label class="contact-field">
+        <span>Email <small class="contact-optional">(optional, only if you’d like a reply)</small></span>
+        <input type="email" name="email" autocomplete="email" maxlength="100">
+      </label>
+
+      <div class="contact-actions">
+        <button type="submit" class="btn btn-primary">Send feedback</button>
+        <p class="contact-status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+
+    <div class="goodbye-thanks" id="goodbye-thanks" hidden tabindex="-1">
+      <span class="goodbye-thanks-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 12.5 4 4L18 8.5"></path></svg></span>
+      <h2>Thank you.</h2>
+      <p>Your feedback goes straight to the person building Horizons. Every answer is read.</p>
     </div>
 
-    <div class="legal-card">
-      <section class="legal-section scroll-reveal">
-      <h2>1. Acceptance of Terms</h2>
-      <p>
-        By installing, enabling, or using the Horizons for Todoist browser extension ("the Extension"), you agree to be bound by these Terms of Use ("Terms"). If you do not agree to these Terms, please do not install or use the Extension.
-      </p>
-      </section>
-
-      <section class="legal-section scroll-reveal">
-      <h2>2. Description of the Service</h2>
-      <p>
-        Horizons for Todoist provides goal planning functionality across yearly, monthly, and weekly time horizons. The Extension is provided as an enhancement to the Todoist web application interface.
-      </p>
-      </section>
-
-      <section class="legal-section scroll-reveal">
-      <h2>3. User Data Ownership</h2>
-      <p>
-        You retain 100% full and unconditional ownership of all goal data, titles, descriptions, and backup archives created through the Extension. The authors make no claim of ownership over any data you create, view, or synchronize with the Extension.
-      </p>
-      </section>
-
-      <section class="legal-section scroll-reveal">
-      <h2>4. Backup Recommendation & User Responsibility</h2>
-      <p>
-        The Extension provides automated backup tools and standard JSON export features. Because data is stored locally in your browser storage and optionally synchronized via your Todoist account, you are encouraged to periodically export backups using the built-in "Export JSON" feature. We are not responsible for data loss resulting from browser cache evictions, browser uninstallation, or unauthorized modifications made to your Todoist account.
-      </p>
-      </section>
-
-      <section class="legal-section scroll-reveal">
-      <h2>5. Disclaimer of Warranties</h2>
-      <p>
-        THE EXTENSION IS PROVIDED "AS IS" AND "AS AVAILABLE", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-      </p>
-      </section>
-
-      <section class="legal-section scroll-reveal">
-      <h2>6. Third-Party Services & Trademark Disclaimer</h2>
-      <p>
-        Horizons for Todoist integrates with the Todoist web application and API provided by Doist Ltd.
-      </p>
-      <p>
-        <strong>Important Notice:</strong> Horizons for Todoist is an independent project. It is not affiliated with, endorsed by, sponsored by, or associated in any way with Doist Ltd or Todoist. "Todoist" is a registered trademark of Doist Ltd.
-      </p>
-      </section>
-
-      <section class="legal-section scroll-reveal">
-      <h2>7. Changes to the Terms</h2>
-      <p>
-        We reserve the right to modify these Terms at any time. Any changes will be posted on this page with an updated revision date. Your continued use of the Extension following changes constitutes acceptance of the modified Terms.
-      </p>
-      </section>
-
-      <section class="legal-section scroll-reveal">
-      <h2>8. Contact</h2>
-      <p>
-        For questions, inquiries, or support, please submit a message using the built-in Support & Feedback form in the extension popup.
-      </p>
-      </section>
-    </div>
+    <p class="goodbye-reinstall">
+      Removed it by accident?
+      <a href="https://chromewebstore.google.com/" target="_blank" rel="noopener">Reinstall Horizons</a>
+    </p>
   </main>
 
   <footer class="site-footer">
@@ -205,6 +201,7 @@
       applyTheme(next);
     });
   </script>
-  <script src="motion.js?v=20261004-zb"></script>
+  <script src="goodbye.js?v=20261005-a"></script>
+  <script src="motion.js?v=20261004-zd"></script>
 </body>
 </html>
