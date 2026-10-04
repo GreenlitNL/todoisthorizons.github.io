@@ -1925,9 +1925,7 @@ button {
   }
 
   .journey-demo-toolbar {
-    align-items: flex-start;
-    flex-direction: column;
-    padding: 14px 16px;
+    padding: 10px 16px;
   }
 
   .journey-flow {
